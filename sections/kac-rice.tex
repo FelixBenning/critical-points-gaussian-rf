@@ -19,17 +19,46 @@
 
 \begin{definition}[Counting Critical Points]
 	Let \(\negEV(H)\) be the number of negative eigenvalues of
-	\(H\). Then we define for some volume \(\Vol\in\reals^\dimension\)
-	\begin{equation*}
-		\crit(\alpha, A) := \crit(\Vol, \alpha, A)
-		:= \#\{t\in\Vol:
-			\rf(t)\in A,
+	\(H\). Then we define for some volume \(\Vol\in\borel(\real^\dimension)\),
+	\(A\in\borel(\real)\), \(\alpha, u\in\real\)
+	\begin{align*}
+		\crit_u(\alpha, A)
+		&:= \crit_u(\Vol, \alpha, A)\\
+		&:= \#\left\{t\in\Vol:
+			\frac{\rf(t)}{\dimension}\in A,
 			\negEV(\nabla^2 \rf(t))=\dimension\alpha,
-			\nabla\rf(t)=0
-		\}	
-	\end{equation*}
+			\nabla\rf(t)=u
+		\right\}	
+	\end{align*}
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}[Kac-Rice Formula]
+	For a \fxnote*{needed?}{Gaussian} random field \(\rf\) we have
+	\begin{align*}
+		&\E[\crit_u(\alpha, A)]\\
+		&= \int_\Vol \E\left[
+			\left|\det(\nabla^2 \rf(t))\right|
+			\ind_{\frac{\rf(t)}{\dimension}\in A} \ind_{\negEV(\nabla^2 \rf(t))=\dimension \alpha}
+			\bigm| \nabla\rf(t) = u 
+		\right] \density_{\nabla\rf(t)}(u)dt
+		\\
+		\overset{\text{stationary}}&=
+		|\Vol|\ \E\left[
+			|\det(\nabla^2 \rf(0))|
+			\ind_{\frac{\rf(0)}\dimension\in A} \ind_{\negEV(\nabla^2 \rf(0))=\dimension \alpha}
+		\right] \density_{\nabla\rf(0)}(u)
+	\end{align*}
+	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\).
 
+	Therefore \(A\mapsto \E[\crit_u(\alpha, A)]\) defines a measure on \(\real\)
+	with density
+	\begin{equation*}
+		|\Vol| \phi_{\nabla\rf(0)}(u) \Omega(\alpha, \epsilon),
+	\end{equation*}
+	where
+	\begin{equation*}
+		\Omega(\alpha, \epsilon)
+		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(\phi, H)dH
+	\end{equation*}
+	where \(p(\phi, H)\) is the common density of \((\rf(0), \nabla^2\rf(0))\).
 \end{theorem}

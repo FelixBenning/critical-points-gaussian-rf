@@ -1,0 +1,35 @@
+\section{Kac-Rice}
+
+\begin{definition}[Random Field]
+	A collection of random variables \((\rf(t))_{t\in\real^\dimension}\) is called
+	\emph{random field} over \(\real^\dimension\). The \emph{covariance function}
+	is defined as
+	\begin{equation*}
+		\C(x,y) = \Cov(\rf(x), \rf(y)).
+	\end{equation*}
+	A random field is called \emph{stationary}, if
+	\begin{equation*}
+		\C(x,y) = \C(x-y).
+	\end{equation*}
+	It is called \emph{isotropic} (rotation invariant) if	
+	\begin{equation*}
+		\C(x,y) = \dimension \sqC\left(\frac{\|x-y\|^2}{2\dimension}\right).
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[Counting Critical Points]
+	Let \(\negEV(H)\) be the number of negative eigenvalues of
+	\(H\). Then we define for some volume \(\Vol\in\reals^\dimension\)
+	\begin{equation*}
+		\crit(\alpha, A) := \crit(\Vol, \alpha, A)
+		:= \#\{t\in\Vol:
+			\rf(t)\in A,
+			\negEV(\nabla^2 \rf(t))=\dimension\alpha,
+			\nabla\rf(t)=0
+		\}	
+	\end{equation*}
+\end{definition}
+
+\begin{theorem}
+
+\end{theorem}

@@ -49,16 +49,18 @@
 		\right] \density_{\nabla\rf(0)}(u)
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\).
+\end{theorem}
 
+\begin{remark}
 	Therefore \(A\mapsto \E[\crit_u(\alpha, A)]\) defines a measure on \(\real\)
 	with density
 	\begin{equation*}
 		|\Vol| \phi_{\nabla\rf(0)}(u) \Omega(\alpha, \epsilon),
 	\end{equation*}
-	where
+	with
 	\begin{equation*}
 		\Omega(\alpha, \epsilon)
-		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(\phi, H)dH
+		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
 	\end{equation*}
-	where \(p(\phi, H)\) is the common density of \((\rf(0), \nabla^2\rf(0))\).
-\end{theorem}
+	where \(p(H, \phi)\) is the joint probability density of \((\nabla^2\rf(0), \rf(0))\).
+\end{remark}

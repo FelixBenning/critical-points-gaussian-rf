@@ -1,0 +1,188 @@
+\section{Counting Critical Points}
+
+\subsection{Preliminaries}
+
+\begin{definition}[Random Field]
+	A collection of random variables \((\rf(t))_{t\in\real^\dimension}\) is called
+	\textbf{random field} over \(\real^\dimension\). The \textbf{covariance function}
+	is defined as
+	\begin{equation*}
+		\C(x,y) = \Cov(\rf(x), \rf(y)).
+	\end{equation*}
+	A random field is called \textbf{stationary}, if
+	\begin{equation*}
+		\C(x,y) = \C(x-y).
+	\end{equation*}
+	It is called \textbf{isotropic} (rotation invariant) if	
+	\begin{equation*}
+		\C(x,y) = \dimension \sqC\left(\frac{\|x-y\|^2}{2\dimension}\right).
+	\end{equation*}
+	A random field is called \textbf{Gaussian random field}, if all finite
+	dimensional marginals are multivariate Gaussian.
+\end{definition}
+
+\begin{lemma}[Covariance and Derivative]
+	\label{lem: covariance of derivative}
+	We have
+	\begin{align*}
+		\Cov(\partial_i\rf(x), \rf(y)) &= \partial_{x_i} \C(x,y)\\
+		\Cov(\partial_i\rf(x), \partial_j \rf(y)) &= \partial_{x_i y_j} \C(x,y)
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	\fxwarning{missing proof}	
+\end{proof}
+\begin{remark}\label{rem: covariance uncorrelated}
+	For stationary random fields \(\C(x,y)=\C(x-y)\), the covariance
+	function \(\C\) is symmetric, i.e. \(\C(h)=\C(-h)\)
+	and therefore the derivative antisymmetric, i.e.
+	\(\partial_i\C(-h)=-\partial_i\C(h)\). In particular
+	\begin{equation*}
+		\Cov(\nabla\rf(x), \rf(x)) = \nabla \C(0)=0.
+	\end{equation*}
+\end{remark}
+\begin{corollary}[Gaussian Case]
+	If \(\rf\) is a stationary gaussian random field, \(\rf(x)\) and
+	\(\nabla\rf(x)\) are independent multivariate gaussian for every \(x\).
+\end{corollary}
+
+\subsection{Getting to the Point}
+
+A measure \(\mu\) is called \textbf{locally finite}, if \(\mu(A) < \infty\) for
+all bounded \(A\in\borel(\real^\dimension)\). It is called \textbf{simple}, if
+\(\mu(\{x\})\in\{0,1\}\).
+Let \(\locFiniteMeasure\) be the \textbf{set of all locally finite counting measures}
+on \(\real^\dimension\) and \(\locFiniteMeasAlg\) the smallest \(\sigma\)-algebra
+such that
+\[
+	\pi_B : \begin{cases}
+		\locFiniteMeasure \to \borel(\real)\\
+		\mu \mapsto \mu(B)
+	\end{cases}
+\]
+is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
+\[
+	\locFiniteMeasAlg := \sigma(\pi_B : B\in\borel(\real^\dimension))
+\]
+
+\begin{definition}[Point Process]
+	A \textbf{point process} is a measurable mapping \(\Phi:\Omega\to\locFiniteMeasure\)
+	from a probability space \((\Omega, \mathcal{A}, \Pr)\) into the set of
+	locally finite counting measures. Due to the definition of \(\locFiniteMeasAlg\)
+	\[
+		\Phi(B) := \pi_B\circ \Phi : \Omega \to \real
+	\]
+	is a random variable for any \(B\in\borel(\real^\dimension)\). If
+	\[
+		\Lambda:\begin{cases}
+			\borel(\real^\dimension)\to [0,\infty)\\
+			B \mapsto \E[\Phi(B)]
+		\end{cases}
+	\]
+	is locally finite, then it is called the \textbf{intensity measure}
+	(expectation measure) of \(\Phi\).  If \(\Lambda(dx) = \lambda dx\) for some
+	constant \(\lambda\in\real\), then \(\lambda\) is called the
+	\textbf{intensity} of \(\Phi\).
+	A point process is called \textbf{simple}, if \(\Phi(\omega)\) is simple
+	for every \(\omega\in\Omega\).
+\end{definition}
+
+\begin{definition}[Marked Point Process]
+	A point process \(\Phi\) on \(\locFiniteMeasure[\dimension+n]\) is called
+	\textbf{marked point process}, if \(\Phi_0 = \Phi(\cdot \times \real^n)\)
+	is a point process on \(\locFiniteMeasure\).
+\end{definition}
+
+\subsection{Making it Count}
+
+\begin{definition}[Counting Critical Points]
+	Let \(\negEV(H)\) be the number of negative eigenvalues of
+	\(H\). Then we define for some volume \(\Vol\in\borel(\real^\dimension)\),
+	\(A\in\borel(\real)\), \(\alpha, u\in\real\)
+	\begin{align*}
+		\crit_u(\alpha, A)
+		&:= \crit_u(\Vol, \alpha, A)\\
+		&:= \#\left\{t\in\Vol:
+			\frac{\rf(t)}{\dimension}\in A,
+			\negEV(\nabla^2 \rf(t))=\dimension\alpha,
+			\nabla\rf(t)=u
+		\right\}	
+	\end{align*}
+	For \(u=0\) we are counting the critical points where the scaled height
+	\(\rf(t)/\dimension\) is in \(A\) and the number of negative eigenvalues is
+	\(\dimension \alpha\). For \(\alpha=0\) we are counting the minima.
+	\fxnote{point process?}
+\end{definition}
+
+\begin{theorem}[Kac-Rice Formula]
+	For a centered \fxnote*{needed? careful: if removed then stationary
+	(covariance) and strong stationarity (distribution is the same) is not the
+	same anymore. Need strong stationarity to replace \(t\) with \(0\)}{Gaussian}
+	random field \(\rf\) we have \begin{align*}
+		&\E[\crit_u(\alpha, A)]\\
+		&= \int_\Vol \E\left[
+			\left|\det(\nabla^2 \rf(t))\right|
+			\ind_{\frac{\rf(t)}{\dimension}\in A} \ind_{\negEV(\nabla^2 \rf(t))=\dimension \alpha}
+			\bigm| \nabla\rf(t) = u 
+		\right] \density_{\nabla\rf(t)}(u)dt
+		\\
+		\overset{\text{stationary}}&=
+		|\Vol|\ \E\left[
+			|\det(\nabla^2 \rf(0))|
+			\ind_{\frac{\rf(0)}\dimension\in A} \ind_{\negEV(\nabla^2 \rf(0))=\dimension \alpha}
+		\right] \density_{\nabla\rf(0)}(u)
+	\end{align*}
+	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
+	second equality is only true when \(\rf\) is stationary. Because then,
+	\(\nabla\rf(t)\) is independent of \((\rf(t),\nabla^2\rf(t))\) which turns
+	the conditional expectation into a normal expectation. Lastly replace all
+	\(t\) with \(0\) due to stationarity.
+\end{theorem}
+
+\begin{proof}
+	This essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
+	about the expected number of weighted roots. The weighting are the indicator
+	functions here. For completeness we reproduce this proof in the appendix.
+\end{proof}
+
+\begin{remark}
+	Therefore \(\mu_\alpha: A\mapsto \E[\crit_0(\alpha, A)]\) is a measure on
+	\(\real\) with probability density
+	\begin{equation*}
+		|\Vol| \phi_{\nabla\rf(0)}(0) \Omega(\alpha, \epsilon),
+	\end{equation*}
+	where
+	\begin{equation*}
+		\Omega(\alpha, \epsilon)
+		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
+	\end{equation*}
+	and \(p(H, \phi)\) is the joint probability density of \((\nabla^2\rf(0), \rf(0))\).
+
+	Notice that \(\mu_0(\real)\) are all critical points where the hessian is
+	positive definite, i.e. the number of minimas in \(\Vol\). If we draw a
+	minima \(M\) uniformly form the set of minima, then \(\mu_0/\mu_0(\real)\) is their
+	scaled height distribution. I.e.
+	\[
+		\frac{Z(M)}{\dimension} \sim \frac{\mu_0}{\mu_0(\real)}.
+	\]
+	\fxwarning*{}{This is wrong: We don't draw from the set of minima numbered \(\crit_0(0, \real)\),
+	we draw from the expected number of minima \(\E[\crit_0(0,\real)]\).
+	This might be fixable if we expand \(\Vol = \Vol_1 + \dots + \Vol_n\) and get
+	some sort of law of large numbers 
+	\[
+		\frac{\crit_0(\Vol, 0, A)}{\crit_0(\Vol, 0, \real)}
+		= \frac{
+			\tfrac1n \sum_{k=1}^n \crit_0( \Vol_k, 0, A )
+		}{
+			\tfrac1n \sum_{k=1}^n \crit_0( \Vol_k, 0, \real )
+		} \approx \frac{
+			\E[\crit_0(\Vol_1, 0, A)]
+		}{
+			\E[\crit_0(\Vol_1, 0, \real)]
+		} = \frac{\mu_0(A)}{\mu_0(\real)}
+	\]
+	as we get more and more critical points. Unfortunately the number of critical
+	points in \(V_k\) and \(V_i\) are not independent. But they are almost uncorrelated
+	if they are far apart/large given an appropriate covariance function for \(\rf\).
+	}
+\end{remark}

@@ -52,15 +52,23 @@
 \end{theorem}
 
 \begin{remark}
-	Therefore \(A\mapsto \E[\crit_u(\alpha, A)]\) defines a measure on \(\real\)
-	with density
+	Therefore \(\mu_\alpha: A\mapsto \E[\crit_0(\alpha, A)]\) is a measure on
+	\(\real\) with probability density
 	\begin{equation*}
 		|\Vol| \phi_{\nabla\rf(0)}(u) \Omega(\alpha, \epsilon),
 	\end{equation*}
-	with
+	where
 	\begin{equation*}
 		\Omega(\alpha, \epsilon)
 		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
 	\end{equation*}
-	where \(p(H, \phi)\) is the joint probability density of \((\nabla^2\rf(0), \rf(0))\).
+	and \(p(H, \phi)\) is the joint probability density of \((\nabla^2\rf(0), \rf(0))\).
+
+	Notice that \(\mu_0(\real)\) are all critical points where the hessian is
+	positive definite, i.e. the number of minimas in \(\Vol\). If we draw a
+	minima \(M\) uniformly form the set of minima, then \(\mu_0/\mu_0(\real)\) is their
+	scaled height distribution. I.e.
+	\[
+		\frac{Z(M)}{\dimension} \sim \frac{\mu_0}{\mu_0(\real)}.
+	\]
 \end{remark}

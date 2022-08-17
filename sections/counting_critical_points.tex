@@ -1,0 +1,261 @@
+\section{Counting Critical Points of Random Fields}
+
+\subsection{Random Fields}
+
+\begin{definition}[Random Field]
+	A collection of random variables \((\rf(t))_{t\in\real^\dimension}\) is called
+	\textbf{random field} over \(\real^\dimension\). The \textbf{covariance function}
+	is defined as
+	\begin{equation*}
+		\C(x,y) = \Cov(\rf(x), \rf(y)).
+	\end{equation*}
+	A random field is called \textbf{stationary}, if
+	\begin{equation*}
+		\C(x,y) = \C(x-y).
+	\end{equation*}
+	It is called \textbf{isotropic} (rotation invariant) if	
+	\begin{equation*}
+		\C(x,y) = \dimension \sqC\left(\frac{\|x-y\|^2}{2\dimension}\right).
+	\end{equation*}
+	A random field is called \textbf{Gaussian random field}, if all finite
+	dimensional marginals are multivariate Gaussian.
+\end{definition}
+
+\begin{lemma}[Covariance and Derivative]
+	\label{lem: covariance of derivative}
+	We have
+	\begin{align*}
+		\Cov(\partial_i\rf(x), \rf(y)) &= \partial_{x_i} \C(x,y)\\
+		\Cov(\partial_i\rf(x), \partial_j \rf(y)) &= \partial_{x_i y_j} \C(x,y)
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	\fxwarning{missing proof}	
+\end{proof}
+\begin{remark}\label{rem: covariance uncorrelated}
+	For stationary random fields \(\C(x,y)=\C(x-y)\), the covariance
+	function \(\C\) is symmetric, i.e. \(\C(h)=\C(-h)\)
+	and therefore the derivative antisymmetric, i.e.
+	\(\partial_i\C(-h)=-\partial_i\C(h)\). In particular
+	\begin{equation*}
+		\Cov(\nabla\rf(x), \rf(x)) = \nabla \C(0)=0.
+	\end{equation*}
+\end{remark}
+\begin{corollary}[Gaussian Case] \label{cor: uncorr leads to indep in gaussian case}
+	If \(\rf\) is a stationary gaussian random field, \(\rf(x)\) and
+	\(\nabla\rf(x)\) are independent multivariate gaussian for every \(x\).
+\end{corollary}
+
+\subsection{Getting to the Point Process}
+
+A measure \(\mu\) is called \textbf{locally finite}, if \(\mu(A) < \infty\) for
+all bounded \(A\in\borel(\real^\dimension)\). It is called \textbf{simple}, if
+\(\mu(\{x\})\in\{0,1\}\).
+Let \(\locFiniteMeasure\) be the \textbf{set of all locally finite counting measures}
+on \(\real^\dimension\) and \(\locFiniteMeasAlg\) the smallest \(\sigma\)-algebra
+such that
+\[
+	\pi_B : \begin{cases}
+		\locFiniteMeasure \to \borel(\real)\\
+		\mu \mapsto \mu(B)
+	\end{cases}
+\]
+is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
+\[
+	\locFiniteMeasAlg := \sigma(\pi_B : B\in\borel(\real^\dimension))
+\]
+
+\begin{definition}[Point Process]
+	A \textbf{point process} is a measurable mapping \(\Phi:\Omega\to\locFiniteMeasure\)
+	from a probability space \((\Omega, \mathcal{A}, \Pr)\) into the set of
+	locally finite counting measures. Due to the definition of \(\locFiniteMeasAlg\)
+	\[
+		\Phi(B) := \pi_B\circ \Phi : \Omega \to \real
+	\]
+	is a random variable for any \(B\in\borel(\real^\dimension)\). If
+	\[
+		\Lambda:\begin{cases}
+			\borel(\real^\dimension)\to [0,\infty)\\
+			B \mapsto \E[\Phi(B)]
+		\end{cases}
+	\]
+	is locally finite, then it is called the \textbf{intensity measure}
+	(expectation measure) of \(\Phi\).  If \(\Lambda(dx) = \lambda dx\) for some
+	constant \(\lambda\in\real\), then \(\lambda\) is called the
+	\textbf{intensity} of \(\Phi\).
+	A point process is called \textbf{simple}, if \(\Phi(\omega)\) is simple
+	for every \(\omega\in\Omega\).
+\end{definition}
+
+\begin{definition}[Marked Point Process]
+	A point process \(\Phi\) on \(\locFiniteMeasure[\dimension+n]\) is called
+	\textbf{marked point process}, if \(\Phi_p = \Phi(\cdot \times \real^n)\)
+	is a point process on \(\locFiniteMeasure\).
+
+	A marked point process is called \textbf{stationary}, if for all
+	\(h\in\real^\dimension\), \(A_i\in\borel(\real^\dimension)\),
+	\(M_i\in\borel(\real^n)\) and \(B_i\subseteq\nat_0\) we have
+	\[
+		\Pr(\Phi(A_i\times M_i) \in B_i, i=1,2,\dots)
+		= \Pr(\Phi(A_i+h \times M_i)\in B_i, i=1,2,\dots)
+	\]
+\end{definition}
+
+\begin{lemma}[Campbell]\label{lem: Campbell}
+	For a stationary marked point process \(\Phi\) with intensity \(\Lambda\),
+	we have	
+	\[
+		\Lambda(A \times L) = \lambda(L) |A|
+	\]
+	where \(|A|\) is the lebesgue measure of \(A\). We call
+	\[
+		\Pr_M(L) = \frac{\lambda(L)}{\lambda(\real^n)}
+	\]
+	the \textbf{distribution of marks}, because we have for integrable \(f\)
+	(Campbell)
+	\[
+		\E\left[\int f(x,m) \Phi(dx,dm)\right]
+		= \lambda \int \int f(x,m) \Pr_M(dm) dx
+	\]
+\end{lemma}
+\begin{proof}
+	\fxwarning{TODO: Fakt in 3.5 räumliche statistik skript schlather}
+\end{proof}
+
+\subsection{Making it Count}
+
+\begin{definition}[Counting Critical Points]
+	Let \(\negEV(H)\) be the number of negative eigenvalues of
+	\(H\in\real^{\dimension\times\dimension}\), let \(\rf\) be a random field.
+	Then we implicitly\footnote{
+		\(\borel(\real^\dimension)\times\borel(\real)\) is a semiring. So by
+		Carathéodory's extension theorem there is a unique extension of
+		\(\crit^\alpha\) to
+		\(\sigma(\borel(\real^\dimension)\times\borel(\real))=\borel(\real^{\dimension+1})\).
+		Use this extension to obtain \(\crit^\alpha(\omega)\in\locFiniteMeasure[\dimension+1]\).
+	} define the marked point process of critical points as
+	\begin{align*}
+		\crit^\alpha:
+		\begin{cases}
+			\borel(\real^\dimension)\times\borel(\real) \to \real\\
+			(\Vol, A) \mapsto
+			\#\left\{t\in\Vol:
+				\nabla\rf(t)=0,
+				\frac{\rf(t)}{\dimension}\in A,
+				\negEV(\nabla^2 \rf(t))=\dimension\alpha
+			\right\}.
+		\end{cases}
+	\end{align*}
+	Here the critical points are the points and the height \(\frac{\rf(t)}\dimension\)
+	are the marks. For \(\alpha=0\) we are counting the critical points where all
+	eigenvalues are positive. In other words: \(\crit^0\) are the minima,
+	\(\crit^1\) are the maxima, all others are saddle points.
+\end{definition}
+\begin{proof}[Proof (Measurability)]
+	First note that	
+	\begin{align*}
+		\locFiniteMeasAlg[\dimension+1]
+		&= \sigma(\pi_A : A\in\borel(\real^{\dimension+1}))\\
+		&=\sigma(\underbrace{
+			\{\pi_A^{-1}(B) : A\in\borel(\real^{\dimension+1}), B\in\borel(\real)\}
+		}_{=:\mathcal{E}}
+		)
+	\end{align*}
+	since it is sufficient to prove measurability on the generator
+	\(\mathcal{E}\), we only need that the following sets are measurable
+	\begin{align*}
+		(\crit^\alpha)^{-1}(\pi^{-1}_{ A }(B))
+		&= (\pi_{A} \circ \crit^\alpha)^{-1}(B)
+		= (\crit^\alpha(A))^{-1}(B)\\
+		&= \#\left\{\left(t,\frac{\rf(t)}{\dimension}\right) \in A:
+			\nabla\rf(t)=0,
+			\negEV(\nabla^2 \rf(t))=\dimension\alpha
+		\right\}\\
+		&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
+		\ind\left\{
+			\inf_{t\in \left(\text{id}, \frac{\rf}\dimension, \negEV(\nabla^2\rf)\right)^{-1}(A^\epsilon_k\times \{\dimension\alpha\}) }
+		|\nabla \rf(t)| = 0
+		\right\}
+	\end{align*}
+	\fxwarning{probably not quite right yet}
+	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\) (countable).
+\end{proof}
+
+\begin{lemma}[Stationarity]
+	If \(\rf\) is stationary, \(\crit^\alpha\) is stationary.
+\end{lemma}
+\begin{proof}
+	\fxwarning{TODO}
+\end{proof}
+
+
+
+
+\begin{theorem}[Kac-Rice Formula]
+	For a centered \fxnote*{needed? careful: if removed then stationary
+	(covariance) and strong stationarity (distribution is the same) is not the
+	same anymore. Need strong stationarity to replace \(t\) with \(0\). Also conditional
+	expectation argument breaks
+	}{Gaussian}
+	random field \(\rf\) the intensity measure of the critical points
+	\(\crit^\alpha\) with index \(\dimension\alpha\) is given by
+	\begin{align*}
+		&\Lambda^\alpha(\Vol,A)
+		=\E[\crit^\alpha(\Vol, A)]\\
+		&= \int_\Vol \E\left[
+			\left|\det(\nabla^2 \rf(t))\right|
+			\ind_{\frac{\rf(t)}{\dimension}\in A} \ind_{\negEV(\nabla^2 \rf(t))=\dimension \alpha}
+			\bigm| \nabla\rf(t) = 0 
+		\right] \density_{\nabla\rf(t)}(0)dt
+		\\
+		\overset{\text{stationary}}&=
+		|\Vol|\ \underbrace{\E\left[
+			|\det(\nabla^2 \rf(0))|
+			\ind_{\frac{\rf(0)}\dimension\in A} \ind_{\negEV(\nabla^2 \rf(0))=\dimension \alpha}
+		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(A)}
+	\end{align*}
+	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
+	second equality is only true when \(\rf\) is stationary.
+\end{theorem}
+
+\begin{proof}
+	The first inequality essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
+	about the expected number of weighted roots. The weighting are the indicator
+	functions here. For completeness we reproduce this proof in the appendix.
+
+	The second inequality follows as \(\nabla\rf(t)\) is independent of
+	\((\rf(t),\nabla^2\rf(t))\) due to Corollary~\ref{cor: uncorr leads to indep
+	in gaussian case} which turns the conditional expectation into a normal
+	expectation. Lastly replace all \(t\) with \(0\) due to stationarity.
+\end{proof}
+
+\begin{corollary}
+	 With Lemma~\ref{lem: Campbell},
+	we have the height distribution of critical points with index \(\alpha\)
+	\begin{align*}
+		\Pr_{\rf\mid \text{crit}(\alpha)}(A)
+		&= \frac{\lambda(A)}{\lambda(\real)}
+		= \frac{
+			\E[|\det(\nabla^2 \rf(0))|
+			\ind_{\negEV(\nabla^2\rf(0))=\dimension\alpha}
+			\ind_{\frac{\rf(0)}\dimension \in A}
+			]
+		}{
+			\E[|\det(\nabla^2 \rf(0))|\ind_{\negEV(\nabla^2\rf(0))=\dimension\alpha}]
+		}\\
+		&= \frac{
+			\int \int_A p(H, \dimension \epsilon) |\det(H)|
+			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
+		}{
+			\int \int p(H, \dimension \epsilon) |\det(H)|
+			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
+		}
+	\end{align*}
+	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\). Therefore
+	the density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
+	constant
+	\begin{equation*}
+		\Omega^\alpha(\epsilon)
+		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
+	\end{equation*}
+\end{corollary}

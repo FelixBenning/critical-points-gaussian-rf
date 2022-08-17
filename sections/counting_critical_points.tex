@@ -1,6 +1,6 @@
-\section{Counting Critical Points}
+\section{Counting Critical Points of Random Fields}
 
-\subsection{Preliminaries}
+\subsection{Random Fields}
 
 \begin{definition}[Random Field]
 	A collection of random variables \((\rf(t))_{t\in\real^\dimension}\) is called
@@ -41,12 +41,12 @@
 		\Cov(\nabla\rf(x), \rf(x)) = \nabla \C(0)=0.
 	\end{equation*}
 \end{remark}
-\begin{corollary}[Gaussian Case]
+\begin{corollary}[Gaussian Case] \label{cor: uncorr leads to indep in gaussian case}
 	If \(\rf\) is a stationary gaussian random field, \(\rf(x)\) and
 	\(\nabla\rf(x)\) are independent multivariate gaussian for every \(x\).
 \end{corollary}
 
-\subsection{Getting to the Point}
+\subsection{Getting to the Point Process}
 
 A measure \(\mu\) is called \textbf{locally finite}, if \(\mu(A) < \infty\) for
 all bounded \(A\in\borel(\real^\dimension)\). It is called \textbf{simple}, if
@@ -89,37 +89,119 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 
 \begin{definition}[Marked Point Process]
 	A point process \(\Phi\) on \(\locFiniteMeasure[\dimension+n]\) is called
-	\textbf{marked point process}, if \(\Phi_0 = \Phi(\cdot \times \real^n)\)
+	\textbf{marked point process}, if \(\Phi_p = \Phi(\cdot \times \real^n)\)
 	is a point process on \(\locFiniteMeasure\).
+
+	A marked point process is called \textbf{stationary}, if for all
+	\(h\in\real^\dimension\), \(A_i\in\borel(\real^\dimension)\),
+	\(M_i\in\borel(\real^n)\) and \(B_i\subseteq\nat_0\) we have
+	\[
+		\Pr(\Phi(A_i\times M_i) \in B_i, i=1,2,\dots)
+		= \Pr(\Phi(A_i+h \times M_i)\in B_i, i=1,2,\dots)
+	\]
 \end{definition}
+
+\begin{lemma}[Campbell]
+	For a stationary marked point process \(\Phi\) with intensity \(\Lambda\),
+	we have	
+	\[
+		\Lambda(A \times L) = \lambda(L) |A|
+	\]
+	where \(|A|\) is the lebesgue measure of \(A\). We call
+	\[
+		\Pr_M(L) = \frac{\lambda(L)}{\lambda(\real^n)}
+	\]
+	the \textbf{distribution of marks}, because we have for integrable \(f\)
+	(Campbell)
+	\[
+		\E\left[\int f(x,m) \Phi(dx,dm)\right]
+		= \lambda \int \int f(x,m) \Pr_M(dm) dx
+	\]
+\end{lemma}
+\begin{proof}
+	\fxwarning{TODO: Fakt in 3.5 räumliche statistik skript schlather}
+\end{proof}
 
 \subsection{Making it Count}
 
 \begin{definition}[Counting Critical Points]
 	Let \(\negEV(H)\) be the number of negative eigenvalues of
-	\(H\). Then we define for some volume \(\Vol\in\borel(\real^\dimension)\),
-	\(A\in\borel(\real)\), \(\alpha, u\in\real\)
+	\(H\in\real^{\dimension\times\dimension}\), let \(\rf\) be a random field.
+	Then we implicitly\footnote{
+		\(\borel(\real^\dimension)\times\borel(\real)\) is a semiring. So by
+		Carathéodory's extension theorem there is a unique extension of
+		\(\crit^\alpha\) to
+		\(\sigma(\borel(\real^\dimension)\times\borel(\real))=\borel(\real^{\dimension+1})\).
+		Use this extension to obtain \(\crit^\alpha(\omega)\in\locFiniteMeasure[\dimension+1]\).
+	} define the marked point process of critical points as
 	\begin{align*}
-		\crit_u(\alpha, A)
-		&:= \crit_u(\Vol, \alpha, A)\\
-		&:= \#\left\{t\in\Vol:
-			\frac{\rf(t)}{\dimension}\in A,
-			\negEV(\nabla^2 \rf(t))=\dimension\alpha,
-			\nabla\rf(t)=u
-		\right\}	
+		\crit^\alpha:
+		\begin{cases}
+			\borel(\real^\dimension)\times\borel(\real) \to \real\\
+			(\Vol, A) \mapsto
+			\#\left\{t\in\Vol:
+				\nabla\rf(t)=0,
+				\frac{\rf(t)}{\dimension}\in A,
+				\negEV(\nabla^2 \rf(t))=\dimension\alpha
+			\right\}.
+		\end{cases}
 	\end{align*}
-	For \(u=0\) we are counting the critical points where the scaled height
-	\(\rf(t)/\dimension\) is in \(A\) and the number of negative eigenvalues is
-	\(\dimension \alpha\). For \(\alpha=0\) we are counting the minima.
-	\fxnote{point process?}
+	Here the critical points are the points and the height \(\frac{\rf(t)}\dimension\)
+	are the marks. For \(\alpha=0\) we are counting the critical points where all
+	eigenvalues are positive. In other words: \(\crit^0\) are the minima,
+	\(\crit^1\) are the maxima, all others are saddle points.
 \end{definition}
+\begin{proof}[Proof (Measurability)]
+	First note that	
+	\begin{align*}
+		\locFiniteMeasAlg[\dimension+1]
+		&= \sigma(\pi_A : A\in\borel(\real^{\dimension+1}))\\
+		&=\sigma(\underbrace{
+			\{\pi_A^{-1}(B) : A\in\borel(\real^{\dimension+1}), B\in\borel(\real)\}
+		}_{=:\mathcal{E}}
+		)
+	\end{align*}
+	since it is sufficient to prove measurability on the generator
+	\(\mathcal{E}\), we only need that the following sets are measurable
+	\begin{align*}
+		(\crit^\alpha)^{-1}(\pi^{-1}_{ A }(B))
+		&= (\pi_{A} \circ \crit^\alpha)^{-1}(B)
+		= (\crit^\alpha(A))^{-1}(B)\\
+		&= \#\left\{\left(t,\frac{\rf(t)}{\dimension}\right) \in A:
+			\nabla\rf(t)=0,
+			\negEV(\nabla^2 \rf(t))=\dimension\alpha
+		\right\}\\
+		&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
+		\ind\left\{
+			\inf_{t\in \left(\text{id}, \frac{\rf}\dimension, \negEV(\nabla^2\rf)\right)^{-1}(A^\epsilon_k\times \{\dimension\alpha\}) }
+		|\nabla \rf(t)| = 0
+		\right\}
+	\end{align*}
+	\fxwarning{probably not quite right yet}
+	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\).
+\end{proof}
+
+\begin{lemma}[Stationarity]
+	If \(\rf\) is stationary, \(\crit^\alpha\) is stationary.
+\end{lemma}
+\begin{proof}
+	\fxwarning{TODO}
+\end{proof}
+
+
+
 
 \begin{theorem}[Kac-Rice Formula]
 	For a centered \fxnote*{needed? careful: if removed then stationary
 	(covariance) and strong stationarity (distribution is the same) is not the
-	same anymore. Need strong stationarity to replace \(t\) with \(0\)}{Gaussian}
-	random field \(\rf\) we have \begin{align*}
-		&\E[\crit_u(\alpha, A)]\\
+	same anymore. Need strong stationarity to replace \(t\) with \(0\). Also conditional
+	expectation argument breaks
+	}{Gaussian}
+	random field \(\rf\) the intensity measure of the critical points
+	\(\crit^\alpha\) with index \(\dimension\alpha\) is given by
+	\begin{align*}
+		&\Lambda^\alpha(\Vol,A)
+		=\E[\crit^\alpha(\Vol, A)]\\
 		&= \int_\Vol \E\left[
 			\left|\det(\nabla^2 \rf(t))\right|
 			\ind_{\frac{\rf(t)}{\dimension}\in A} \ind_{\negEV(\nabla^2 \rf(t))=\dimension \alpha}
@@ -134,8 +216,9 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
 	second equality is only true when \(\rf\) is stationary. Because then,
-	\(\nabla\rf(t)\) is independent of \((\rf(t),\nabla^2\rf(t))\) which turns
-	the conditional expectation into a normal expectation. Lastly replace all
+	\(\nabla\rf(t)\) is independent of \((\rf(t),\nabla^2\rf(t))\) due to
+	Corollary~\ref{cor: uncorr leads to indep in gaussian case} which turns the
+	conditional expectation into a normal expectation. Lastly replace all
 	\(t\) with \(0\) due to stationarity.
 \end{theorem}
 

@@ -101,7 +101,7 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\]
 \end{definition}
 
-\begin{lemma}[Campbell]
+\begin{lemma}[Campbell]\label{lem: Campbell}
 	For a stationary marked point process \(\Phi\) with intensity \(\Lambda\),
 	we have	
 	\[
@@ -178,7 +178,7 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 		\right\}
 	\end{align*}
 	\fxwarning{probably not quite right yet}
-	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\).
+	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\) (countable).
 \end{proof}
 
 \begin{lemma}[Stationarity]
@@ -205,67 +205,57 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 		&= \int_\Vol \E\left[
 			\left|\det(\nabla^2 \rf(t))\right|
 			\ind_{\frac{\rf(t)}{\dimension}\in A} \ind_{\negEV(\nabla^2 \rf(t))=\dimension \alpha}
-			\bigm| \nabla\rf(t) = u 
-		\right] \density_{\nabla\rf(t)}(u)dt
+			\bigm| \nabla\rf(t) = 0 
+		\right] \density_{\nabla\rf(t)}(0)dt
 		\\
 		\overset{\text{stationary}}&=
-		|\Vol|\ \E\left[
+		|\Vol|\ \underbrace{\E\left[
 			|\det(\nabla^2 \rf(0))|
 			\ind_{\frac{\rf(0)}\dimension\in A} \ind_{\negEV(\nabla^2 \rf(0))=\dimension \alpha}
-		\right] \density_{\nabla\rf(0)}(u)
+		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(A)}
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
-	second equality is only true when \(\rf\) is stationary. Because then,
-	\(\nabla\rf(t)\) is independent of \((\rf(t),\nabla^2\rf(t))\) due to
-	Corollary~\ref{cor: uncorr leads to indep in gaussian case} which turns the
-	conditional expectation into a normal expectation. Lastly replace all
-	\(t\) with \(0\) due to stationarity.
+	second equality is only true when \(\rf\) is stationary.
 \end{theorem}
 
 \begin{proof}
-	This essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
+	The first inequality essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
 	about the expected number of weighted roots. The weighting are the indicator
 	functions here. For completeness we reproduce this proof in the appendix.
+
+	The second inequality follows as \(\nabla\rf(t)\) is independent of
+	\((\rf(t),\nabla^2\rf(t))\) due to Corollary~\ref{cor: uncorr leads to indep
+	in gaussian case} which turns the conditional expectation into a normal
+	expectation. Lastly replace all \(t\) with \(0\) due to stationarity.
 \end{proof}
 
-\begin{remark}
-	Therefore \(\mu_\alpha: A\mapsto \E[\crit_0(\alpha, A)]\) is a measure on
-	\(\real\) with probability density
+\begin{corollary}
+	 With Lemma~\ref{lem: Campbell},
+	we have the height distribution of critical points with index \(\alpha\)
+	\begin{align*}
+		\Pr_{\rf\mid \text{crit}(\alpha)}(A)
+		&= \frac{\lambda(A)}{\lambda(\real)}
+		= \frac{
+			\E[|\det(\nabla^2 \rf(0))|
+			\ind_{\negEV(\nabla^2\rf(0))=\dimension\alpha}
+			\ind_{\frac{\rf(0)}\dimension \in A}
+			]
+		}{
+			\E[|\det(\nabla^2 \rf(0))|\ind_{\negEV(\nabla^2\rf(0))=\dimension\alpha}]
+		}\\
+		&= \frac{
+			\int \int_A p(H, \dimension \epsilon) |\det(H)|
+			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
+		}{
+			\int \int p(H, \dimension \epsilon) |\det(H)|
+			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
+		}
+	\end{align*}
+	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\). Therefore
+	the density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
+	constant
 	\begin{equation*}
-		|\Vol| \phi_{\nabla\rf(0)}(0) \Omega(\alpha, \epsilon),
-	\end{equation*}
-	where
-	\begin{equation*}
-		\Omega(\alpha, \epsilon)
+		\Omega^\alpha(\epsilon)
 		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
 	\end{equation*}
-	and \(p(H, \phi)\) is the joint probability density of \((\nabla^2\rf(0), \rf(0))\).
-
-	Notice that \(\mu_0(\real)\) are all critical points where the hessian is
-	positive definite, i.e. the number of minimas in \(\Vol\). If we draw a
-	minima \(M\) uniformly form the set of minima, then \(\mu_0/\mu_0(\real)\) is their
-	scaled height distribution. I.e.
-	\[
-		\frac{Z(M)}{\dimension} \sim \frac{\mu_0}{\mu_0(\real)}.
-	\]
-	\fxwarning*{}{This is wrong: We don't draw from the set of minima numbered \(\crit_0(0, \real)\),
-	we draw from the expected number of minima \(\E[\crit_0(0,\real)]\).
-	This might be fixable if we expand \(\Vol = \Vol_1 + \dots + \Vol_n\) and get
-	some sort of law of large numbers 
-	\[
-		\frac{\crit_0(\Vol, 0, A)}{\crit_0(\Vol, 0, \real)}
-		= \frac{
-			\tfrac1n \sum_{k=1}^n \crit_0( \Vol_k, 0, A )
-		}{
-			\tfrac1n \sum_{k=1}^n \crit_0( \Vol_k, 0, \real )
-		} \approx \frac{
-			\E[\crit_0(\Vol_1, 0, A)]
-		}{
-			\E[\crit_0(\Vol_1, 0, \real)]
-		} = \frac{\mu_0(A)}{\mu_0(\real)}
-	\]
-	as we get more and more critical points. Unfortunately the number of critical
-	points in \(V_k\) and \(V_i\) are not independent. But they are almost uncorrelated
-	if they are far apart/large given an appropriate covariance function for \(\rf\).
-	}
-\end{remark}
+\end{corollary}

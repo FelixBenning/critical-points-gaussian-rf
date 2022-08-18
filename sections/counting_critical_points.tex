@@ -270,8 +270,23 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 \end{proof}
 
 \begin{corollary}
-	 With Lemma~\ref{lem: Campbell},
-	we have the height distribution of critical points with index \(\alpha\)
+	For a centered, stationary Gaussian random field \(\rf\), the probability
+	density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
+	constant
+	\begin{equation*}
+		\Omega^\alpha(\epsilon)
+		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
+	\end{equation*}
+	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\).
+	More precisely
+	\[
+		\Pr_{\rf\mid\text{crit}(\alpha)}(A)
+		= \frac{\int_A \Omega^\alpha(\epsilon)d\epsilon}{\int \Omega^\alpha(\epsilon)d\epsilon}.
+	\]
+\end{corollary}
+\begin{proof}
+	With Lemma~\ref{lem: Campbell}, we have the height distribution of critical
+	points with index \(\alpha\)
 	\begin{align*}
 		\Pr_{\rf\mid \text{crit}(\alpha)}(A)
 		&= \frac{\lambda(A)}{\lambda(\real)}
@@ -291,11 +306,4 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
 		}
 	\end{align*}
-	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\). Therefore
-	the density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
-	constant
-	\begin{equation*}
-		\Omega^\alpha(\epsilon)
-		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
-	\end{equation*}
-\end{corollary}
+\end{proof}

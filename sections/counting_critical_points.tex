@@ -9,16 +9,26 @@
 	\begin{equation*}
 		\C(x,y) = \Cov(\rf(x), \rf(y)).
 	\end{equation*}
-	A random field is called \textbf{stationary}, if
+	A random field is called \textbf{Gaussian random field}, if all finite
+	dimensional marginals are multivariate Gaussian.
+	A random field is called \textbf{centered}, if for all \(t\in\real^\dimension\)
+	\[
+		\E[Z(t)] = 0.
+	\]
+	A random field is called \textbf{strictly stationary}, if for all
+	\(h\in\real^\dimension\) we the following equality in distribution
+	\[
+		(Z(t+h))_{t\in\real^\dimension} \overset{d}= (Z(t))_{t\in\real^\dimension}.
+	\]
+	In particular this implies	\textbf{weak stationarity}, i.e.
 	\begin{equation*}
 		\C(x,y) = \C(x-y).
 	\end{equation*}
-	It is called \textbf{isotropic} (rotation invariant) if	
+	For centered Gaussian random fields, strict and weak stationarity coincides.
+	A random field is called \textbf{isotropic} (rotation invariant) if	
 	\begin{equation*}
 		\C(x,y) = \dimension \sqC\left(\frac{\|x-y\|^2}{2\dimension}\right).
 	\end{equation*}
-	A random field is called \textbf{Gaussian random field}, if all finite
-	dimensional marginals are multivariate Gaussian.
 \end{definition}
 
 \begin{lemma}[Covariance and Derivative]
@@ -179,13 +189,42 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\end{align*}
 	\fxwarning{probably not quite right yet}
 	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\) (countable).
+	We can swap limit with series due to monotone convergence.
 \end{proof}
 
 \begin{lemma}[Stationarity]
-	If \(\rf\) is stationary, \(\crit^\alpha\) is stationary.
+	If \(\rf\) is strictly stationary, \(\crit^\alpha\) is stationary.
 \end{lemma}
 \begin{proof}
-	\fxwarning{TODO}
+	Let \(h\in \real^\dimension\) and note that
+	\[
+		\tilde{Z}(t) := Z(t+h)
+	\]
+	has the same distribution as \(Z\) since \(Z\) is strictly stationary. Define
+	\(\tilde{\crit}^\alpha\) using \(\tilde{Z}\) in place of \(Z\). Then
+	\(\tilde{\crit}^\alpha\) has the same distribution as \(\crit^\alpha\).
+	But since we have
+	\begin{align*}
+		&\crit^\alpha(\Vol+h, M)\\
+		&= \#\left\{t\in\Vol+h:
+			\nabla\rf(t)=0,
+			\frac{\rf(t)}{\dimension}\in M,
+			\negEV(\nabla^2 \rf(t))=\dimension\alpha
+		\right\}\\
+		&= \#\left\{t\in\Vol:
+			\nabla\tilde{\rf}(t)=0,
+			\frac{\tilde{\rf}(t)}{\dimension}\in M,
+			\negEV(\nabla^2 \tilde{\rf}(t))=\dimension\alpha
+		\right\}\\
+		&= \tilde{\crit}^\alpha(\Vol, M).
+	\end{align*}
+	So \(\crit^\alpha\) is stationary:
+	\begin{align*}
+		\Pr\left(\crit^\alpha((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
+		&= \Pr\left(\tilde{\crit}^\alpha(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
+		&= \Pr\left(\crit^\alpha(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
+		\qedhere
+	\end{align*}
 \end{proof}
 
 

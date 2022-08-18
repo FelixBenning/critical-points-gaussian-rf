@@ -161,6 +161,12 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	are the marks. For \(\alpha=0\) we are counting the critical points where all
 	eigenvalues are positive. In other words: \(\crit^0\) are the minima,
 	\(\crit^1\) are the maxima, all others are saddle points.
+
+	Finally we can define the point process over all critical points
+	\[
+		\crit(\Vol, A)
+		:= \sum_{k=0}^\dimension \crit^{\frac{k}\dimension}(\Vol, A)
+	\]
 \end{definition}
 \begin{proof}[Proof (Measurability)]
 	First note that	
@@ -260,8 +266,10 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 
 \begin{proof}
 	The first inequality essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
-	about the expected number of weighted roots. The weighting are the indicator
-	functions here. For completeness we reproduce this proof in the appendix.
+	about the expected number of weighted roots. The weights are the indicator
+	functions here. Unfortunately they are not continuous, so for completeness we
+	reproduce the proof for this case in the appendix (Theorem~\ref{thm: rice
+	formula in expectation}).
 
 	The second inequality follows as \(\nabla\rf(t)\) is independent of
 	\((\rf(t),\nabla^2\rf(t))\) due to Corollary~\ref{cor: uncorr leads to indep
@@ -305,5 +313,6 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 			\int \int p(H, \dimension \epsilon) |\det(H)|
 			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
 		}
+		\qedhere
 	\end{align*}
 \end{proof}

@@ -1,2 +1,87 @@
 \section{Kac-Rice}
 
+We define the \textbf{Level Set Count} as
+\[
+	\level(f, \Vol) := \#\{t\in \Vol : f(t) = u\}.
+\]
+
+\begin{prop}[Area formula {\cite[Prop. 6.1]{azaisLevelSetsExtrema2009}}]
+	Let \(f\in\contin^1(U, \real^\dimension)\) where \(U\) is an open
+	subset of \(\real^\dimension\). Assume that the set of critical values of
+	\(f\) has zero Lebesgue measure. Let \(g: \real^\dimension\to\real\) be
+	continuous and bounded. Then for any \(\Vol\in\borel(U)\)
+	\[
+		\int_{\real^\dimension}g(u) \level(f, \Vol)du
+		= \int_\Vol |\det(f'(t))| g(f(t))dt
+	\]
+	Further, for \(h(t,u) = \ind_{t\in T} g(u)\) for \(T\in\borel(U)\), we have
+	\[
+		\int_{\real^\dimension} \sum_{t\in f^{-1}(u)} h(t, u)du
+		= \int_{\real^\dimension} |\det(f'(t))| h(t, f(t))dt.
+	\]
+\end{prop}
+\begin{proof}
+	\textcite[pp. 120]{azaisLevelSetsExtrema2009}
+\end{proof}
+
+Notice how
+\begin{equation}\label{eq: level set and crit point relation}
+	\crit^\alpha(\Vol, A)
+	= \level[0](
+		\nabla\rf,
+		\Vol
+		\cap \rf^{-1}(\dimension A)
+		\cap \negEV(\nabla^2\rf)^{-1}(\{\dimension\alpha\})
+	).
+\end{equation}
+While we do not get a formula for \(\level(f,\Vol)\) for all \(u\) from the area
+formula, the integral equation holds for all continuous \(g\), so we get a
+formula for almost all \(u\). But we are interested in a specific \(u\), \(u=0\),
+so ``\emph{almost} all'' is useless.
+
+This problem will be solved by taking the expectation. It turns out that
+the expectation of \(\level\) is actually continuous in \(u\), which then allows
+us to generalize ``almost all \(u\)'' to ``all \(u\)''. In particular we then
+have a formula for \(u=0\), which interests us. But this continuity argument is,
+why we need to do this for general \(u\in\real^\dimension\) even though we are
+only interested in \(u=0\).
+
+Now we need \(\nabla \phi \in \contin^1\), this leads to Assumption
+\ref{assumption: continuity}.  Additionally we need the set of critical values
+of \(f=\nabla\phi\) to have
+Lebesgue measure zero, which leads to Assumption \ref{assumption: critical
+values of grad phi}
+
+
+\begin{assumption}[Requirements for Rice Formula]\label{assumptions: rice}
+	Let \(\rf: U\to\real^\dimension\) be a random field, assume
+	\begin{enumerate}[label=(\roman*)]
+		\item\label{assumption: continuity} \(\rf\in\contin^2\) almost surely
+		\item\label{assumption: critical values of grad phi}
+		\(\Pr(\exists t\in U: \nabla\rf(t) = u, \det(\nabla^2 \phi(t))=0)=0\)
+	\end{enumerate}
+\end{assumption}
+
+\begin{theorem}[Rice formula in expectation]\label{thm: rice formula in expectation}
+	With Assumptions~\ref{assumptions: rice} we get
+	\begin{align*}
+		&\E[\level(
+			\nabla\rf,
+			\Vol
+			\cap \rf^{-1}(\dimension A)
+			\cap \negEV(\nabla^2\rf)^{-1}(\{\dimension\alpha\})
+			)
+		]\\
+		&= \int_\Vol \E\left[
+			|\det(\nabla^2 \rf(t))| \ind_{\rf \in \dimension A}
+			\ind_{\negEV(\nabla^2\rf\in\dimension\alpha)}
+			\bigm| \nabla \rf(t) = u
+		\right] p_{\rf(t)}(u)dt
+	\end{align*}
+	where \(p_{\rf(t)}\) is the \emph{density} of \(\rf(t)\). Compare with
+	\eqref{eq: level set and crit point relation} for the interesting special
+	case \(u=0\).
+\end{theorem}
+\begin{proof}(based on \cite[Thm. 6.4]{azaisLevelSetsExtrema2009})
+
+\end{proof}

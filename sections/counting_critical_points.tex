@@ -13,12 +13,12 @@
 	dimensional marginals are multivariate Gaussian.
 	A random field is called \textbf{centered}, if for all \(t\in\real^\dimension\)
 	\[
-		\E[Z(t)] = 0.
+		\E[\rf(t)] = 0.
 	\]
 	A random field is called \textbf{strictly stationary}, if for all
 	\(h\in\real^\dimension\) we the following equality in distribution
 	\[
-		(Z(t+h))_{t\in\real^\dimension} \overset{d}= (Z(t))_{t\in\real^\dimension}.
+		(\rf(t+h))_{t\in\real^\dimension} \overset{d}= (\rf(t))_{t\in\real^\dimension}.
 	\]
 	In particular this implies	\textbf{weak stationarity}, i.e.
 	\begin{equation*}
@@ -199,10 +199,10 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 \begin{proof}
 	Let \(h\in \real^\dimension\) and note that
 	\[
-		\tilde{Z}(t) := Z(t+h)
+		\tilde{\rf}(t) := \rf(t+h)
 	\]
-	has the same distribution as \(Z\) since \(Z\) is strictly stationary. Define
-	\(\tilde{\crit}^\alpha\) using \(\tilde{Z}\) in place of \(Z\). Then
+	has the same distribution as \(\rf\) since \(\rf\) is strictly stationary. Define
+	\(\tilde{\crit}^\alpha\) using \(\tilde{\rf}\) in place of \(\rf\). Then
 	\(\tilde{\crit}^\alpha\) has the same distribution as \(\crit^\alpha\).
 	But since we have
 	\begin{align*}

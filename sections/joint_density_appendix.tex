@@ -46,21 +46,23 @@ with
 		\sqC'(0)	& \cdots & \sqC'(0) & \dimension \sqC(0)
 	\end{pmatrix}
 	=: \begin{pmatrix}
-		P & b \\
+		\Sigma_\partial & b \\
 		b^T & d
 	\end{pmatrix}.
 \]
 Inverting \(\Sigma\) is easy, if we can invert \(S\). If we can invert the
-covariance of partial derivatives \(P\), we have
+covariance of partial derivatives \(\Sigma_\partial\), we have
 \[
-	S^{-1} = \frac1{d- b^T P^{-1}b}\begin{pmatrix}
-		( d- b^T P^{-1}b )P^{-1} + P^{-1}b b^T P^{-1} & -P^{-1} b\\
-		-b^TP^{-1} &  1
+	S^{-1} = \frac1{d- b^T \Sigma_\partial^{-1}b}\begin{pmatrix}
+		( d- b^T \Sigma_\partial^{-1}b )\Sigma_\partial^{-1}
+		+ \Sigma_\partial^{-1}b b^T \Sigma_\partial^{-1}
+		& -\Sigma_\partial^{-1} b\\
+		-b^T\Sigma_\partial ^{-1} &  1
 	\end{pmatrix},
 \]
-as one can verify by calculating \(SS^{-1}\). As \(P\) is of the form
+as one can verify by calculating \(SS^{-1}\). As \(\Sigma_\partial\) is of the form
 \[
-	P=\frac{\sqC''(0)}{\dimension}[2\identity + \ones\ones^T]
+	\Sigma_\partial=\frac{\sqC''(0)}{\dimension}[2\identity + \ones\ones^T]
 \]
 with \(\ones=(1,\dots,1)^T\in\real^\dimension\), we can use the Sherman-Morrison
 formula.
@@ -79,7 +81,7 @@ formula.
 
 The application of this formula results in
 \[
-	P^{-1}
+	\Sigma_\partial^{-1}
 	= \frac{\dimension}{\sqC''(0)}\left[
 		\tfrac12\identity + \frac{\tfrac14\ones\ones^T}{1+\tfrac12\ones^T\ones}
 	\right]

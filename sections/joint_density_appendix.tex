@@ -74,7 +74,7 @@ formula.
 	Then \(A+ uv^T\) is invertible iff \(1+v^T A^{-1}u \neq 0\), and if that is
 	the case, we have
 	\[
-		(A+uv^T) = A^{-1} + \frac{A^{-1}u v^T A^{-1}}{1+v^T A^{-1}u}.
+		(A+uv^T) = A^{-1} - \frac{A^{-1}u v^T A^{-1}}{1+v^T A^{-1}u}.
 	\]
 \end{lemma}
 \begin{proof}
@@ -85,26 +85,31 @@ The application of this formula results in
 \begin{equation}\label{eq: sigma_partial inverse}
 	\Sigma_\partial^{-1}
 	= \frac{\dimension}{\sqC''(0)}\left[
-		\tfrac12\identity + \frac{\tfrac14\ones\ones^T}{1+\tfrac12\ones^T\ones}
+		\tfrac12\identity - \frac{\tfrac14\ones\ones^T}{1+\tfrac12\ones^T\ones}
 	\right]
 	= \frac{\dimension}{2\sqC''(0)}\left[
-		\identity + \frac{1}{2+\dimension}\ones\ones^T
+		\identity - \frac{1}{2+\dimension}\ones\ones^T
 	\right].
 \end{equation}
 To determine \(B^{-1}\), we first define
 \begin{align*}
 	q := d - b^T \Sigma_\partial^{-1}b
 	&= \dimension\sqC(0) - \tfrac{\dimension\sqC'(0)^2}{2\sqC''(0)}\ones^T
-	[\identity+\tfrac1{2+\dimension}\ones\ones^T]\ones\\
+	[\identity-\tfrac1{2+\dimension}\ones\ones^T]\ones\\
 	&= \dimension\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{2\sqC''(0)}
-		\dimension( 1+\tfrac{\dimension}{2+\dimension} )
+		\dimension( 1-\tfrac{\dimension}{2+\dimension} )
+	\right]\\
+	&= \dimension\left[
+		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
+		\tfrac{\dimension}{2+\dimension}
 	\right],
 \end{align*}
 and then calculate
 \begin{equation}\label{eq: definition of c=sigma_partial^{-1} b}
 	c:=\Sigma_\partial^{-1}b
-	= \tfrac{\sqC'(0)}{2\sqC''(0)}\dimension( 1 + \tfrac{\dimension}{2+\dimension} )\ones.
+	= \tfrac{\sqC'(0)}{2\sqC''(0)}( 1 - \tfrac{\dimension}{2+\dimension} )\ones
+	= \tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{1}{2+\dimension}\ones.
 \end{equation}
 Therefore we have
 \begin{equation}\label{eq: inv B split}
@@ -177,7 +182,7 @@ precisely
 \[
 	H_{ii} \Sigma_\partial^{-1} H_{ii}
 	= \frac{\dimension}{2\sqC''(0)}
-	\left[\|H_{ii}\|^2 + \tfrac{(\trace H)^2}{2+\dimension}\right]
+	\left[\|H_{ii}\|^2 - \tfrac{(\trace H)^2}{2+\dimension}\right]
 \]
 Putting the norms together we get
 \begin{align*}
@@ -196,7 +201,7 @@ So if we recall \eqref{eq: inv B split}, we get
 			H_{ij}
 		\end{pmatrix}\\
 		&= \tfrac{\dimension}{4\sqC''(0)}\left[
-			\trace H^2 + \tfrac{(\trace H)^2}{2+\dimension}
+			\trace H^2 - \tfrac{(\trace H)^2}{2+\dimension}
 		\right]
 		+ \frac1{2q} \underbrace{
 			(H_{ii}, \phi)\begin{pmatrix}
@@ -210,7 +215,7 @@ So if we recall \eqref{eq: inv B split}, we get
 			= \langle H_{ii}, c\rangle^2 - 2\phi \langle H_{ii}, c\rangle + \phi^2
 		}\\
 		&= \tfrac{\dimension}{4\sqC''(0)}\bigl[
-			\trace H^2 + \underbrace{
+			\trace H^2 - \underbrace{
 				\tfrac{(\trace H)^2}{2+\dimension}
 				\bigr]
 				+ \frac{\langle H_{ii}, c\rangle^2}{2q}
@@ -218,26 +223,31 @@ So if we recall \eqref{eq: inv B split}, we get
 		 	+ \frac{- 2\phi \langle H_{ii}, c\rangle + \phi^2}{2q}
 \end{align*}
 And if we recall the definition of \(c\) in \eqref{eq: definition of
-c=sigma_partial^{-1} b} which resulted in
+c=sigma_partial^{-1} b} and the definition of \(q\) which resulted in
 \[
-	c=\tfrac{\sqC'(0)}{2\sqC''(0)}\dimension( 1 + \tfrac{\dimension}{2+\dimension} )\ones,
+	c=\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{1}{2+\dimension}\ones
+	\qquad \text{and} \qquad
+	q=\dimension\left[
+		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
+		\tfrac{\dimension}{2+\dimension}
+	\right],
 \]
 we immediately get
 \[
 	\langle c, H_{ii}\rangle = 
-	\tfrac{\sqC'(0)}{2\sqC''(0)}\dimension( 1 + \tfrac{\dimension}{2+\dimension} )\trace H.
+	\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{1}{2+\dimension}\trace H.
 \]
 Now let us calculate the coefficient of all the squared traces. We have
 \begin{align*}
 	I &= \left[
 		\frac{1}{4\sqC''(0)}\frac{\dimension}{2+\dimension} + 
 		\frac{
-			\left(\tfrac{\sqC'(0)}{2\sqC''(0)}\dimension( 1 + \tfrac{\dimension}{2+\dimension} )\right)^2
+			\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{1}{2+\dimension}\right)^2
 		}{2q}
 	\right](\trace H)^2\\
 	&= \frac{1}{4\sqC''(0)}
 	\left[
 		\frac{\dimension}{2+\dimension} + 
-		\frac{\sqC'(0)^2}{\sqC''(0)}\frac{\left(\tfrac{2(1+\dimension)}{2+\dimension}\dimension\right)^2}{2q}
+		2\frac{\sqC'(0)^2}{\sqC''(0)}\frac{\frac1{(2+N)^2}}{q}
 	\right](\trace H)^2
 \end{align*}

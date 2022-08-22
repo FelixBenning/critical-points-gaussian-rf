@@ -9,16 +9,26 @@
 	\begin{equation*}
 		\C(x,y) = \Cov(\rf(x), \rf(y)).
 	\end{equation*}
-	A random field is called \textbf{stationary}, if
+	A random field is called \textbf{Gaussian random field}, if all finite
+	dimensional marginals are multivariate Gaussian.
+	A random field is called \textbf{centered}, if for all \(t\in\real^\dimension\)
+	\[
+		\E[\rf(t)] = 0.
+	\]
+	A random field is called \textbf{strictly stationary}, if for all
+	\(h\in\real^\dimension\) we the following equality in distribution
+	\[
+		(\rf(t+h))_{t\in\real^\dimension} \overset{d}= (\rf(t))_{t\in\real^\dimension}.
+	\]
+	In particular this implies	\textbf{weak stationarity}, i.e.
 	\begin{equation*}
 		\C(x,y) = \C(x-y).
 	\end{equation*}
-	It is called \textbf{isotropic} (rotation invariant) if	
+	For centered Gaussian random fields, strict and weak stationarity coincides.
+	A random field is called \textbf{isotropic} (rotation invariant) if	
 	\begin{equation*}
 		\C(x,y) = \dimension \sqC\left(\frac{\|x-y\|^2}{2\dimension}\right).
 	\end{equation*}
-	A random field is called \textbf{Gaussian random field}, if all finite
-	dimensional marginals are multivariate Gaussian.
 \end{definition}
 
 \begin{lemma}[Covariance and Derivative]
@@ -49,7 +59,8 @@
 \subsection{Getting to the Point Process}
 
 A measure \(\mu\) is called \textbf{locally finite}, if \(\mu(A) < \infty\) for
-all bounded \(A\in\borel(\real^\dimension)\). It is called \textbf{simple}, if
+all bounded \(A\in\borel(\real^\dimension)\). It is called \textbf{counting measure}
+if it is discrete. It is called \textbf{simple}, if
 \(\mu(\{x\})\in\{0,1\}\).
 Let \(\locFiniteMeasure\) be the \textbf{set of all locally finite counting measures}
 on \(\real^\dimension\) and \(\locFiniteMeasAlg\) the smallest \(\sigma\)-algebra
@@ -150,6 +161,12 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	are the marks. For \(\alpha=0\) we are counting the critical points where all
 	eigenvalues are positive. In other words: \(\crit^0\) are the minima,
 	\(\crit^1\) are the maxima, all others are saddle points.
+
+	Finally we can define the point process over all critical points
+	\[
+		\crit(\Vol, A)
+		:= \sum_{k=0}^\dimension \crit^{\frac{k}\dimension}(\Vol, A)
+	\]
 \end{definition}
 \begin{proof}[Proof (Measurability)]
 	First note that	
@@ -179,13 +196,42 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\end{align*}
 	\fxwarning{probably not quite right yet}
 	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\) (countable).
+	We can swap limit with series due to monotone convergence.
 \end{proof}
 
 \begin{lemma}[Stationarity]
-	If \(\rf\) is stationary, \(\crit^\alpha\) is stationary.
+	If \(\rf\) is strictly stationary, \(\crit^\alpha\) is stationary.
 \end{lemma}
 \begin{proof}
-	\fxwarning{TODO}
+	Let \(h\in \real^\dimension\) and note that
+	\[
+		\tilde{\rf}(t) := \rf(t+h)
+	\]
+	has the same distribution as \(\rf\) since \(\rf\) is strictly stationary. Define
+	\(\tilde{\crit}^\alpha\) using \(\tilde{\rf}\) in place of \(\rf\). Then
+	\(\tilde{\crit}^\alpha\) has the same distribution as \(\crit^\alpha\).
+	But since we have
+	\begin{align*}
+		&\crit^\alpha(\Vol+h, M)\\
+		&= \#\left\{t\in\Vol+h:
+			\nabla\rf(t)=0,
+			\frac{\rf(t)}{\dimension}\in M,
+			\negEV(\nabla^2 \rf(t))=\dimension\alpha
+		\right\}\\
+		&= \#\left\{t\in\Vol:
+			\nabla\tilde{\rf}(t)=0,
+			\frac{\tilde{\rf}(t)}{\dimension}\in M,
+			\negEV(\nabla^2 \tilde{\rf}(t))=\dimension\alpha
+		\right\}\\
+		&= \tilde{\crit}^\alpha(\Vol, M).
+	\end{align*}
+	So \(\crit^\alpha\) is stationary:
+	\begin{align*}
+		\Pr\left(\crit^\alpha((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
+		&= \Pr\left(\tilde{\crit}^\alpha(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
+		&= \Pr\left(\crit^\alpha(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
+		\qedhere
+	\end{align*}
 \end{proof}
 
 
@@ -220,8 +266,10 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 
 \begin{proof}
 	The first inequality essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
-	about the expected number of weighted roots. The weighting are the indicator
-	functions here. For completeness we reproduce this proof in the appendix.
+	about the expected number of weighted roots. The weights are the indicator
+	functions here. Unfortunately they are not continuous, so for completeness we
+	reproduce the proof for this case in the appendix (Theorem~\ref{thm: rice
+	formula in expectation}).
 
 	The second inequality follows as \(\nabla\rf(t)\) is independent of
 	\((\rf(t),\nabla^2\rf(t))\) due to Corollary~\ref{cor: uncorr leads to indep
@@ -230,8 +278,23 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 \end{proof}
 
 \begin{corollary}
-	 With Lemma~\ref{lem: Campbell},
-	we have the height distribution of critical points with index \(\alpha\)
+	For a centered, stationary Gaussian random field \(\rf\), the probability
+	density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
+	constant
+	\begin{equation*}
+		\Omega^\alpha(\epsilon)
+		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
+	\end{equation*}
+	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\).
+	More precisely
+	\[
+		\Pr_{\rf\mid\text{crit}(\alpha)}(A)
+		= \frac{\int_A \Omega^\alpha(\epsilon)d\epsilon}{\int \Omega^\alpha(\epsilon)d\epsilon}.
+	\]
+\end{corollary}
+\begin{proof}
+	With Lemma~\ref{lem: Campbell}, we have the height distribution of critical
+	points with index \(\alpha\)
 	\begin{align*}
 		\Pr_{\rf\mid \text{crit}(\alpha)}(A)
 		&= \frac{\lambda(A)}{\lambda(\real)}
@@ -250,12 +313,6 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 			\int \int p(H, \dimension \epsilon) |\det(H)|
 			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
 		}
+		\qedhere
 	\end{align*}
-	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\). Therefore
-	the density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
-	constant
-	\begin{equation*}
-		\Omega^\alpha(\epsilon)
-		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
-	\end{equation*}
-\end{corollary}
+\end{proof}

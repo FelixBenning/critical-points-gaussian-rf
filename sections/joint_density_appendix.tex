@@ -209,14 +209,13 @@ So if we recall \eqref{eq: inv B split}, we get
 		}_{
 			= \langle H_{ii}, c\rangle^2 - 2\phi \langle H_{ii}, c\rangle + \phi^2
 		}\\
-		&= \underbrace{\tfrac{\dimension}{4\sqC''(0)}\left[
-			\trace H^2 + \tfrac{(\trace H)^2}{2+\dimension}
-		\right]
-		+ \frac{\langle H_{ii}, c\rangle^2}{2q}}_{
-			=: S_1(H)
-		} + \underbrace{
-			\frac{- 2\phi \langle H_{ii}, c\rangle + \phi^2}{2q}
-		}_{=:S_2(H, \phi)}.
+		&= \tfrac{\dimension}{4\sqC''(0)}\bigl[
+			\trace H^2 + \underbrace{
+				\tfrac{(\trace H)^2}{2+\dimension}
+				\bigr]
+				+ \frac{\langle H_{ii}, c\rangle^2}{2q}
+			}_{=:I}
+		 	+ \frac{- 2\phi \langle H_{ii}, c\rangle + \phi^2}{2q}
 \end{align*}
 And if we recall the definition of \(c\) in \eqref{eq: definition of
 c=sigma_partial^{-1} b} which resulted in
@@ -228,4 +227,17 @@ we immediately get
 	\langle c, H_{ii}\rangle = 
 	\tfrac{\sqC'(0)}{2\sqC''(0)}\dimension( 1 + \tfrac{\dimension}{2+\dimension} )\trace H.
 \]
-Now let us plug this result back into \(S_1\) and \(S_2\).
+Now let us calculate the coefficient of all the squared traces. We have
+\begin{align*}
+	I &= \left[
+		\frac{1}{4\sqC''(0)}\frac{\dimension}{2+\dimension} + 
+		\frac{
+			\left(\tfrac{\sqC'(0)}{2\sqC''(0)}\dimension( 1 + \tfrac{\dimension}{2+\dimension} )\right)^2
+		}{2q}
+	\right](\trace H)^2\\
+	&= \frac{1}{4\sqC''(0)}
+	\left[
+		\frac{\dimension}{2+\dimension} + 
+		\frac{\sqC'(0)^2}{\sqC''(0)}\frac{\left(\tfrac{2(1+\dimension)}{2+\dimension}\dimension\right)^2}{2q}
+	\right](\trace H)^2
+\end{align*}

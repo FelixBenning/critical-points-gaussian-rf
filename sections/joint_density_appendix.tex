@@ -1,0 +1,89 @@
+\section{Joint Density Derivation}\label{sec: join density derivation}
+
+In this section we want to derive the joint density of \((\nabla^2\rf,\rf):=
+(\nabla^2\rf(0), \rf(0))\). As \(\partial_{ij}\rf\) are limits of differences
+of multivariate normal random variables, this is a centered multivariate normal
+random vector. We therefore only need to consider the covariance. Additionally
+we know \(\partial_{ij}\rf = \partial_{ji}\rf\), so we are only interested
+in \(((\partial_{ij}\rf)_{i\le j}, \rf)\).
+
+As for the covariances, we have \fxnote{reference}
+\begin{align*}
+	\Cov(\phi,\phi) &= \dimension \sqC(0)\\
+	\Cov(\partial_{ij}\phi,\phi) &= \delta_{ij} \sqC'(0)\\
+	\Cov(\partial_{ij}\phi, \partial_{kl}\phi) &= \frac{\sqC''(0)}\dimension
+	[\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \delta_{il}\delta_{kj}].
+\end{align*}
+In particular for \(i<j\), we have
+\[
+	\Cov(\partial_{ij}\phi, \phi) = 0,
+\]
+and also
+\[
+	\Cov(\partial_{ij}\phi, \partial_{kl}\phi) = \frac{\sqC''(0)}\dimension
+	[\delta_{ik}\delta_{jl} + \underbrace{\delta_{il}\delta_{kj}}_{=0}],
+\]
+because \(\delta_{il}\delta_{kj}=1\) would imply \(i < j = k \le l = i\), which
+is a contradiction. So this covariance is only non-zero, if \(i=k\) and \(j=l\),
+i.e. \(\partial_{ij}\phi\) for \(i<j\) has covariance zero with all other terms.
+As we are in the multivariate Gaussian case, this also implies independence.
+Shifting all these independent mixed derivatives to the end, our covariance
+matrix looks like
+\[
+	\Sigma := \Cov((\partial_{ii}\phi)_{i\le\dimension}, \phi, (\partial_{ij}\phi)_{i<j})
+	= \begin{pmatrix}
+		S & 0\\
+		0 & \frac{\sqC''(0)}{\dimension}\identity
+	\end{pmatrix}
+\]
+with
+\[
+	S = \begin{pmatrix}
+		3\frac{\sqC''(0)}\dimension &  \cdots & \frac{\sqC''(0)}\dimension
+		& \sqC'(0) \\
+		\vdots & \ddots &\vdots & \vdots \\
+		\frac{\sqC''(0)}\dimension & \cdots &  3 \frac{\sqC''(0)}\dimension & \sqC'(0)\\
+		\sqC'(0)	& \cdots & \sqC'(0) & \dimension \sqC(0)
+	\end{pmatrix}
+	=: \begin{pmatrix}
+		P & b \\
+		b^T & d
+	\end{pmatrix}.
+\]
+Inverting \(\Sigma\) is easy, if we can invert \(S\). If we can invert the
+covariance of partial derivatives \(P\), we have
+\[
+	S^{-1} = \frac1{d- b^T P^{-1}b}\begin{pmatrix}
+		( d- b^T P^{-1}b )P^{-1} + P^{-1}b b^T P^{-1} & -P^{-1} b\\
+		-b^TP^{-1} &  1
+	\end{pmatrix},
+\]
+as one can verify by calculating \(SS^{-1}\). As \(P\) is of the form
+\[
+	P=\frac{\sqC''(0)}{\dimension}[2\identity + \ones\ones^T]
+\]
+with \(\ones=(1,\dots,1)^T\in\real^\dimension\), we can use the Sherman-Morrison
+formula.
+
+\begin{lemma}[Sherman-Morrison Formula]
+	Let \(A\) be an invertible matrix, \(u,v\in\real^\dimension\) column vectors.
+	Then \(A+ uv^T\) is invertible iff \(1+v^T A^{-1}u \neq 0\), and if that is
+	the case, we have
+	\[
+		(A+uv^T) = A^{-1} + \frac{A^{-1}u v^T A^{-1}}{1+v^T A^{-1}u}.
+	\]
+\end{lemma}
+\begin{proof}
+	\fxnote{find reference (or reproduce wikipedia proof)}
+\end{proof}
+
+The application of this formula results in
+\[
+	P^{-1}
+	= \frac{\dimension}{\sqC''(0)}\left[
+		\tfrac12\identity + \frac{\tfrac14\ones\ones^T}{1+\tfrac12\ones^T\ones}
+	\right]
+	= \frac{\dimension}{2\sqC''(0)}\left[
+		\identity + \frac{1}{2+\dimension}\ones\ones^T
+	\right].
+\]

@@ -1,0 +1,100 @@
+
+\section{Eigenvalue Density}
+
+\subsection{Random Matrix Background Theory}
+
+\begin{definition}[Spaces]
+    Let 
+    \begin{align*}
+        \jacobiSpace & := \real^\dimension\times\real^{\dimension-1}_{>0} \\
+        \weightSpace & := \left\{ (p_1, \ldots, p_{N-1}) \mid p_i > 0 \sum_{i=1}^{N-1}p_i < 1 \right\} \subseteq \real^{\dimension-1} & \left( p_N := 1-\sum_{i=1}^{N-1} p_i \right) \\
+        \orderedRSpace & := \{ x\in\real^\dimension \mid x_1 < x_2 < \ldots < x_\dimension \} \\
+        \nPointMSpace & := \orderedRSpace \times \weightSpace.
+    \end{align*}
+    The set $\jacobiSpace$ parametrises two sequences $(a_i)_{i=1,\ldots,\dimension}$ in $\real$ and $(b_i)_{i=1,\ldots,\dimension-1}$ in $\real_{>0}$. The set $\weightSpace$ parametrises $\dimension$ weights that sum up to $1$ and which are greater than zero. $\orderedRSpace$ parametrises an ordered sequence of $\dimension$ distinct points and finally $\nPointMSpace$ is the space of measures on exactly $\dimension$ points in $\real$.
+\end{definition}
+
+\begin{definition}[Jacobi-Matrices]
+    We define a Jacobi matrix to be the tridiagonal matrix obtained from choosing a point $(a,b) \in \jacobiSpace$, which looks like
+    \begin{align*}
+        \jacobiMat :=
+        \begin{pmatrix}
+            a_1    & b_1 & 0      & 0      & \ldots           & 0                \\
+            b_1    & a_2 & b_2    & 0      & \ldots           & 0                \\
+            0      & b_2 & a_3    & b_3    & \ldots           & 0                \\
+            0      & 0   & \ddots & \ddots & \ddots           & \vdots           \\
+            \vdots &     &        & \ddots & \ddots           & b_{\dimension-1} \\
+            0      &  0  & \ldots & 0      & b_{\dimension-1} & a_{\dimension}   
+        \end{pmatrix}
+    \end{align*}
+    It should be clear when we refer to the Jacobian (!) matrix as the matrix of partial differentials of functions and when we refer to a Jacobi (!) matrix in the tridiagonal sense.
+\end{definition}
+
+Since Jacobi Matrices are symmetric they can be diagonalised via orthonormal matrices. This allows us to define the following.
+
+\begin{definition}[Spectral Measure of Jacobi Matrices]
+    If $\jacobiMat = QDQ^T$ with $Q$ orthonormal and $D = \operatorname{diag}(\lambda_1, \ldots, \lambda_\dimension)$, we define
+    \begin{align*}
+        \spectralDiffeo(\jacobiMat) := \sum_{i=1}^{\dimension} (Q^T e_1)^2_i \delta_{\lambda_i},
+    \end{align*}
+    where $e_1 = (1,0,\ldots,0)^T$.
+\end{definition}
+
+\begin{theorem}\label{trafoTheorem}
+    The map $\spectralDiffeo: \jacobiSpace \to \nPointMSpace$ that assigns a Jacobi-Matrix its spectral measure is actually a diffeomorphism. Furthermore the following points hold:
+    \begin{enumerate}[label=(\alph*)]
+        \item If $\spectralDiffeo(\jacobiMat) = \sum_{i=1}^\dimension p_i \delta_{\lambda_i}$ then
+        \begin{align}
+            \prod_{k=1}^{\dimension-1} b_k^{2(\dimension-k)} = \prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^2
+        \end{align}
+        \item The absolute value of the Jacobian determinant of the map $\spectralDiffeo^{-1}$ equals
+        \begin{align}\label{inverseSpectralDet}
+            \frac{\prod_{k=1}^{\dimension-1} b_k}{2^{\dimension-1} \prod_{k=1}^\dimension p_k} = \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}}.
+        \end{align}
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \fxnote{Verweis einfügen, viel zu lang der beweis und wäre nur abschreiben}
+\end{proof}
+
+The differentiable one-to-one correspondence between Jacobi-Matrices and the space of measures on exactly $\dimension$ real points allows us to infer the exact eigenvalue distribution given the distribution of the entries of the Jacobi-Matrix.
+
+\subsection{Orthogonal Transformation}
+
+Let $p(H, \rf)$ be the joint density of a symmetric Gaussian random matrix $H$ (every entry is normal distributed) and a Gaussian $\rf$, where the entries on the diagonal of $H$ and the random varialbe $\rf$ may be correlated. The off-diagonal entries are all independent of each other, of the diagonal of $H$ and of $\rf$.
+
+Furthermore, let $p(H,\rf)$ be such that the dependency on $H$ is reduced to dependency in terms of $\tr(H^k)$, where $k$ is a positive integer. Then $p(OHO^T, \rf) = p(H,\rf)$ for orthogonal $O$ \fxnote{ independent of $H$ and $\rf$ ? }
+
+Our goal is to transform any $H$ into a certain tridiagonal form - for which we know the eigenvalue distribution.
+
+\begin{lemma}[Householder-Matrices]
+    Let $v \in \real^\dimension$. Then there exists an orthogonal matrix $P$, such that $Pv = (\norm{v}, 0, \ldots, 0)^T$.
+\end{lemma}
+\begin{proof}
+    \fxnote{Householder hinschreiben, oder einfach verweisen}
+\end{proof}
+
+\begin{lemma}\label{trafoLemma}
+    There exists an orthogonal matrix $O$, such that $OHO^T$ has the form of a Jacobian $\jacobiMat$ with 
+    $$(a_1, \ldots, a_\dimension, \rf) \eqd (H_{11}, \ldots, H_{\dimension \dimension}, \rf),$$ which is independent of the independent vector 
+    $$(b_1, \ldots, b_{\dimension-1}) \eqd \left( \sqrt{\sum_{k=2}^{\dimension} H_{k 1}^2}, \ldots, \sqrt{\sum_{k=\dimension}^{\dimension} H_{k (\dimension-1)}^2} \right).$$
+\end{lemma}
+\begin{proof}
+    \fxnote{tadsächlich ausführlicher bidde :3}
+\end{proof}
+
+What \ref{trafoLemma} allows us to do is the following change of measures:
+\begin{align*}
+    \int p(H,\rf) \prod_{i\leq j} \dd h_{ij} \dd \rf
+    & = \int p(\jacobiMat, \rf) \prod_{i\leq j} \dd h_{ij} \dd \rf \\
+    & = \int \widetilde{p}(\jacobiMat, \rf) 
+    \prod_{i=1}^\dimension \dd h_{i i} \dd \rf 
+    \prod_{i=1}^{\dimension-1} \prod_{k=i+1}^{\dimension} p_{H_{k i}}(h_{k i}) \dd h_{k i}\\
+    & = \int \widetilde{p}(\jacobiMat, \rf) 
+    \prod_{i=1}^\dimension \dd h_{i i} \dd \rf 
+    \prod_{i=1}^{\dimension-1} p_{B_i}(b_i) \dd b_i .
+\end{align*}
+
+All we did was use the independence of $(a,\rf)$ from the off-diagonal terms to separate the density that is unchanged when turned into Jacobi-Matrix form. Then we switched the density of the off-diagonal terms with the density of the square root of sums of squares of Gaussians, which we will explain further.
+
+The important thing to note is that we now have a density of $(H,\rf)$ in terms of random variables $(a,b,\rf)$. Now to obtain the eigenvalue distribution all we need to do is to apply the transformation theorem using Theorem \ref{trafoTheorem} and integrate out the $p_i$.

@@ -1,0 +1,33 @@
+\section{Joint Density of \texorpdfstring{\((\nabla^2\rf(0), \rf(0))\)}{(hessian ϕ(0), ϕ(0))}}
+
+Let \(p(H, \rf)\) be the joint density of \((\nabla^2\rf(0), \rf(0))\) of
+a Gaussian random field \(\rf\).
+
+\begin{lemma}[Joint Density]\label{lem: joint density}
+	We have
+	\[
+		p(H, \rf) = C_\dimension \exp(-\dimension^2 S_2(H) - \dimension S_1(H, \rf))
+	\]
+	with
+	\begin{align*}
+		S_2(H)
+		&= \frac{1}{4\dimension\sqC''(0)}\left[
+			\trace H^2 - \frac1{2+\dimension}(\trace H)^2
+		\right]
+		\\
+		S_1(H,\rf)
+		&= \frac1{2\sqC''(0)Q}\left[
+			\tfrac{\dimension+2}{\dimension^3}\rf^2
+			- \tfrac{2\sqC'(0)}{\dimension^2\sqC''(0)}\rf\trace H
+			+ \tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(\dimension+2)}(\trace H)^2
+		\right],
+	\end{align*}
+	where
+	\[
+		Q = \left(1+\frac2\dimension\right)
+		\frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}.
+	\]
+\end{lemma}
+\begin{proof}
+	See Appendix~\ref{subsec: joint density derivation}
+\end{proof}

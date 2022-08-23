@@ -98,11 +98,11 @@ To determine \(B^{-1}\), we first define
 	[\identity-\tfrac1{2+\dimension}\ones\ones^T]\ones\\
 	&= \dimension\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{2\sqC''(0)}
-		\dimension^2( 1-\tfrac{\dimension}{2+\dimension} )
+		\dimension( 1-\tfrac{\dimension}{2+\dimension} )
 	\right]\\
 	&= \dimension\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
-		\tfrac{\dimension^2}{2+\dimension}
+		\tfrac{\dimension}{2+\dimension}
 	\right],
 \end{align*}
 and then calculate
@@ -121,7 +121,7 @@ Therefore we have
 		\Sigma_\partial^{-1} & 0 \\
 		0 & 0
 	\end{pmatrix}
-	+ \tfrac1q \begin{pmatrix}
+	+ \frac1q \begin{pmatrix}
 		cc^T & -c\\
 		-c^T & 1
 	\end{pmatrix}.
@@ -143,7 +143,7 @@ Let us take a step back now. We want to calculate
 where we abbreviate for readability \((H_{ii}, \phi, H_{ij})= ((H_{ii})_{i\le
 \dimension}, \phi, (H_{ij})_{i<j})\) and define
 \begin{align*}
-	C_\dimension &:= \left(2\pi\det(\Sigma)\right)^{-n(\dimension)/2}\\
+	C_\dimension &:= \left((2\pi)^{n(\dimension)}\det(\Sigma)\right)^{-1/2}\\
 	n(\dimension) &:= 1 + \tfrac{\dimension(\dimension+1)}{2}.
 \end{align*}
 Looking at just the exponent we have
@@ -173,63 +173,71 @@ Looking at just the exponent we have
 			=\tfrac{\dimension}{4\sqC''(0)}\| (H_{ij})_{i\neq j}\|^2.
 		}
 \end{align*}
-Now if we inspect \(B^{-1}\), we notice that \(H_{ii}\) will in most cases be paired
-with \(\ones\) which results in the trace \(\trace{H}\). Only inside \(\Sigma_\partial^{-1}\)
-there is another identity matrix. This results in another norm, with the
-same coefficient \(\frac{\dimension}{4\sqC''(0)}\) (cf. \eqref{eq: sigma_partial
-inverse}) after collecting the global \(\tfrac12\) from the exponent. More
-precisely
+For the first part we can use \eqref{eq: inv B split} to get
 \[
-	H_{ii} \Sigma_\partial^{-1} H_{ii}
-	= \frac{\dimension}{2\sqC''(0)}
-	\left[\|H_{ii}\|^2 - \tfrac{(\trace H)^2}{2+\dimension}\right]
+		\tfrac12(H_{ii},\phi)B^{-1}\begin{pmatrix}
+			H_{ii}\\ \phi
+		\end{pmatrix}
+		= \frac12 
+			H_{ii} \Sigma_\partial^{-1} H_{ii}
+			+
+			\underbrace{
+				\frac1{2q}
+				(H_{ii},\phi)
+				\begin{pmatrix}
+					cc^T & -c \\
+					-c^T & 1
+				\end{pmatrix}
+				\begin{pmatrix}
+					H_{ii}\\ \phi
+				\end{pmatrix}
+			}_{=: \dimension S_1(H, \phi)}.
 \]
-Putting the norms together we get
+Using \eqref{eq: sigma_partial inverse}, we also obtain
+\[
+	\frac12 H_{ii} \Sigma_\partial^{-1} H_{ii}
+	= \frac{\dimension}{4\sqC''(0)}
+	\left[\|H_{ii}\|^2 - \tfrac{(\trace H)^2}{2+\dimension}\right].
+\]
+Putting the last three equations back together, we get
 \begin{align*}
-	\|(H_{ij})\|^2 = \sum_{i,j=1}^\dimension H_{ij}^2
-	= \sum_{i=1}^\dimension \underbrace{\sum_{j=1}^\dimension H_{ij}H_{ji}}_{(H^2)_{ii}}
-	= \trace(H^2).
-\end{align*}
-We therefore end up with a formula utilizing only \(\trace H\) and \((\trace H)^2\).
-So if we recall \eqref{eq: inv B split}, we get
-\begin{align*}
-		&\tfrac12
+		\tfrac12
 		( H_{ii},\phi, H_{ij} )\Sigma^{-1}
 		\begin{pmatrix}
 			H_{ii}\\
 			\phi\\
 			H_{ij}
-		\end{pmatrix}\\
-		&= \tfrac{\dimension}{4\sqC''(0)}\left[
-			\trace H^2 - \tfrac{(\trace H)^2}{2+\dimension}
+		\end{pmatrix}
+		&= \underbrace{
+			\tfrac{\dimension}{4\sqC''(0)}\left[
+			\|(H_{ij})_{ij}\|^2
+			- \tfrac{(\trace H)^2}{2+\dimension}
 		\right]
-		+ \frac1{2q} \underbrace{
-			(H_{ii}, \phi)\begin{pmatrix}
-			cc^T & -c\\
-			-c^T & 1
-		\end{pmatrix}
-		\begin{pmatrix}
-			H_{ii}\\ \phi
-		\end{pmatrix}
-		}_{
-			= \langle H_{ii}, c\rangle^2 - 2\phi \langle H_{ii}, c\rangle + \phi^2
-		}\\
-		&= \tfrac{\dimension}{4\sqC''(0)}\bigl[
-			\trace H^2 - \underbrace{
-				\tfrac{(\trace H)^2}{2+\dimension}
-				\bigr]
-				+ \frac{\langle H_{ii}, c\rangle^2}{2q}
-			}_{=:I}
-		 	+ \frac{- 2\phi \langle H_{ii}, c\rangle + \phi^2}{2q}
+		}_{=: \dimension^2 S_2(H)}
+		+ \dimension S_1(H,\phi),
 \end{align*}
-Now recall the definition of \(c\) in \eqref{eq: definition of
+where we joined the norm over the diagonal elements with the norm over the rest.
+This can be further simplified to
+\begin{align*}
+	\|(H_{ij})_{ij}\|^2 = \sum_{i,j=1}^\dimension H_{ij}^2
+	= \sum_{i=1}^\dimension \underbrace{\sum_{j=1}^\dimension H_{ij}H_{ji}}_{(H^2)_{ii}}
+	= \trace(H^2).
+\end{align*}
+As claimed in Lemma~\ref{lem: joint density}, we therefore have
+\[
+	S_2(H) = \frac{1}{4 \dimension \sqC''(0)} \left[
+		\trace H^2 - \frac{(\trace H)^2}{2+\dimension}
+	\right].
+\]
+Now we just need to prove that the \(S_1\) we defined here, is also the same as
+in the Lemma. For that recall the definition of \(c\) in \eqref{eq: definition of
 c=sigma_partial^{-1} b} and the definition of \(q\) which resulted in
 \[
 	c=\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\ones
 	\qquad \text{and} \qquad
 	q=\dimension\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
-		\tfrac{\dimension^2}{2+\dimension}
+		\tfrac{\dimension}{2+\dimension}
 	\right].
 \]
 As a first result, we get
@@ -237,17 +245,56 @@ As a first result, we get
 	\langle c, H_{ii}\rangle = 
 	\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\trace H.
 \]
-Now let us calculate the coefficient of all the squared traces. We have
+Now we apply this to \(S_1\), resulting in
 \begin{align*}
-	I &= \left[
-		\frac{1}{4\sqC''(0)}\frac{\dimension}{2+\dimension} + 
-		\frac{
-			\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2
-		}{2q}
-	\right](\trace H)^2\\
-	&= \frac{1}{4\sqC''(0)}
-	\frac{\dimension}{2+\dimension}
-	\left[ 1 +
-		2\frac{\sqC'(0)^2}{\sqC''(0)}\frac{\frac{\dimension}{2+N}}{q}
-	\right](\trace H)^2
+	S_1(H, \phi)
+	&= \frac{1}{2\dimension q}
+	(H_{ii},\phi)
+	\begin{pmatrix}
+		cc^T & -c \\
+		-c^T & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+		H_{ii}\\ \phi
+	\end{pmatrix}\\
+	&= \frac1{2\dimension q}
+	\left[\langle c, H_{ii}\rangle^2 - 2\langle c, H_{ii}\rangle + \phi^2\right]
+	\\
+	&= \frac1{2\dimension q}
+	\left[
+		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension} \phi\trace H
+		+ \phi^2
+	\right].
+\end{align*}
+Finally note, that
+\[
+	q = \frac{\dimension^2\sqC''(0)}{\dimension+2}
+	\underbrace{
+	\left[
+		\frac{\dimension +2}{\dimension}\frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}
+	\right]
+	}_{=:Q},
+\]
+as this concludes our proof of Lemma~\ref{lem: joint density}:
+\begin{align*}
+	S_1(H, \phi)
+	&= \frac1{2\dimension Q}\frac{\dimension+2}{\dimension^2\sqC''(0)}
+	\left[
+		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\phi \trace H
+		+ \phi^2
+	\right]\\
+	&= \frac1{2\sqC''(0)Q}\frac{\dimension+2}{\dimension^3}
+	\left[
+		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension} \phi\trace H
+		+ \phi^2
+	\right]\\
+	&= \frac1{2\sqC''(0)Q}
+	\left[
+		\tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(2+\dimension)}(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\dimension^2\sqC''(0)}\phi\trace H
+		+ \tfrac{\dimension+2}{\dimension^3}\phi^2
+	\right].
 \end{align*}

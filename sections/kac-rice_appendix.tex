@@ -1,21 +1,22 @@
-\section{Kac-Rice}
+\section{Kac-Rice Formula}
 
 In this section we will reproduce some results of
 \textcite{adlerRandomFieldsGeometry2007} for easier reference but without
 proofs.
 
 Let \(f:\real^\dimension\to\real^\dimension\) and \(g:\real^\dimension\to\real^K\)
-be random fields. Let \(\Vol\subseteq \real^\dimension\) be compact with finite Hausdorff \(\mathcal{H}_{\dimension-1}\)
-measure and \(B\subseteq \real^K\) open, with a boundary of Hausdorff dimension 
-\(K-1\).
+be random fields. Let \(\Vol\subseteq \real^\dimension\) be compact,
+such that \(\partial\Vol\) has finite Hausdorff \(\mathcal{H}_{\dimension-1}\)
+measure and \(B\subseteq \real^K\) open, such that \(\partial B\) has Hausdorff
+dimension \(K-1\).
 Feel free to assume \(\Vol\) is a closed cuboid, \(B\) is an open cuboid, since
 these are a generator of the Borel sets, so we only need to define our point
 process \(\crit\) on them.
-We define the \textbf{Level Set Count} as
+We define the level set count as
 \[
 	\level:= \level(f, g: \Vol, B) := \#\{t\in \Vol : f(t) = u, g(t)\in B\}.
 \]
-\begin{theorem}[{\cite[Theorem~11.2.1]{adlerRandomFieldsGeometry2007}}]
+\begin{theorem}[Kac-Rice Formula ``Metatheorem'' {\cite[Theorem~11.2.1]{adlerRandomFieldsGeometry2007}}]
 	\label{thm: general kac-rice}
 	Let \(f,g,\Vol, B\) be as above. Assume that the following conditions are
 	satisfied for some \(u\in\real^\dimension\):	
@@ -40,10 +41,16 @@ We define the \textbf{Level Set Count} as
 			\right] < \infty,
 		\]
 		where \(f^i\) is the \(i\)-th component of \(f\).
-		\item The moduli of continuity\fxnote{definition} with respect to the usual Euclidean norm
-		of each of the components of \(f\), \(\nabla f\), and \(g\) satisfy
+		\item The moduli of continuity\footnote{
+			The modulus of continuity of a function \(F\) is defined as
+			\[
+				\omega_F(\eta):= \sup_{\|s-t\|^2\le \eta}|F(t)-F(s)|, \quad \eta>0.
+			\]
+		} with respect to the
+		usual Euclidean norm of each of the components of \(f\), \(\nabla f\), and
+		\(g\) satisfy
 		\[
-			\Pr(\omega(\eta) > \epsilon) = o(\eta^\dimension) \quad\text{as} \eta\downarrow 0
+			\Pr(\omega(\eta) > \epsilon) = o(\eta^\dimension) \quad\text{as }\eta\downarrow 0
 		\]
 		for any \(\epsilon>0\).
 	\end{enumerate}
@@ -63,7 +70,7 @@ We define the \textbf{Level Set Count} as
 	\textcite[Section~11.4]{adlerRandomFieldsGeometry2007}.
 \end{proof}
 
-\begin{corollary}[{\cite[Corollary~11.2.2]{adlerRandomFieldsGeometry2007}}]
+\begin{corollary}[Gaussian Rice Formula {\cite[Corollary~11.2.2]{adlerRandomFieldsGeometry2007}}]
 	\label{cor: gaussian kac-rice}
 	Let \(f\) and \(g\) be centered Gaussian random fields over a \(\Vol\subseteq
 	\real^\dimension\) which satisfies the conditions of Theorem~\ref{thm: general

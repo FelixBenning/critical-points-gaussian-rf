@@ -58,10 +58,37 @@
 
 \subsection{Getting to the Point Process}
 
-A measure \(\mu\) is called \textbf{locally finite}, if \(\mu(A) < \infty\) for
-all bounded \(A\in\borel(\real^\dimension)\). It is called \textbf{counting measure}
-if it is discrete. It is called \textbf{simple}, if
-\(\mu(\{x\})\in\{0,1\}\).
+The set of critical points of a random field, is surprise, surprise: random.
+So how would one formalize a random set in probability theory? It turns
+out that this becomes much easier if we translate our random set to a random
+measure. Let us consider the random set \(\Phi\)
+\[
+	\Phi = \{ X_1, \dots, X_K\}
+\]
+where \(X_1,\dots, X_K\in\real^\dimension\) are the random points of this set. Then with some
+abuse of notation, we can define the measure
+\[
+	\Phi :
+	\begin{cases}
+		\borel(\real^\dimension) \to \real \\
+		A \mapsto \Phi(A):= \sum_{X\in \Phi}\delta_X(A) 
+	\end{cases}
+\]
+Where \(\delta_X(A)=\ind_A(X)\) is the dirac measure. This measure \(\Phi\)
+essentially counts the number of points in the intersection \(\Phi\cap A\).
+Testing with different \(A\) allows us to fully determine, what
+the original points in \(\Phi\) were. So in this sense, the measure is
+equivalent to the set. And it turns out that it is much more convenient
+formally, to define random measures, than it is to define random sets.
+So let us introduce some nomenclature for measures.
+
+A measure \(\mu\) is called
+\begin{itemize}
+	\item \textbf{locally finite}, if \(\mu(A) < \infty\) for all bounded
+	\(A\in\borel(\real^\dimension)\),
+	\item \textbf{counting measure} if it is discrete,
+	\item \textbf{simple}, if \(\mu(\{x\})\in\{0,1\}\).
+\end{itemize}
 Let \(\locFiniteMeasure\) be the \textbf{set of all locally finite counting measures}
 on \(\real^\dimension\) and \(\locFiniteMeasAlg\) the smallest \(\sigma\)-algebra
 such that
@@ -91,12 +118,25 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 		\end{cases}
 	\]
 	is locally finite, then it is called the \textbf{intensity measure}
-	(expectation measure) of \(\Phi\).  If \(\Lambda(dx) = \lambda dx\) for some
+	(expectation measure) of \(\Phi\). The intensity measure essentially tells
+	us, how many points we should expect in some set \(B\) on average.
+	If \(\Lambda(dx) = \lambda dx\) for some
 	constant \(\lambda\in\real\), then \(\lambda\) is called the
 	\textbf{intensity} of \(\Phi\).
 	A point process is called \textbf{simple}, if \(\Phi(\omega)\) is simple
 	for every \(\omega\in\Omega\).
 \end{definition}
+
+Often our random set of points has a certain structure. E.g. we have
+random points in space \(X_1,\dots, X_K\) with marks \(M_1,\dots, M_k\) which
+might for example represent the value of some random field \(\rf\) at our
+points in space, i.e. \(M_i=\rf(X_i)\). Then our random graph 
+\[
+	\Phi = \{ (X_1, M_1), \dots, (X_K, M_K) \}
+\]
+is just a point process in higher dimensional space, with points \((X_i, M_i)\).
+But of course not every point process can be interpreted as a point with a mark.
+So we define the special case
 
 \begin{definition}[Marked Point Process]
 	A point process \(\Phi\) on \(\locFiniteMeasure[\dimension+n]\) is called
@@ -111,6 +151,13 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 		= \Pr(\Phi(A_i+h \times M_i)\in B_i, i=1,2,\dots)
 	\]
 \end{definition}
+
+Notice that for a marked point process to be stationary, we only shift the
+spacial part of the point. This stands in contrast to a stationarity definition
+for ordinary point processes. This is the main reason we introduce this
+additional machinery. In our case we are interested in the height (mark) of
+our random field at our critical points. And the following Lemma will allow us
+to recover the distribution of marks on these critical points
 
 \begin{lemma}[Campbell]\label{lem: Campbell}
 	For a stationary marked point process \(\Phi\) with intensity \(\Lambda\),

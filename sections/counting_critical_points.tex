@@ -20,9 +20,9 @@
 	\[
 		(\rf(t+h))_{t\in\real^\dimension} \overset{d}= (\rf(t))_{t\in\real^\dimension}.
 	\]
-	In particular this implies	\textbf{weak stationarity}, i.e.
+	In particular this implies	\textbf{(weak) stationarity}, i.e.
 	\begin{equation*}
-		\C(x,y) = \C(x-y).
+		\C(x,y) = \C(x-y)\qquad \text{and} \qquad \E[\rf(t)]=\mu.
 	\end{equation*}
 	For centered Gaussian random fields, strict and weak stationarity coincides.
 	A random field is called \textbf{isotropic} (rotation invariant) if	
@@ -234,17 +234,37 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\end{align*}
 \end{proof}
 
+To count critical points with restrictions on the second derivative, the second
+derivative has to exist. For that, note that
+\[
+	\partial_{x_i x_j, y_i y_j}\C(x,y) = \Cov(\partial_{ij}\rf(x), \partial_{ij}(y)),
+\]
+and it turns out that existence of the term on the left essentially ensures
+existence of \(\partial_{ij}\rf\)\fxnote{reference}. For continuous second
+derivatives, we want a little bit more \parencite[cf.
+Theorem~1.4.1]{adlerRandomFieldsGeometry2007}. In fact, we want the following:
 
+\begin{assumption}[Smooth Random Field]\label{assmpt: smoothness assumption}
+	A sufficient condition for smooth second derivatives \(\partial_{ij}	\rf\)
+	of a random field, is
+	\begin{equation}\label{eq: sufficient for continuous second derivative}
+		\max_{i,j}\E[|\partial_{ij}\rf(t) - \partial_{ij}\rf(s)|^2]
+		\le K |\ln(|t-s|)|^{-(1+\alpha)}
+	\end{equation}
+	for some \(K>0\), \(\alpha>0\) for all \(|t-s|\) small enough.
+	In the stationary case this condition simplifies to
+	\[
+		\max_{i,j}|\partial_{ii jj}\C(0)
+		-\partial_{ii jj}\C(h)| \le \frac{K}2 |\ln(|h|)|^{-(1+\alpha)}
+	\]
+	for \(h\in\real^\dimension\) with \(|h|\) small enough.
+\end{assumption}
 
 
 \begin{theorem}[Kac-Rice Formula]
-	For a centered \fxnote*{needed? careful: if removed then stationary
-	(covariance) and strong stationarity (distribution is the same) is not the
-	same anymore. Need strong stationarity to replace \(t\) with \(0\). Also conditional
-	expectation argument breaks
-	}{Gaussian}
-	random field \(\rf\) the intensity measure of the critical points
-	\(\crit^\alpha\) with index \(\dimension\alpha\) is given by
+	For a centered Gaussian random field \(\rf\) satisfying our smoothness
+	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
+	critical points \(\crit^\alpha\) with index \(\dimension\alpha\) is given by
 	\begin{align*}
 		&\Lambda^\alpha(\Vol,A)
 		=\E[\crit^\alpha(\Vol, A)]\\
@@ -265,17 +285,66 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 \end{theorem}
 
 \begin{proof}
-	The first inequality essentially follows from \textcite[Theorem 6.4]{azaisLevelSetsExtrema2009}
-	about the expected number of weighted roots. The weights are the indicator
-	functions here. Unfortunately they are not continuous, so for completeness we
-	reproduce the proof for this case in the appendix (Theorem~\ref{thm: rice
-	formula in expectation}).
-
+	This is an immediate result from Corollary~\ref{cor: gaussian kac-rice}
+	\parencite[Corollary~11.2.2]{adlerRandomFieldsGeometry2007}. More precisely
+	we define
+	\begin{align*}
+		f(t) &:= \nabla \rf(t)\\
+		g(t) &:= (\rf(t), \nabla^2 \rf(t))
+	\end{align*}
+	We now simply need to check that the covariance function of the components of
+	\(\partial_j f^i(t) = \partial_{ji} \rf(t)\) and \(g^i\) (which are
+	also just the second derivatives and \(\rf\) itself) satisfy the smoothness
+	requirement of the corollary. As smoothness of the second derivative implies
+	smoothness of \(\rf\), we only need to check the requirement for \(\partial_{ji} \rf\).
+	In other words, we need
+	\[
+		\max_{i,j}|\partial_{x_i x_j, y_i y_j}\C(t,t)
+		+ \partial_{x_i x_j, y_i y_j}\C(s,s)
+		-2\partial_{x_i x_j, y_i y_j}\C(s,t)| \le K |\ln(|t-s|)|^{-(1+\alpha)}
+	\]
+	But that is \eqref{eq: sufficient for continuous second derivative} in
+	Assumption~\ref{assmpt: smoothness assumption} written in terms of
+	covariances. By application
+	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get\footnote{
+		Careful readers might protest about the fact that \(\negEV^{-1}(\{\dimension
+		\alpha\})\) is not an open set and therefore \(B:=
+		A\times\negEV^{-1}(\{\dimension\alpha\})\) can not fulfill the requirements
+		of the Corollary. To fix this, we simply define a new point process
+		\[
+			\tilde{\crit}(\Vol, A, C)
+			:= \#\{t\in\Vol: \nabla \rf(t) = 0, \rf(t)\in \dimension A, \nabla^2\rf(t)\in C\}
+		\]
+		where \(\Vol\) is a closed cuboid and \(A,C\) are open cuboids. As the cuboids
+		are a generator of the Borel sets, we can then uniquely extend this point
+		process measure to all Borel sets. Similarly we define \(\tilde{\Lambda}\),
+		and similarly we can extend it to all Borel sets. But with this extension we
+		can now simply set \(C:=\negEV^{-1}(\{\dimension\alpha\})\) which is a Borel
+		set, since the eigenvalues are continuous in the entries of the matrix and
+		therefore the number of negative eigenvalues a measurable function.
+	}
+	\begin{align*}
+		\Lambda(\Vol, A) 
+		&= \E[\crit^\alpha(\Vol, A)]
+		= \E[\level(f, g: \Vol, A\times \negEV^{-1}(\{\dimension \alpha\}))]\\
+		&= \int_\Vol \E\left[
+			|\det \nabla f(t)| \ind_A(\rf(t)) \ind_{\{\dimension \alpha\}}(\negEV(\nabla^2\rf(t))) \mid f(t) = u
+		\right] p_t(u)dt.
+	\end{align*}
+	
+	
 	The second inequality follows as \(\nabla\rf(t)\) is independent of
 	\((\rf(t),\nabla^2\rf(t))\) due to Corollary~\ref{cor: uncorr leads to indep
 	in gaussian case} which turns the conditional expectation into a normal
 	expectation. Lastly replace all \(t\) with \(0\) due to stationarity.
 \end{proof}
+\begin{remark}
+	As can be seen in Theorem~\ref{thm: general kac-rice} \parencite[Theorem
+	11.2.1]{adlerRandomFieldsGeometry2007}, \(\rf\) does not necessarily
+	need to be Gaussian. We just need it and its derivatives to satisfy a
+	list of properties which are satisfied for Gaussian process with
+	smooth enough covariance functions.
+\end{remark}
 
 \begin{corollary}
 	For a centered, stationary Gaussian random field \(\rf\), the probability

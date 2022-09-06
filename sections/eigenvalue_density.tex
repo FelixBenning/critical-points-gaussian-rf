@@ -3,7 +3,7 @@
 
 \subsection{Random Matrix Background Theory}
 
-\begin{definition}[Spaces]
+\begin{definition}[Spaces]\label{def: differenSpacesForRMT}
     Let 
     \begin{align*}
         \jacobiSpace & := \real^\dimension\times\real^{\dimension-1}_{>0} \\
@@ -40,7 +40,7 @@ Since Jacobi Matrices are symmetric they can be diagonalised via orthonormal mat
     where $e_1 = (1,0,\ldots,0)^T$.
 \end{definition}
 
-\begin{theorem}\label{trafoTheorem}
+\begin{theorem}\label{thm: trafoTheorem}
     The map $\spectralDiffeo: \jacobiSpace \to \nPointMSpace$ that assigns a Jacobi-Matrix its spectral measure is actually a diffeomorphism. Furthermore the following points hold:
     \begin{enumerate}[label=(\alph*)]
         \item If $\spectralDiffeo(\jacobiMat) = \sum_{i=1}^\dimension p_i \delta_{\lambda_i}$ then
@@ -49,7 +49,8 @@ Since Jacobi Matrices are symmetric they can be diagonalised via orthonormal mat
         \end{align}
         \item The absolute value of the Jacobian determinant of the map $\spectralDiffeo^{-1}$ equals
         \begin{align}\label{inverseSpectralDet}
-            \frac{\prod_{k=1}^{\dimension-1} b_k}{2^{\dimension-1} \prod_{k=1}^\dimension p_k} = \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}}.
+            \frac{\prod_{k=1}^{\dimension-1} b_k}{2^{\dimension-1} \prod_{k=1}^\dimension p_k} 
+            = \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}}.
         \end{align}
     \end{enumerate}
 \end{theorem}
@@ -74,7 +75,7 @@ Our goal is to transform any $H$ into a certain tridiagonal form - for which we 
     \fxnote{Householder hinschreiben, oder einfach verweisen}
 \end{proof}
 
-\begin{lemma}\label{trafoLemma}
+\begin{lemma}\label{lem: trafoLemma}
     There exists an orthogonal matrix $O$, such that $OHO^T$ has the form of a Jacobian $\jacobiMat$ with 
     $$(a_1, \ldots, a_\dimension, \rf) \eqd (H_{11}, \ldots, H_{\dimension \dimension}, \rf),$$ which is independent of the independent vector 
     $$(b_1, \ldots, b_{\dimension-1}) \eqd \left( \sqrt{\sum_{k=2}^{\dimension} H_{k 1}^2}, \ldots, \sqrt{\sum_{k=\dimension}^{\dimension} H_{k (\dimension-1)}^2} \right).$$
@@ -83,18 +84,133 @@ Our goal is to transform any $H$ into a certain tridiagonal form - for which we 
     \fxnote{tadsächlich ausführlicher bidde :3}
 \end{proof}
 
-What \ref{trafoLemma} allows us to do is the following change of measures:
+What \ref{lem: trafoLemma} allows us to do is the following change of measures:
+\begin{equation}\label{eq: trafoEquation}
+    \begin{split}
+        \int p(H,\rf) \prod_{i\leq j} \dd h_{ij} \dd \rf
+        & = \int p(\jacobiMat, \rf) \prod_{i\leq j} \dd h_{ij} \dd \rf \\
+        & = \int \widetilde{p}(\jacobiMat, \rf) 
+        \prod_{i=1}^\dimension \dd h_{i i} \dd \rf 
+        \prod_{i=1}^{\dimension-1} \prod_{k=i+1}^{\dimension} p_{H_{k i}}(h_{k i}) \dd h_{k i}\\
+        & = \int \widetilde{p}(\jacobiMat, \rf) 
+        \prod_{i=1}^\dimension \dd h_{i i} \dd \rf 
+        \prod_{i=1}^{\dimension-1} p_{B_i}(b_i) \dd b_i .
+    \end{split}
+\end{equation}
+
+All we did was use the independence of $(a,\rf)$ from the off-diagonal terms to separate the density that is unchanged when turned into Jacobi-Matrix form. Then we switched the density of the off-diagonal terms with the density of the square root of sums of squares of Gaussians, which we will explain further.\\
+In the first step we implicitly used the transformation theorem with the operation $H \to OHO^T$ for $O$ orthogonal, which has a Jacobian (!) equal to one.
+
+The important thing to note is that we now have a density of $(H,\rf)$ in terms of random variables $(a,b,\rf)$. Now to obtain the eigenvalue distribution all we need to do is to apply the transformation theorem using Theorem \ref{thm: trafoTheorem} and integrate out the $p_i$.
+
+We will need a basic fact about gamma distributions to continue.
+
+\begin{lemma}[Facts about the Gamma distribution]\label{lem: gammaFacts}
+    We are using the gamma distribution parametrised by $\Gamma(\theta, r)$ with density
+    $$ \frac{\theta^r}{\Gamma(r)} x^{r-1} e^{\theta x} \ind_{x>0}$$
+    given in $x$.
+    \begin{enumerate}
+        \item Let $X_1, \ldots, X_\dimension$ be i.i.d. $\nn(0,\secCorrFactor)$-distributed random        variables. Then 
+            $$ X_1^2 + \ldots + X_\dimension^2 \eqd \Gamma\left(\frac{1}{2\secCorrFactor}, \frac{\dimension}{2}\right).$$
+
+        \item If $Y \sim \Gamma(\theta, r)$, then $\sqrt{Y}$ has density
+            $$ \frac{2\theta^r}{\Gamma(r)} x^{2r-1} e^{-\theta x^2} \ind_{x>0} $$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Inspect densities and use substitution. \fxnote{more detail?}
+\end{proof}
+
+
+
+\subsection{Application to our problem}
+
+We are given a symmetric matrix $H$ that has centered Gaussians on its diagonal whose correlation is given by 
+$$  \E[H_{ii}H_{jj}] = (1+2\delta_{ij}) \secCorrFactor$$
+with $\secCorrFactor := \frac{\sqC''(0)}{N}$. Their correlation to $\rf$ is given By
+$$ \E[H_{ii} \rf] = \firstCorrFactor $$
+with $\firstCorrFactor := \sqC'(0)$.
+
+The upper diagonal is given by i.i.d. centered Gaussians with variance $\secCorrFactor$, which are also independent of the diagonal and $\rf$.
+
+If we want to use Equation \ref{eq: trafoEquation} we will need to figure out the factor
+$$ \frac{\prod_{i=1}^{\dimension-1} p_{B_i}(b_i)}{\prod_{i=1}^{\dimension-1}\prod_{k=i+1}^{\dimension} p_{H_{k i}}(h_{k i})} $$
+
+We can immediately write down the denominator as 
 \begin{align*}
-    \int p(H,\rf) \prod_{i\leq j} \dd h_{ij} \dd \rf
-    & = \int p(\jacobiMat, \rf) \prod_{i\leq j} \dd h_{ij} \dd \rf \\
-    & = \int \widetilde{p}(\jacobiMat, \rf) 
-    \prod_{i=1}^\dimension \dd h_{i i} \dd \rf 
-    \prod_{i=1}^{\dimension-1} \prod_{k=i+1}^{\dimension} p_{H_{k i}}(h_{k i}) \dd h_{k i}\\
-    & = \int \widetilde{p}(\jacobiMat, \rf) 
-    \prod_{i=1}^\dimension \dd h_{i i} \dd \rf 
-    \prod_{i=1}^{\dimension-1} p_{B_i}(b_i) \dd b_i .
+    \prod_{i=1}^{\dimension-1}\prod_{k=i+1}^{\dimension} \frac{1}{\sqrt{2\pi\secCorrFactor}} e^{-\frac{h_{ki}^2}{2\secCorrFactor}}
+    & = \left( \frac{1}{\sqrt{2\pi\secCorrFactor}} \right)^{\frac{\dimension(\dimension-1)}{2}} e^{-\frac{1}{2\secCorrFactor} \sum_{i=1}^{\dimension-1}\sum_{k=i+1}^{\dimension} h_{ki}^2} \\
+    & = \left( 2\pi\secCorrFactor \right)^{-\frac{\dimension(\dimension-1)}{4}} e^{-\frac{1}{4\secCorrFactor} \left( \tr(H^2) - \sum_{i=1}^\dimension h_{ii} \right)}
 \end{align*}
 
-All we did was use the independence of $(a,\rf)$ from the off-diagonal terms to separate the density that is unchanged when turned into Jacobi-Matrix form. Then we switched the density of the off-diagonal terms with the density of the square root of sums of squares of Gaussians, which we will explain further.
+Using Lemma \ref{lem: gammaFacts} we infer that the numerator is equal to
+\begin{align*}
+    & \prod_{i=1}^{\dimension-1} \frac{2 b_i^{\dimension-i-1}}{(2\secCorrFactor)^{\frac{\dimension-i}{2}}\Gamma(\frac{\dimension-i}{2})}  e^{-\frac{1}{2\secCorrFactor} b_i^2} \ind_{b_i>0} \\
+    & = \frac{2^{N-1}}{(2\secCorrFactor)^{\frac{\dimension(\dimension-1)}{2}} \prod_{i=1}^{\dimension-1} \Gamma\left(\frac{i}{2}\right)} \left(\prod_{i=1}^{\dimension-1} b_i^{\dimension-i-1} \ind_{b_i>0} \right)
+    e^{-\frac{1}{2\secCorrFactor}\sum_{i=1}^{\dimension-1} b_i^2}
+\end{align*}
 
-The important thing to note is that we now have a density of $(H,\rf)$ in terms of random variables $(a,b,\rf)$. Now to obtain the eigenvalue distribution all we need to do is to apply the transformation theorem using Theorem \ref{trafoTheorem} and integrate out the $p_i$.
+Given the density $p(H,\rf)$ from Lemma \ref{lem: joint density} we define 
+\begin{align*}
+    \widetilde{p}(H,\rf):= C_\dimension' \exp\left( -\dimension^2 \widetilde{S}_2'(H) - \dimension S_1(H,\rf) \right)
+\end{align*}
+with
+\begin{align*}
+    \dimension^2\widetilde{S}_2'(H) := \frac{1}{4 \secCorrFactor} \left[ \sum_{i=1}^\dimension h_{ii}^2 - \frac{1}{2+\dimension} (\tr(H))^2 \right].
+\end{align*}
+
+If we plug all this into Equation \ref{eq: trafoEquation} we obtain
+\begin{align*}
+    & \int p(H,\rf) \prod_{i\leq j} \dd h_{ij} \dd \rf \\
+    & = \int \widetilde{p}(\jacobiMat,\rf) \left(\prod_{i=1}^{\dimension-1} b_i^{\dimension-i-1} \ind_{b_i>0} \right) e^{-\frac{1}{2\secCorrFactor}\sum_{i=1}^{\dimension-1} b_i^2} \left(\prod_{i=1}^{\dimension} \dd a_{i}\right) \left(\prod_{i=1}^{\dimension-1} \dd b_{i}\right) \dd \rf
+    \\
+    & = \int \operatorname{const} \cdot p(\jacobiMat,\rf) \left(\prod_{i=1}^{\dimension-1} b_i^{\dimension-i-1} \ind_{b_i>0} \right) \left(\prod_{i=1}^{\dimension} \dd a_{i}\right) \left(\prod_{i=1}^{\dimension-1} \dd b_{i}\right) \dd \rf
+\end{align*}
+
+We now want to transform this Jacobi-Matrix density into an eigenvalue density with the help of Theorem \ref{thm: trafoTheorem}. Since we know that
+$$ \tr(\jacobiMat) = \sum_{i=1}^\dimension \lambda_i \qquad \text{and} \qquad \tr((\jacobiMat)^2) = \sum_{i=1}^\dimension \lambda_i^2 $$
+we can ignore the density $p(\jacobiMat,\rf)$ for now and take a look at what happens to the $b_i$-factor multiplied by the Jacobian (!) of the density of the diffeomorphism $\spectralDiffeo$:
+\begin{align*}
+    & \left(\prod_{k=1}^{\dimension-1} b_k^{\dimension-k-1} \ind_{b_k>0} \right)
+    \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}} \\
+    & = \frac{1}{2^{\dimension-1}}  \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{\prod_{k=1}^{\dimension-1} b_k^{3(\dimension - k)}} \\
+    & = \frac{1}{2^{\dimension-1}} \prod_{i<j} |\lambda_i - \lambda_j| \prod_{k=1}^\dimension p_k^{-\frac{1}{2}}.
+\end{align*}
+
+The last equality made use of Theorem \ref{thm: trafoTheorem} (a). To integrate out the $p_k$ we use the following well known definition.
+
+\begin{definition}[Dirichlet distribution]
+    The distribution on $\real^{N-1}$ with density
+    \begin{align*}
+        \frac{1}{D_N} p_1^{\beta_1 - 1} \cdot \ldots \cdot p_\dimension^{\beta_\dimension-1} \ind_{\weightSpace}
+    \end{align*}
+    is called \textit{Dirichlet distribution} with parameters $\dimension$ and $\beta_1,\ldots,\beta_\dimension > 0$, where
+    \begin{align*}
+        D_N := \frac{\Gamma(\beta_1)\cdot \ldots \cdot \Gamma(\beta_{\dimension})}{\Gamma(\beta_1+\ldots+\beta_\dimension)}
+    \end{align*}
+    and $\weightSpace$ is the space of weights of an $\dimension$-point measure introduced in Definition \ref{def: differenSpacesForRMT}.
+\end{definition}
+
+Thus, if we write $\lambda = (\lambda_1, \ldots, \lambda_\dimension)$ the joint eigenvalue distribution together with $\rf$ will be equal to 
+\begin{align*}
+    \rho(\lambda,\rf) = \operatorname{const} \cdot \exp(- \dimension^2 \mathcal{S}_2(\lambda) - \dimension \mathcal{S}_1 (\lambda, \rf)) \prod_{i<j} |\lambda_i - \lambda_j| \ind_{\lambda_1 < \ldots < \lambda_\dimension},
+\end{align*}
+where
+\begin{align*}
+    \dimension^2 \mathcal{S}_2(\lambda) = \frac{1}{4\secCorrFactor}  \left[ \sum_{i=1}^\dimension \lambda_i^2 - \frac{1}{2+\dimension} \left(\sum_{i=1}^\dimension \lambda_i \right)^2 \right]
+\end{align*}
+and
+\begin{align*}
+    \mathcal{S}_1(\lambda, \rf) = \frac1{2\sqC''(0)Q}\left[
+        \tfrac{\dimension+2}{\dimension^3}\rf^2
+        - \tfrac{2\sqC'(0)}{\dimension^2\sqC''(0)}\rf\left(\sum_{i=1}^\dimension \lambda_i \right)
+        + \tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(\dimension+2)}\left(\sum_{i=1}^\dimension \lambda_i \right)^2
+    \right],
+\end{align*}
+and
+\[
+	Q = \left(1+\frac2\dimension\right)
+	\frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}.
+\]
+
+The constant is dependent on $N$ and it is equal to \fxnote{Konstante ausrechnen :(}.

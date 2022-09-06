@@ -72,7 +72,9 @@ Our goal is to transform any $H$ into a certain tridiagonal form - for which we 
     Let $v \in \real^\dimension$. Then there exists an orthogonal matrix $P$, such that $Pv = (\norm{v}, 0, \ldots, 0)^T$.
 \end{lemma}
 \begin{proof}
-    \fxnote{Householder hinschreiben, oder einfach verweisen}
+    Let \(v_1:= \frac{v}{\|v\|}\) and find (any) orthonormal basis
+    \(v_2,\dots,v_\dimension\) of \(v_1^\perp\). Then \(P:=(v_1\dots
+    v_\dimension)^T\) has the desired properties. 
 \end{proof}
 
 \begin{lemma}\label{lem: trafoLemma}

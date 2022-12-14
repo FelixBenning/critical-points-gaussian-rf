@@ -27,7 +27,7 @@
 	For centered Gaussian random fields, strict and weak stationarity coincides.
 	A random field is called \textbf{isotropic} (rotation invariant) if	
 	\begin{equation*}
-		\C(x,y) = \dimension \sqC\left(\frac{\|x-y\|^2}{2\dimension}\right).
+		\C(x,y) = \sqC\left(\frac{\|x-y\|^2}{2}\right).
 	\end{equation*}
 \end{definition}
 
@@ -308,6 +308,7 @@ Theorem~1.4.1]{adlerRandomFieldsGeometry2007}. In fact, we want the following:
 
 
 \begin{theorem}[Kac-Rice Formula]
+	\label{thm: kac-rice formula}
 	For a centered Gaussian random field \(\rf\) satisfying our smoothness
 	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
 	critical points \(\crit\) is given by
@@ -323,7 +324,7 @@ Theorem~1.4.1]{adlerRandomFieldsGeometry2007}. In fact, we want the following:
 		\overset{\text{stationary}}&=
 		|\Vol|\ \underbrace{\E\left[
 			|\det(\nabla^2 \rf(0))|
-			\ind_M(\rf(t), \nabla^2\rf(t))
+			\ind_M(\rf(0), \nabla^2\rf(0))
 		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(M)}
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
@@ -377,41 +378,44 @@ Theorem~1.4.1]{adlerRandomFieldsGeometry2007}. In fact, we want the following:
 \end{remark}
 
 \begin{corollary}
-	For a centered, stationary Gaussian random field \(\rf\), the probability
-	density of \(\Pr_{\rf\mid\text{crit}(\alpha)}\) is up to a normalizing
-	constant
-	\begin{equation*}
-		\Omega^\alpha(\epsilon)
-		= \int |\det(H)| \ind_{\negEV(H) = \dimension\alpha} p(H, \dimension\epsilon)dH,
-	\end{equation*}
-	where \(p\) is the joint density of \((\nabla^2 \rf(0), \rf(0))\).
-	More precisely
+	Let \(p(z,h)\) be the joint density of \((\rf(0),\nabla^2\rf(0))\) and define
 	\[
-		\Pr_{\rf\mid\text{crit}(\alpha)}(A)
-		= \frac{\int_A \Omega^\alpha(\epsilon)d\epsilon}{\int \Omega^\alpha(\epsilon)d\epsilon}.
+		\Omega(z,h) = c |det(h)| p(z,h)
+	\]
+	with \(c\in\real\) such that \(\int \Omega(z,h)dz dh = 1\).
+	If we take a random critical point \(T\) picked uniformly from the set of
+	critical points \(\{t\in\Vol : \nabla\rf(t)=0\}\), then the distribution over
+	its marks is given by
+	\[
+		\Pr_{\rf(T),\nabla^2\rf(T)}(A) = \int_A \Omega(z,h) dz dh.
 	\]
 \end{corollary}
+\begin{remark}
+	Notice how this distribution of marks is different from
+	\[
+		\begin{aligned}
+		\Pr((\rf(t),\nabla^2\rf(t))\in A \mid \nabla\rf(t) = 0)
+		\overset{\text{stationary}}&= \Pr((\rf(0),\nabla^2\rf(0))\in A)\\
+		&= \int_A p(z,h)dz dh.
+		\end{aligned}
+	\]
+	In particular the density of marks is \(\Omega\) not \(p\), like it is if
+	we simply condition on the fact that \(t\) is a critical point.
+\end{remark}
 \begin{proof}
-	With Lemma~\ref{lem: Campbell}, we have the height distribution of critical
-	points with index \(\alpha\)
+	With Lemma~\ref{lem: Campbell}, we have that the distribution of marks is
+	given by
 	\begin{align*}
-		\Pr_{\rf\mid \text{crit}(\alpha)}(A)
+		\Pr_{\rf(T),\nabla^2\rf(T)}(A)
 		&= \frac{\lambda(A)}{\lambda(\real)}
-		= \frac{
+		\overset{\ref{thm: kac-rice formula}}= \frac{
 			\E[|\det(\nabla^2 \rf(0))|
-			\ind_{\negEV(\nabla^2\rf(0))=\dimension\alpha}
-			\ind_{\frac{\rf(0)}\dimension \in A}
+			\ind_A(\rf(0), \nabla^2\rf(0))
 			]
 		}{
-			\E[|\det(\nabla^2 \rf(0))|\ind_{\negEV(\nabla^2\rf(0))=\dimension\alpha}]
+			\E[|\det(\nabla^2 \rf(0))|]
 		}\\
-		&= \frac{
-			\int \int_A p(H, \dimension \epsilon) |\det(H)|
-			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
-		}{
-			\int \int p(H, \dimension \epsilon) |\det(H)|
-			\ind_{\negEV(H)=\dimension\alpha}d\epsilon dH
-		}
+		&= \int_A \Omega(z,h) dz dh.
 		\qedhere
 	\end{align*}
 \end{proof}

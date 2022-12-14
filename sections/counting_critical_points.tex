@@ -183,71 +183,72 @@ to recover the distribution of marks on these critical points
 \subsection{Making it Count}
 
 \begin{definition}[Counting Critical Points]
-	Let \(\negEV(H)\) be the number of negative eigenvalues of
-	\(H\in\real^{\dimension\times\dimension}\), let \(\rf\) be a random field.
-	Then we implicitly\footnote{
-		\(\borel(\real^\dimension)\times\borel(\real)\) is a semiring. So by
+	Let \(\rf\) be a random field. We implicitly\footnote{
+		\(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2})\) is a semiring. So by
 		Carathéodory's extension theorem there is a unique extension of
-		\(\crit^\alpha\) to
-		\(\sigma(\borel(\real^\dimension)\times\borel(\real))=\borel(\real^{\dimension+1})\).
-		Use this extension to obtain \(\crit^\alpha(\omega)\in\locFiniteMeasure[\dimension+1]\).
+		\(\crit\) to
+		\(\sigma(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}))=\borel(\real^{\dimension+1+\dimension^2})\).
+		Use this extension to obtain \(\crit(\omega)\in\locFiniteMeasure[\dimension+1+\dimension^2]\).
 	} define the marked point process of critical points as
 	\begin{align*}
-		\crit^\alpha:
+		\crit:
 		\begin{cases}
-			\borel(\real^\dimension)\times\borel(\real) \to \real\\
-			(\Vol, A) \mapsto
+			\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}) \to \real\\
+			(\Vol, M) \mapsto
 			\#\left\{t\in\Vol:
 				\nabla\rf(t)=0,
-				\frac{\rf(t)}{\dimension}\in A,
-				\negEV(\nabla^2 \rf(t))=\dimension\alpha
+				(\rf(t), \nabla^2 \rf(t))\in M
 			\right\}.
 		\end{cases}
 	\end{align*}
-	Here the critical points are the points and the height \(\frac{\rf(t)}\dimension\)
-	are the marks. For \(\alpha=0\) we are counting the critical points where all
-	eigenvalues are positive. In other words: \(\crit^0\) are the minima,
-	\(\crit^1\) are the maxima, all others are saddle points.
-
-	Finally we can define the point process over all critical points
+	This is a marked point process with \((\rf(t), \nabla^2\rf(t))\) as marks.
+	Let \(\negEV(H)\) be the number of negative eigenvalues\footnote{
+		Since the eigenvalues are continuous in the entries of the matrix, the
+		number of negative eigenvalues is a measurable function.
+	} of \(H\in\real^{\dimension\times\dimension}\). Then, the number of minima in
+	\(\Vol\) with height \(\rf(t)\) in \(A\) can be expressed as
 	\[
-		\crit(\Vol, A)
-		:= \sum_{k=0}^\dimension \crit^{\frac{k}\dimension}(\Vol, A)
+		\crit^0(\Vol, A):= \crit(\Vol, A\times\negEV^{-1}(0)).
+	\]
+	More generally we define the point-process of critical points with index
+	\(\alpha\) (the share of negative eigenvalues) as
+	\[
+		\crit^\alpha(\Vol, A)
+		:= \crit(\Vol, A\times\negEV^{-1}(\dimension\alpha)).
 	\]
 \end{definition}
 \begin{proof}[Proof (Measurability)]
 	First note that	
 	\begin{align*}
-		\locFiniteMeasAlg[\dimension+1]
-		&= \sigma(\pi_A : A\in\borel(\real^{\dimension+1}))\\
+		\locFiniteMeasAlg[\dimension+1+\dimension^2]
+		&= \sigma(\pi_B : B\in\borel(\real^{\dimension+1+\dimension^2}))\\
 		&=\sigma(\underbrace{
-			\{\pi_A^{-1}(B) : A\in\borel(\real^{\dimension+1}), B\in\borel(\real)\}
+			\{\pi_B^{-1}(C) : B\in\borel(\real^{\dimension+1+\dimension^2}), C\in\borel(\real)\}
 		}_{=:\mathcal{E}}
 		)
 	\end{align*}
 	since it is sufficient to prove measurability on the generator
 	\(\mathcal{E}\), we only need that the following sets are measurable
 	\begin{align*}
-		(\crit^\alpha)^{-1}(\pi^{-1}_{ A }(B))
-		&= (\pi_{A} \circ \crit^\alpha)^{-1}(B)
-		= (\crit^\alpha(A))^{-1}(B)\\
-		&= \#\left\{\left(t,\frac{\rf(t)}{\dimension}\right) \in A:
-			\nabla\rf(t)=0,
-			\negEV(\nabla^2 \rf(t))=\dimension\alpha
+		(\crit)^{-1}(\pi^{-1}_{B}(C))
+		&= (\pi_{B} \circ \crit)^{-1}(C)
+		= (\crit(B))^{-1}(C)\\
+		&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
+			\nabla\rf(t)=0
 		\right\}\\
 		&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
 		\ind\left\{
-			\inf_{t\in \left(\text{id}, \frac{\rf}\dimension, \negEV(\nabla^2\rf)\right)^{-1}(A^\epsilon_k\times \{\dimension\alpha\}) }
+			\inf_{t\in \left(\text{id}, \rf, \nabla^2\rf\right)^{-1}(B^\epsilon_k) }
 		|\nabla \rf(t)| = 0
 		\right\}
 	\end{align*}
 	\fxwarning{probably not quite right yet}
-	where \((A^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(A\) (countable).
-	We can swap limit with series due to monotone convergence.
+	where \((B^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(B\) (countable).
+	We can swap the limit with the series due to monotone convergence.
 \end{proof}
 
 \begin{lemma}[Stationarity]
-	If \(\rf\) is strictly stationary, \(\crit^\alpha\) is stationary.
+	If \(\rf\) is strictly stationary, \(\crit\) is stationary.
 \end{lemma}
 \begin{proof}
 	Let \(h\in \real^\dimension\) and note that
@@ -255,28 +256,26 @@ to recover the distribution of marks on these critical points
 		\tilde{\rf}(t) := \rf(t+h)
 	\]
 	has the same distribution as \(\rf\) since \(\rf\) is strictly stationary. Define
-	\(\tilde{\crit}^\alpha\) using \(\tilde{\rf}\) in place of \(\rf\). Then
-	\(\tilde{\crit}^\alpha\) has the same distribution as \(\crit^\alpha\).
-	But since we have
+	\(\tilde{\crit}\) using \(\tilde{\rf}\) in place of \(\rf\). Then
+	\(\tilde{\crit}\) has the same distribution as \(\crit\).
+	And we have
 	\begin{align*}
-		&\crit^\alpha(\Vol+h, M)\\
+		&\crit(\Vol+h, M)\\
 		&= \#\left\{t\in\Vol+h:
 			\nabla\rf(t)=0,
-			\frac{\rf(t)}{\dimension}\in M,
-			\negEV(\nabla^2 \rf(t))=\dimension\alpha
+			(\rf(t),\nabla^2\rf(t))\in M
 		\right\}\\
 		&= \#\left\{t\in\Vol:
 			\nabla\tilde{\rf}(t)=0,
-			\frac{\tilde{\rf}(t)}{\dimension}\in M,
-			\negEV(\nabla^2 \tilde{\rf}(t))=\dimension\alpha
+			(\tilde{\rf}(t),\nabla^2\tilde{\rf}(t))\in M
 		\right\}\\
-		&= \tilde{\crit}^\alpha(\Vol, M).
+		&= \tilde{\crit}(\Vol, M).
 	\end{align*}
-	So \(\crit^\alpha\) is stationary:
+	So \(\crit\) is stationary:
 	\begin{align*}
-		\Pr\left(\crit^\alpha((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
-		&= \Pr\left(\tilde{\crit}^\alpha(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
-		&= \Pr\left(\crit^\alpha(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
+		\Pr\left(\crit((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
+		&= \Pr\left(\tilde{\crit}(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
+		&= \Pr\left(\crit(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
 		\qedhere
 	\end{align*}
 \end{proof}
@@ -311,21 +310,21 @@ Theorem~1.4.1]{adlerRandomFieldsGeometry2007}. In fact, we want the following:
 \begin{theorem}[Kac-Rice Formula]
 	For a centered Gaussian random field \(\rf\) satisfying our smoothness
 	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
-	critical points \(\crit^\alpha\) with index \(\dimension\alpha\) is given by
+	critical points \(\crit\) is given by
 	\begin{align*}
-		&\Lambda^\alpha(\Vol,A)
-		=\E[\crit^\alpha(\Vol, A)]\\
+		&\Lambda(\Vol,M)
+		=\E[\crit(\Vol, M)]\\
 		&= \int_\Vol \E\left[
 			\left|\det(\nabla^2 \rf(t))\right|
-			\ind_{\frac{\rf(t)}{\dimension}\in A} \ind_{\negEV(\nabla^2 \rf(t))=\dimension \alpha}
+			\ind_M(\rf(t), \nabla^2\rf(t))
 			\bigm| \nabla\rf(t) = 0 
 		\right] \density_{\nabla\rf(t)}(0)dt
 		\\
 		\overset{\text{stationary}}&=
 		|\Vol|\ \underbrace{\E\left[
 			|\det(\nabla^2 \rf(0))|
-			\ind_{\frac{\rf(0)}\dimension\in A} \ind_{\negEV(\nabla^2 \rf(0))=\dimension \alpha}
-		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(A)}
+			\ind_M(\rf(t), \nabla^2\rf(t))
+		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(M)}
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
 	second equality is only true when \(\rf\) is stationary.
@@ -353,30 +352,14 @@ Theorem~1.4.1]{adlerRandomFieldsGeometry2007}. In fact, we want the following:
 	But that is \eqref{eq: sufficient for continuous second derivative} in
 	Assumption~\ref{assmpt: smoothness assumption} written in terms of
 	covariances. By application
-	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get\footnote{
-		Careful readers might protest about the fact that \(\negEV^{-1}(\{\dimension
-		\alpha\})\) is not an open set and therefore \(B:=
-		A\times\negEV^{-1}(\{\dimension\alpha\})\) can not fulfill the requirements
-		of the Corollary. To fix this, we simply define a new point process
-		\[
-			\tilde{\crit}(\Vol, A, C)
-			:= \#\{t\in\Vol: \nabla \rf(t) = 0, \rf(t)\in \dimension A, \nabla^2\rf(t)\in C\}
-		\]
-		where \(\Vol\) is a closed cuboid and \(A,C\) are open cuboids. As the cuboids
-		are a generator of the Borel sets, we can then uniquely extend this point
-		process measure to all Borel sets. Similarly we define \(\tilde{\Lambda}\),
-		and similarly we can extend it to all Borel sets. But with this extension we
-		can now simply set \(C:=\negEV^{-1}(\{\dimension\alpha\})\) which is a Borel
-		set, since the eigenvalues are continuous in the entries of the matrix and
-		therefore the number of negative eigenvalues a measurable function.
-	}
+	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get
 	\begin{align*}
-		\Lambda(\Vol, A) 
-		&= \E[\crit^\alpha(\Vol, A)]
-		= \E[\level(f, g: \Vol, A\times \negEV^{-1}(\{\dimension \alpha\}))]\\
+		\Lambda(\Vol, M) 
+		&= \E[\crit^\alpha(\Vol, M)]
+		= \E[\level(f, g: \Vol, M)]\\
 		&= \int_\Vol \E\left[
-			|\det \nabla f(t)| \ind_A(\rf(t)) \ind_{\{\dimension \alpha\}}(\negEV(\nabla^2\rf(t))) \mid f(t) = u
-		\right] p_t(u)dt.
+			|\det \nabla f(t)| \ind_M(\rf(t), \nabla^2\rf(t)) \mid f(t) = 0
+		\right] \density_{\nabla\rf(t)}(0)dt.
 	\end{align*}
 	
 	

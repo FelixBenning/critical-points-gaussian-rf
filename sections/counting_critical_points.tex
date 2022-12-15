@@ -35,9 +35,9 @@
 
 \begin{lemma}[Covariance and Derivative]
 	\label{lem: covariance of derivative}
-	If the partial derivative \(\partial_i\rf(x)\) exists almost surely and
-	\(x\mapsto\E[|\partial_i\rf(x)\rf(y)|]\) is integrable in some neighborhood of
-	\(x\), we have
+	Assume the partial derivative \(\partial_i\rf(x)\) to exists almost surely and
+	\(x\mapsto\Var(\partial_i\rf(x))\) to be continuous in some neighborhood of
+	\(x\). Then we have
 	\begin{equation*}
 		\Cov(\partial_i\rf(x), \rf(y)) = \partial_{x_i} \C(x,y).
 	\end{equation*}
@@ -46,8 +46,17 @@
 	\(\partial_j\rf(y)\) or higher order derivatives \(\partial_{ij}\rf(x)\).
 \end{lemma}
 \begin{proof}
-	Assume without loss of generality \(Z\) is centered. Then by
-	Theorem~\ref{thm: swap integration and differentiation} we have
+	Assume without loss of generality \(Z\) is centered. To apply
+	Theorem~\ref{thm: swap integration and differentiation} we need
+	\(x\mapsto\E[|\partial_i\rf(x)\rf(y)|]\) to be integrable in a local neighborhood.
+	But by the Hölder inequality, we have
+	\[
+		\E[|\partial_i\rf(x)\rf(y)|]
+		\le \E[\partial_i\rf(x)^2]^{\tfrac12} 
+		\underbrace{\E[\rf(y)^2]^{\tfrac12}}_{=\sqrt{\C(y,y)}}
+	\]
+	and we assumed \(x\mapsto\E[\partial_i\rf(x)^2]\) to be continuous. It is therefore
+	locally integrable and we have
 	\begin{align*}
 		\Cov(\partial_i \rf(x), \rf(y))
 		&= \int \partial_{x_i}\rf(x,\omega) \rf(y,\omega) d\Pr(\omega)
@@ -72,8 +81,8 @@ almost surely unique. In particular we can now define
 \[
 	\partial_i\rf(x):=\lim_{n\to\infty} \Delta_{e_i}^n\rf(x)
 \]
-in the \(L^2\) sense. Whenever \(\rf\) is multivariate
-Gaussian, so is \((\Delta_v^n \rf(x), \rf(y))\) and therefore also its limit.
+in the \(L^2\) sense. Whenever \(\rf\) is Gaussian \((\Delta_v^n \rf(x),
+\rf(y))\) is multivariate Gaussian, and therefore also its limit.
 
 But we want almost sure point-wise limits, not \(L^2\) limits. To recover this
 property, we can use a trick from 

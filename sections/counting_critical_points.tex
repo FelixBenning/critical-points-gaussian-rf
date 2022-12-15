@@ -438,15 +438,21 @@ to recover the distribution of marks on these critical points
 	smooth enough covariance functions.
 \end{remark}
 
-\begin{corollary}
-	Let \(p(z,h)\) be the joint density of \((\rf(0),\nabla^2\rf(0))\) and define
+Due to stationarity, we have completely dropped the dependence of \(\rf\) on
+\(t\) in Theorem~\ref{thm: kac-rice formula} to define \(\lambda\). To reduce
+notational clutter, we will from now on write
+\[
+	(\rf,H):= (Z(0), \nabla^2\rf(0))
+\]
+
+\begin{corollary}[Mark Distribution of Critical Points in a Stationary Random Field]
+	Let \(p(z,h)\) be the joint density of \((\rf, H)\) and define
 	\[
-		\Omega(z,h) = c |det(h)| p(z,h)
+		\Omega(z,h) := c |det(h)| p(z,h)
 	\]
 	with \(c\in\real\) such that \(\int \Omega(z,h)dz dh = 1\).
-	If we take a random critical point \(T\) picked uniformly from the set of
-	critical points \(\{t\in\Vol : \nabla\rf(t)=0\}\), then the distribution over
-	its marks is given by
+	If we take a random critical point \((T,\rf(T),\nabla^2\rf(T))\sim \crit\),
+	then the distribution over its marks is given by
 	\[
 		\Pr_{\rf(T),\nabla^2\rf(T)}(A) = \int_A \Omega(z,h) dz dh.
 	\]
@@ -454,11 +460,10 @@ to recover the distribution of marks on these critical points
 \begin{remark}
 	Notice how this distribution of marks is different from
 	\[
-		\begin{aligned}
 		\Pr((\rf(t),\nabla^2\rf(t))\in A \mid \nabla\rf(t) = 0)
-		\overset{\text{stationary}}&= \Pr((\rf(0),\nabla^2\rf(0))\in A)\\
-		&= \int_A p(z,h)dz dh.
-		\end{aligned}
+		\overset{\text{stationary}}
+		= \Pr((\rf,H)\in A)
+		= \int_A p(z,h)dz dh.
 	\]
 	In particular the density of marks is \(\Omega\) not \(p\), like it is if
 	we simply condition on the fact that \(t\) is a critical point.
@@ -480,3 +485,40 @@ to recover the distribution of marks on these critical points
 		\qedhere
 	\end{align*}
 \end{proof}
+
+Of particular interest, is the height distribution of minima
+\[\begin{aligned}
+	\Pr(\rf(T)\in A \mid T\text{ is minimum})
+	&=\Pr(\rf(T)\in A \mid \negEV[\nabla^2\rf(T)]=0)\\
+	&= \frac{\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))}{\Pr(\negEV[\nabla^2\rf(T)]=0)}\\
+	&= \int_A \underbrace{
+		\frac{\int_{\negEV^{-1}(0)} \Omega(z,h) dh}{\Pr(T\text{ is min})}
+	}_{=: \phi(z)} dz.
+\end{aligned}\]
+It turns out to be absolutely continuous with density \(\phi\). Unfortunately
+our term for \(\phi\) looks horrible. While \(\Omega\) itself might be
+calculable, the set \(\negEV^{-1}(0)\) is anything but pretty. We are therefore
+going to switch to the eigenvalues \(\lambda_1,\dots,\lambda_\dimension\) of
+the random matrix \(H\). We have
+\[
+	\det(H) = \prod_{i=1}^\dimension \lambda_i
+	\quad\text{and}\quad
+	\ind_{\negEV(H) = 0} = \prod_{i=1}^\dimension \ind_{\lambda_i\ge 0}
+\]
+this leads to 
+\[\begin{aligned}
+	&\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))\\
+	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(0)} |\det(h)| p(z,h)dz dh\\
+	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)\det(H)]\\
+	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension \lambda_i \ind_{\lambda_i \ge 0}]\\
+	&= \int_A c\underbrace{
+		\int \prod_{i=1}^\dimension x_i \ind_{x_i\ge 0}
+		\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)
+	}_{\sim\phi(z)}
+	dz,
+\end{aligned}\]
+where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). At first glance
+the conditional distribution of the eigenvalues \(\lambda_i\) given the
+height \(Z\) is just as difficult. But we will find out soon, that this
+conditional distribution is more or less just the distribution of Eigenvalues of
+the Gaussian Orthogonal Ensemble (GOE) shifted by \(Z\).

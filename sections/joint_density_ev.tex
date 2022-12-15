@@ -1,0 +1,53 @@
+\section{Joint Distribution Derivation}
+
+
+In this section we want to derive the joint density of \((H,\rf):=
+(\nabla^2\rf(0), \rf(0))\). As \(\partial_{ij}\rf\) are limits of differences
+of multivariate normal random variables, this is a centered multivariate normal
+random vector. We therefore only need to consider the covariance. Additionally
+we know \(H_{ij} = H_{ji}\), so we are only interested
+in \(((H_{ij})_{i\le j}, \rf)\).
+
+As for the covariances, we have \fxnote{reference}
+\begin{align*}
+	\Cov(\rf,\rf) &= \sqC(0)\\
+	\Cov(H_{ij}, \rf) &= \delta_{ij} \sqC'(0)\\
+	\Cov(H_{ij}, H_{kl}) &= \sqC''(0)
+	[\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \delta_{il}\delta_{kj}].
+\end{align*}
+In particular for \(i<j\), we have
+\[
+	\Cov(H_{ij}, \rf) = 0,
+\]
+and also
+\[
+	\Cov(H_{ij}, H_{kl}) = \sqC''(0)
+	[\delta_{ik}\delta_{jl} + \underbrace{\delta_{il}\delta_{kj}}_{=0}],
+\]
+because \(\delta_{il}\delta_{kj}=1\) would imply \(i < j = k \le l = i\), which
+is a contradiction. So this covariance is only non-zero, if \(i=k\) and \(j=l\),
+i.e. \(H_{ij}\) for \(i<j\) has covariance zero with all other terms.
+As we are in the multivariate Gaussian case, this also implies independence.
+Shifting all these independent mixed derivatives to the end, our covariance
+matrix looks like
+\[
+	\Sigma := \Cov((H_{ii})_{i\le\dimension}, \rf, (H_{ij})_{i<j})
+	= \begin{pmatrix}
+		B & 0\\
+		0 & \frac{\sqC''(0)}{\dimension}\identity
+	\end{pmatrix}
+\]
+with
+\[
+	B = \begin{pmatrix}
+		3\sqC''(0) &  \cdots & \sqC''(0)
+		& \sqC'(0) \\
+		\vdots & \ddots &\vdots & \vdots \\
+		\sqC''(0) & \cdots &  3 \sqC''(0) & \sqC'(0)\\
+		\sqC'(0)	& \cdots & \sqC'(0) & \sqC(0)
+	\end{pmatrix}
+	=: \begin{pmatrix}
+		\Sigma_\partial & b \\
+		b^T & d
+	\end{pmatrix}.
+\]

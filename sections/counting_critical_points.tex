@@ -251,9 +251,9 @@ to recover the distribution of marks on these critical points
 	For a stationary marked point process \(\Phi\) with intensity \(\Lambda\),
 	we have	
 	\[
-		\Lambda(A \times L) = \lambda(L) |A|
+		\Lambda(\Vol \times L) = \lambda(L) |\Vol|
 	\]
-	where \(|A|\) is the lebesgue measure of \(A\). We call
+	where \(|\Vol|\) is the lebesgue measure of \(\Vol\). We call
 	\[
 		\Pr_M(L) = \frac{\lambda(L)}{\lambda(\real^n)}
 	\]
@@ -473,16 +473,16 @@ notational clutter, we will from now on write
 	With Lemma~\ref{lem: Campbell}, we have that the distribution of marks is
 	given by
 	\begin{align*}
-		\Pr_{\rf(T),\nabla^2\rf(T)}(A)
-		&= \frac{\lambda(A)}{\lambda(\real)}
+		\Pr_{\rf(T),\nabla^2\rf(T)}(L)
+		&= \frac{\lambda(L)}{\lambda(\real)}
 		\overset{\ref{thm: kac-rice formula}}= \frac{
 			\E[|\det(\nabla^2 \rf(0))|
-			\ind_A(\rf(0), \nabla^2\rf(0))
+			\ind_L(\rf(0), \nabla^2\rf(0))
 			]
 		}{
 			\E[|\det(\nabla^2 \rf(0))|]
 		}\\
-		&= \int_A \Omega(z,h) dz dh.
+		&= \int_L \Omega(z,h) dz dh.
 		\qedhere
 	\end{align*}
 \end{proof}

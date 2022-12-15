@@ -1,23 +1,23 @@
 \section{Joint Distribution Derivation}
 
 
-In this section we want to derive the joint density of \((H,\rf):=
-(\nabla^2\rf(0), \rf(0))\). As \(\partial_{ij}\rf\) are limits of differences
+In this section we want to derive the joint density of \((\rf, H):=
+(\rf(0), \nabla^2\rf(0))\). As \(\partial_{ij}\rf\) are limits of differences
 of multivariate normal random variables, this is a centered multivariate normal
 random vector. We therefore only need to consider the covariance. Additionally
 we know \(H_{ij} = H_{ji}\), so we are only interested
-in \(((H_{ij})_{i\le j}, \rf)\).
+in \((\rf, (H_{ij})_{i\le j})\).
 
 As for the covariances, we have \fxnote{reference}
 \begin{align*}
 	\Cov(\rf,\rf) &= \sqC(0)\\
-	\Cov(H_{ij}, \rf) &= \delta_{ij} \sqC'(0)\\
+	\Cov(\rf, H_{ij}) &= \delta_{ij} \sqC'(0)\\
 	\Cov(H_{ij}, H_{kl}) &= \sqC''(0)
 	[\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \delta_{il}\delta_{kj}].
 \end{align*}
 In particular for \(i<j\), we have
 \[
-	\Cov(H_{ij}, \rf) = 0,
+	\Cov(\rf, H_{ij}) = 0,
 \]
 and also
 \[
@@ -31,7 +31,7 @@ As we are in the multivariate Gaussian case, this also implies independence.
 Shifting all these independent mixed derivatives to the end, our covariance
 matrix looks like
 \[
-	\Sigma := \Cov((H_{ii})_{i\le\dimension}, \rf, (H_{ij})_{i<j})
+	\Sigma := \Cov(\rf, (H_{ii})_{i\le\dimension}, (H_{ij})_{i<j})
 	= \begin{pmatrix}
 		B & 0\\
 		0 & \frac{\sqC''(0)}{\dimension}\identity
@@ -40,14 +40,47 @@ matrix looks like
 with
 \[
 	B = \begin{pmatrix}
-		3\sqC''(0) &  \cdots & \sqC''(0)
-		& \sqC'(0) \\
-		\vdots & \ddots &\vdots & \vdots \\
-		\sqC''(0) & \cdots &  3 \sqC''(0) & \sqC'(0)\\
-		\sqC'(0)	& \cdots & \sqC'(0) & \sqC(0)
+		\sqC(0) & \sqC'(0)	& \cdots & \sqC'(0) \\
+		\sqC'(0) & 3\sqC''(0) &  \cdots & \sqC''(0) \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\sqC'(0) & \sqC''(0) & \cdots &  3 \sqC''(0)
 	\end{pmatrix}
 	=: \begin{pmatrix}
-		\Sigma_\partial & b \\
-		b^T & d
+		d & b \\
+		b^T & \Sigma_\partial
 	\end{pmatrix}.
 \]
+As the distribution of centered multivariate normal random variables is fully
+determined by their covariance matrix, we can manually construct
+\(Z,(H_{ij})_{i\le j}\) with the correct distribution. But by the way of
+construction we will obtain more information and tools.
+
+Sample independently
+\begin{enumerate}
+	\item \(Z\sim\normal(0, \sqC(0))\)
+	\item \(\epsilon \sim \normal(0, \sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)})\)
+	``left-over shift''\footnote{
+		Why is \(\sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)} \ge 0\)? Consider the
+		vector \(v:=\left(-\sqC'(0), \frac{\sqC(0)}\dimension, \dots,
+		\frac{\sqC(0)}\dimension\right)\).  Since \(B\) is a covariance matrix, it
+		is necessarily positive definite.
+		So we have
+		\[
+			0 \le v B v^T
+			= \frac{\dimension+2}\dimension\sqC''(0)\sqC(0)^2 - \sqC'(0)^2\sqC(0)
+		\]
+		Dividing both sides by \(\sqC(0)^2 > 0\) and letting \(\dimension\to\infty\)
+		leads to the required inequality. So for covariance models valid in all
+		dimensions, we have this inequality.
+	}
+	\item \(X_{11},\dots,X_{\dimension\dimension}\sim\normal(0, 2)\) and
+	independently \(X_{ji}:=X_{ij}\sim\normal(0,1)\) for \(i<j\le\dimension\).
+	In other words: \(X = (X_{ij})\) is a Gaussian Orthogonal Ensemble (GOE).
+\end{enumerate}
+We now define
+\[
+	H := \underbrace{\sqrt{\sqC''(0)}X}_{=:\tilde{H}}
+	+ \overbrace{\underbrace{[\epsilon + \tfrac{\sqC'(0)}{\sqC(0)} Z]}_{=:H_0}\identity}^{\text{``shift''}}
+\]
+By construction \((Z,H)\) is centered multivariate normal. It is an easy
+exercise to check that the covariance structure is correct.

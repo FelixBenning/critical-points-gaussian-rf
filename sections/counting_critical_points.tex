@@ -36,7 +36,7 @@
 \begin{lemma}[Covariance and Derivative]
 	\label{lem: covariance of derivative}
 	If the partial derivative \(\partial_i\rf(x)\) exists almost surely and
-	\(x\mapsto\E[|\partial_i\rf(x)|]\) is integrable in some neighborhood of
+	\(x\mapsto\E[|\partial_i\rf(x)\rf(y)|]\) is integrable in some neighborhood of
 	\(x\), we have
 	\begin{equation*}
 		\Cov(\partial_i\rf(x), \rf(y)) = \partial_{x_i} \C(x,y).
@@ -48,12 +48,13 @@
 \begin{proof}
 	Assume without loss of generality \(Z\) is centered. Then by
 	Theorem~\ref{thm: swap integration and differentiation} we have
-	\[\begin{aligned}
+	\begin{align*}
 		\Cov(\partial_i \rf(x), \rf(y))
 		&= \int \partial_{x_i}\rf(x,\omega) \rf(y,\omega) d\Pr(\omega)
 		\overset{\ref{thm: swap integration and differentiation}}= \partial_{x_i} \int \rf(x,\omega) \rf(y,\omega) d\Pr(\omega)\\
 		&= \partial_{x_i} \C(x,y).
-	\end{aligned}\]
+		\qedhere
+	\end{align*}
 \end{proof}
 Since we want
 \[

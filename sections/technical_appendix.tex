@@ -1,0 +1,74 @@
+\section{Technical Appendix}
+
+\begin{theorem}[Swap Integration and Differentiation]
+	\label{thm: swap integration and differentiation}
+	Let \((t,\omega)\mapsto f(t,\omega)\) be
+	\begin{itemize}[noitemsep,topsep=0pt]
+		\item a measurable function,
+		\item which is \(\mu\)-integrable over \(\omega\) for all fixed \(t\),
+		\item and for \(\mu\)-almost all \(\omega\in\Omega\) we have: \(t\to
+		f(t,\omega)\) is differentiable (or absolutely continuous) in \(t\).
+	\end{itemize}
+	If \(\frac{\partial}{\partial t}f\) is further ``locally integrable in x'', i.e.
+	there exists \(a<b\in\real\), such that \(x\in[a,b]\) and
+	\[
+		\int_a^b \int_\Omega
+		\left|\frac{d}{dt}f(t,\omega)\right| d\mu(\omega)dt<\infty,
+	\]
+	or \(\frac{\partial}{\partial t}f\ge 0\) in the neighborhood \([a,b]\),
+	then swapping derivative in \(x\) and integration over \(\omega\) is allowed
+	\[
+		\frac{\partial}{\partial t}\int f(x, \omega)d\mu(\omega)
+		= \int \frac{\partial}{\partial t}f(x,\omega)d\mu(\omega).
+	\]
+\end{theorem}
+\begin{proof}
+	Without loss of generality let \(x<b\). Then using Fubini and the Fundamental
+	theorem of calculus, we get
+	\begin{align*}
+		\frac{\partial}{\partial t}\int f(x,\omega)d\mu(\omega)
+		\overset{\text{linear}}&= \lim_{\epsilon\to 0}\int
+		\frac{f(x+\epsilon,\omega) - f(x,\omega)}{\epsilon}d\mu(\omega)\\
+		\overset{\text{FTC II}}&= \lim_{\epsilon\to 0}\int
+		\frac1\epsilon \int_x^{x+\epsilon}\frac{\partial}{\partial t} f(t,\omega) dt d\mu(\omega)\\
+		\overset{\text{Fubini}}&=
+		\lim_{\epsilon\to 0}\frac1\epsilon \int_x^{x+\epsilon}
+		\int \frac{\partial}{\partial t}f(t,\omega) d\mu(\omega)dt \\
+		&=
+		\frac{d}{dy}\Bigl|_{y=x} \int_x^{y}
+		\int \frac{\partial}{\partial t}f(t,\omega) d\mu(\omega)dt\\
+		\overset{\text{FTC I}}&=
+		\int \frac{\partial}{\partial t}f(t,\omega) d\mu(\omega)dt.
+		\qedhere
+	\end{align*}
+\end{proof}
+
+
+\begin{lemma}[Conditional Variance in the Gaussian Case]
+	\label{lem: conditional variance in the gaussian case}
+	In the Gaussian case we have	
+	\[
+		\Var(X\mid Y) = \Var(X) - \Var(\E[X\mid Y])
+	\]
+\end{lemma}
+\begin{proof}
+	W.l.o.g. assume \(X\) is centered. Define \(\Delta := X
+	- \E[X\mid Y]\). We have 
+	\[
+		\E[(Y-\E[Y])\Delta] = \E[(Y-\E[Y])\underbrace{\E[\Delta\mid Y]}_{=0}] =0.
+	\]
+	So \(Y\) and \(\Delta\) are uncorrelated and therefore independent. This
+	implies
+	\begin{align*}
+		\Var(X\mid Y)
+		\overset{\text{def}}&= \E[\Delta^2 \mid Y]
+		\overset{\text{indep.}}= \E[\Delta^2]
+		= \E[X\Delta] - \underbrace{\E[\E[X\mid Y]\Delta]}_{
+				=\Cov(\E[X\mid Y],\Delta)
+				\mathrlap{\overset{\Delta\indep Y}=0}
+		}\\
+		&= \E[X^2] - \E[X\E[X\mid Y]]\\
+		&= \Var(X) - \underbrace{\E[\E[X\mid Y]^2]}_{=\Var(\E[X\mid Y])}.
+		\qedhere
+	\end{align*}
+\end{proof}

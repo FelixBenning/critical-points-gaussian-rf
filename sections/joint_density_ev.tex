@@ -1,0 +1,192 @@
+\section{Joint Distribution Derivation}
+
+
+In this section we want to derive the joint density of \((\rf, H):=
+(\rf(0), \nabla^2\rf(0))\). As \(\partial_{ij}\rf\) are limits of differences
+of multivariate normal random variables, this is a centered multivariate normal
+random vector. We therefore only need to consider the covariance. Additionally
+we know \(H_{ij} = H_{ji}\), so we are only interested
+in \((\rf, (H_{ij})_{i\le j})\).
+
+As for the covariances, we have \fxnote{reference}
+\begin{align*}
+	\Cov(\rf,\rf) &= \sqC(0)\\
+	\Cov(\rf, H_{ij}) &= \delta_{ij} \sqC'(0)\\
+	\Cov(H_{ij}, H_{kl}) &= \sqC''(0)
+	[\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \delta_{il}\delta_{kj}].
+\end{align*}
+In particular for \(i<j\), we have
+\[
+	\Cov(\rf, H_{ij}) = 0,
+\]
+and also
+\[
+	\Cov(H_{ij}, H_{kl}) = \sqC''(0)
+	[\delta_{ik}\delta_{jl} + \underbrace{\delta_{il}\delta_{kj}}_{=0}],
+\]
+because \(\delta_{il}\delta_{kj}=1\) would imply \(i < j = k \le l = i\), which
+is a contradiction. So this covariance is only non-zero, if \(i=k\) and \(j=l\),
+i.e. \(H_{ij}\) for \(i<j\) has covariance zero with all other terms.
+As we are in the multivariate Gaussian case, this also implies independence.
+Shifting all these independent mixed derivatives to the end, our covariance
+matrix looks like
+\[
+	\Sigma := \Cov(\rf, (H_{ii})_{i\le\dimension}, (H_{ij})_{i<j})
+	= \begin{pmatrix}
+		B & 0\\
+		0 & \frac{\sqC''(0)}{\dimension}\identity
+	\end{pmatrix}
+\]
+with
+\[
+	B = \begin{pmatrix}
+		\sqC(0) & \sqC'(0)	& \cdots & \sqC'(0) \\
+		\sqC'(0) & 3\sqC''(0) &  \cdots & \sqC''(0) \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\sqC'(0) & \sqC''(0) & \cdots &  3 \sqC''(0)
+	\end{pmatrix}
+	% =: \begin{pmatrix}
+	% 	d & b \\
+	% 	b^T & \Sigma_\partial
+	% \end{pmatrix}.
+\]
+As the distribution of centered multivariate normal random variables is fully
+determined by their covariance matrix, we can manually construct
+\(Z,(H_{ij})_{i\le j}\) with the correct distribution. But by the way of
+construction we will obtain more information and tools.
+
+Sample independently
+\begin{enumerate}
+	\item \(Z\sim\normal(0, \sqC(0))\)
+	\item \(\epsilon \sim \normal(0, \sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)})\)
+	``left-over shift''\footnote{
+		Why is \(\sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)} \ge 0\)? Consider the
+		vector \(v:=\left(-\sqC'(0), \frac{\sqC(0)}\dimension, \dots,
+		\frac{\sqC(0)}\dimension\right)\).  Since \(B\) is a covariance matrix, it
+		is necessarily positive definite.
+		So we have
+		\[
+			0 \le v B v^T
+			= \frac{\dimension+2}\dimension\sqC''(0)\sqC(0)^2 - \sqC'(0)^2\sqC(0)
+		\]
+		Dividing both sides by \(\sqC(0)^2 > 0\) and letting \(\dimension\to\infty\)
+		leads to the required inequality. So for covariance models valid in all
+		dimensions, we have this inequality.
+	}
+	\item \(X_{11},\dots,X_{\dimension\dimension}\sim\normal(0, 2)\) and
+	independently \(X_{ji}:=X_{ij}\sim\normal(0,1)\) for \(i<j\le\dimension\).
+	In other words: \(X = (X_{ij})\) is a Gaussian Orthogonal Ensemble (GOE).
+\end{enumerate}
+We now define
+\[
+	H := \underbrace{\sqrt{\sqC''(0)}X}_{=:\tilde{H}}
+	+ \overbrace{\underbrace{[\epsilon + \tfrac{\sqC'(0)}{\sqC(0)} Z]}_{=:H_S}\identity}^{\text{``shift''}}
+\]
+By construction \((Z,H)\) is centered multivariate normal. It is an easy
+exercise to check that the covariance structure is correct.
+
+As \(X\) is independent of \(H_S\), its eigenvalues
+\(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension\) are independent of
+\(H_S\). Assume that
+\[
+	X = P\diag[\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension]P^{-1}
+\]
+Since the identity matrix is commonly diagonizable with every matrix, this
+results in
+\[
+	H = P(\sqrt{\sqC''(0)} \diag[\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension] + H_S) P^{-1}
+\]
+in other words, the eigenvalues of \(H\) are
+\[
+	\lambda_i
+	:= \sqrt{\sqC''(0)}\tilde{\lambda}_i + \underbrace{\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}\rf}_{=H_S}.
+\]
+The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
+GOE multiplied by a common factor and shifted by an independent shift \(H_S\)
+consisting of the current height \(\rf\) and an additional random component
+\(\epsilon\).
+
+\subsection{\texorpdfstring{From \(\rf\) to \(\lambda_1,\dots,\lambda_\dimension\)}{From Z to λ1,...,λN}}
+
+In particular we have
+\[
+	(\lambda_1,\dots,\lambda_\dimension \mid \rf = z)
+	\overset{d}= 
+	(\sqrt{\sqC''(0)}\tilde{\lambda}_i + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z)_{i=1,\dots,\dimension}
+\]
+More specifically, we have
+\[
+	\begin{aligned}
+		&\int f(x) \Pr(\lambda_1,\dots,\lambda_\dimension \in dx\mid \rf=z)\\
+		&= \int
+		\int f(x) \Pr(\lambda_1,\dots,\lambda_\dimension \in dx\mid \rf=z, \epsilon=t)
+		\Pr(\epsilon\in dt)\\
+		&= \int \int f\left(y + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+		\Pr(\sqrt{\sqC''(0)}(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension)\in dy)
+		\Pr(\epsilon \in dt)\\
+		&= \int \int f\left(y + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+		\varphi_{\text{GOE}}\left(\frac{y}{\sqrt{\sqC''(0)}}\right) dy \varphi_\epsilon(t)dt\\
+		\overset{y_i=\sqrt{\sqC''(0)}x_i}&= \sqrt{\sqC''(0)}^\dimension \int \int f\left(\sqrt{\sqC''(0)}x + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+		\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt
+	\end{aligned}
+\]
+where \(\varphi_{\text{GOE}}\) is the joint distribution of the eigenvalues of
+the GOE and \(\varphi_\epsilon\) is the density of \(\normal\left(0,
+\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}\right)\).
+
+\subsection{\texorpdfstring{From \(\lambda_1,\dots,\lambda_\dimension\) to \(\rf\)}{From λ1,...,λN to Z}}
+
+\begin{theorem}[Conditional Distributions of \(\rf\)]
+	\label{thm: conditional distributions of rf}
+	We have
+	\begin{align}
+		\rf\mid H_S
+		&\sim \normal\left(
+			\tfrac{\sqC'(0)}{\sqC''(0)} H_S,
+			\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
+		\right)\\
+		\rf\mid \lambda_1\dots,\lambda_\dimension
+		&=\rf\mid H = \rf \mid H_1,\dots, H_\dimension
+		\nonumber\\
+		&\sim \normal\left(
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\lambda},
+		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
+	\right)
+	\end{align}
+	where the mean of eigenvalues (or the mean of the diagonal)
+	\[
+		\bar{\lambda}
+		:=\frac1\dimension\sum_{i=1}^\dimension \lambda_i
+		=\frac{\trace{H}}\dimension,
+	\]
+	approximate the shift \(H_S\) and therefore approximates \(H\mid H_S\) in
+	the limit.
+\end{theorem}
+\begin{proof}
+	See Appendix~\ref{sec: proof of conditionals}.
+\end{proof}
+\begin{remark}
+	The conditional variance \(\Var(\rf\mid H_S)= \sqC(0) -
+	\tfrac{\sqC'(0)^2}{\sqC''(0)}\) is zero, iff \(\epsilon\) is almost surely
+	zero (because it has the same variance up to a factor). In that case the
+	shift \(H_S\) consists only of \(\rf\) so this should not be surprising.
+\end{remark}
+
+\subsection{Height Distribution}
+
+The height distribution
+of minima is therefore up to constants
+\[\begin{aligned}
+	&\phi(z)\\
+	&\sim\int \prod_{i=1}^\dimension x_i \ind_{x_i\ge 0}
+	\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)\\
+	&\sim\int \int \prod_{i=1}^\dimension
+	\left(\sqrt{\sqC''(0)}x_i + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+	\ind_{x_i\ge - \tfrac{t+\frac{\sqC'(0)}{\sqC(0)}z}{\sqrt{\sqC''(0)}}}
+	\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt \varphi_Z(z)\\
+\end{aligned}\]
+Let us first have a look at
+\[
+	\int\prod_{i=1}^\dimension (c x_i + b) \ind_{x_i \ge -\tfrac{b}{c}}\varphi_{\text{GOE}}(x)dx
+\]
+

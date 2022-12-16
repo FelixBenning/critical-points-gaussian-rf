@@ -1,0 +1,172 @@
+\section{Proof of Conditionals in Theorem~\ref{thm: conditional distributions of rf}}
+\label{sec: proof of conditionals}
+
+In this section we want to determine the distribution of \(\rf\mid
+\lambda_1,\dots,\lambda_\dimension\). As a warmup we will first consider
+\(\E[Z\mid H_S]\). \(H_S\) is the shift we can obtain from \(\lambda_i\) by
+averaging if we have sufficiently many. But we can not really separate
+\(\epsilon\) from \(\rf\) using only \(\lambda_i\), so \(\rf\mid H_S\) will be
+close to \(\rf\mid\lambda_1,\dots,\lambda_\dimension\) for large
+\(\dimension\).
+
+\subsection{\texorpdfstring{\(\rf\mid H_S\)}{Z|H0}}
+
+Since \(\rf\) and \(H_S\) are multivariate normal, we have 
+\[
+	\rf\mid H_S\sim \normal(\E[\rf\mid H_S], \Var(\rf\mid H_S)).
+\]
+So we only need to calculate the conditional expectation \(\E[\rf\mid H_S]\) and
+the remaining variance
+\[
+	\Var(\rf\mid H_S)\overset{\text{def}}
+	=\E[(\rf-\E[\rf\mid H_S])^2\mid H_S].
+\]
+For the conditional expectation it is sufficient to calculate the best linear
+unbiased estimator (BLUE) as it coincides with the conditional expectation in
+the Gaussian case.
+
+Let \(\langle X, Y\rangle := \E[XY]\) and \(\|\cdot\|^2\) the induced norm.
+Then we want to find the \(\alpha\in\real\) which minimizes
+\[
+	\|Z-\alpha H_S\|^2
+	= (1-\tfrac{\sqC'(0)}{\sqC(0)}\alpha)^2 \underbrace{\|\rf\|^2}_{=\sqC(0)}
+	+ \alpha^2 \underbrace{\|\epsilon\|^2}_{=\sqC''(0)\mathrlap{-\frac{\sqC'(0)^2}{\sqC(0)}}}
+\]
+The first order condition is therefore
+\[
+	0\overset!= -2 \tfrac{\sqC'(0)}{\cancel{\sqC(0)}}
+	(1-\bcancel{\tfrac{\sqC'(0)}{\sqC(0)}\alpha})\cancel{{\sqC(0)}} + 2\alpha
+	\left(\sqC''(0)-\bcancel{\tfrac{\sqC'(0)^2}{\sqC(0)}}\right),
+\]
+which leads to \(\alpha = \frac{\sqC'(0)}{\sqC''(0)}\) and therefore
+\[
+	\E[\rf\mid H_S] = \tfrac{\sqC'(0)}{\sqC''(0)} H_S.
+\]
+Using Lemma~\ref{lem: conditional variance in the gaussian case} we finally
+have
+\[\begin{aligned}
+	\Var(\rf\mid H_S)
+	\overset{\ref{lem: conditional variance in the gaussian case}}&=
+	\Var(\rf) - \Var(\E[\rf\mid H_S])
+	= \sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)^2}\underbrace{\Var(H_S)}_{
+		= \Var(\epsilon) \mathrlap{+ \frac{\sqC'(0)^2}{\sqC(0)^2}\Var(\rf)}
+	}\\
+	&= \sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)^2}\left[
+		\sqC''(0) - \cancel{\tfrac{\sqC'(0)^2}{\sqC(0)} +  \tfrac{\sqC'(0)^2}{\sqC(0)}}
+	\right]\\
+	&=\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}.
+\end{aligned}\]
+In summary we have:
+\[
+	\rf\mid H_S \sim \normal\left(
+		\tfrac{\sqC'(0)}{\sqC''(0)} H_S,
+		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
+	\right)
+\]
+
+\subsection{\texorpdfstring{\(\rf\mid H_1,\dots,H_\dimension\)}{Z|H1,...,HN}}
+
+As another intermediate step, we are going to calculate the distribution of
+\(\rf\mid H_1,\dots,H_\dimension\) using the diagonal elements
+\(H_1,\dots,H_\dimension\) of \(H\). We will later find out that it is identical
+to the one we want anyway.
+
+Using the same approach via the BLUE, we want to minimize
+\[
+	\begin{aligned}
+	&\|\rf - \sum_{i=1}^\dimension\alpha_i H_i \|^2\\
+	&= \left(1- \frac{\sqC'(0)}{\sqC(0)}\sum_{i=1}^\dimension \alpha_i\right)^2
+	\underbrace{\|\rf\|^2}_{\sqC(0)}
+	+  \left(\sum_{i=1}^\dimension \alpha_i\right)^2 \underbrace{\|\epsilon\|^2}_{
+		=\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}
+	}
+	+ \sum_{i=1}^\dimension \alpha_i^2 \underbrace{\|\tilde{H}_i\|^2}_{2\sqC''(0)}.
+	\end{aligned}
+\]
+We are going to minimize this term in two steps.
+\begin{enumerate}
+	\item Fix \(\sum_{i=1}^\dimension \alpha_i = s\) and minimize over
+	\(\alpha_i\) with this constraint,
+	\item minimize the result over \(s\).
+\end{enumerate}
+In the first part, everything is constant except for the last part. So
+we need to find the \(\alpha_i\) which minimize
+\[
+	\sum_{i=1}^\dimension \alpha_i^2
+\]
+under the given constraint \(\sum_{i=1}^\dimension \alpha_i = s\). As it turns
+out
+\[
+	1 = \left(\sum_{i=1}^\dimension \frac{\alpha_i}s\right)^2
+	= \left(\frac1\dimension\sum_{i=1}^\dimension \frac\dimension{s}\alpha_i\right)^2
+	\overset{(\cdot)^2 \text{ convex.}}\le \frac1\dimension \sum_{i=1}^\dimension 
+	\left(\frac\dimension{s}\alpha_i\right)^2
+	= \frac\dimension{s^2} \sum_{i=1}^\dimension \alpha_i,
+\]
+implies
+\[
+	\sum_{i=1}^\dimension \left(\frac{s}\dimension\right)^2 = \frac{s^2}\dimension
+	\le \sum_{i=1}^\dimension \alpha_i.
+\]
+So \(\alpha_i=\frac{s}\dimension\) minimizes our constraint optimization problem.
+Inserting this solution into our problem results in
+\[
+	\left(1- \tfrac{\sqC'(0)}{\sqC(0)}s\right)^2
+	\sqC(0)
+	+  s^2 \left(
+		\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}
+	\right)
+	+ 2\frac{s^2}\dimension \sqC''(0).
+\]
+Except for the last summand this is the same optimization problem as before.
+The first order condition results in
+\[
+	s = \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
+\]
+So we finally get
+\begin{align*}
+	\E[\rf\mid H_1,\dots,H_\dimension]
+	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
+	\frac1\dimension\underbrace{\sum_{i=1}^\dimension H_i}_{
+		=\trace(H) \mathrlap{=\sum_{i=1}^\dimension\lambda_i}
+	}\\
+	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
+	\bar{\lambda}
+\end{align*}
+where \(\bar{\lambda}\) is the mean eigenvalue. Lastly we want to determine
+the explained variance
+\begin{align*}
+	\Var(\E[\rf\mid H_1,\dots,H_\dimension])
+	&= \left(\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\right)^2
+	\Var\left(
+		\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}\rf + \frac{1}{\dimension}\sum_{i=1}^\dimension \tilde{H_i}
+	\right)\\
+	&= \frac{\sqC'(0)^2}{\sqC''(0)^2(1+\tfrac4{\dimension})^2}
+	\left(
+		\Var(\epsilon) + \tfrac{\sqC'(0)^2}{\sqC(0)} + \tfrac1\dimension\Var(\tilde{H}_1)
+	\right)\\
+	&= \frac{\sqC'(0)^2}{\sqC''(0)^2(1+\tfrac4{\dimension})^2}
+	(\sqC''(0) + \tfrac2\dimension\sqC''(0))\\
+	&= \frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}.
+\end{align*}
+Since the off-diagonal elements are independent from \(\rf\), we get with
+Lemma~\ref{lem: conditional variance in the gaussian case}
+\[
+	\rf\mid H = \rf \mid H_1,\dots, H_\dimension \sim \normal\left(
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\lambda},
+		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
+	\right).
+\]
+
+\subsection{\texorpdfstring{\(\rf\mid \lambda_1,\dots,\lambda_\dimension\)}{Z|λ1,...,λN}}
+
+So we know that \(\E[f(\rf)\mid H]\) is \(\lambda_1,\dots,\lambda_\dimension\)
+measurable. And since \(\lambda_1,\dots,\lambda_\dimension\) are as eigenvalues
+of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\lambda_1,\dots,\lambda_\dimension)\)
+and therefore get
+\[
+	\E[f(Z)\mid \lambda_1,\dots,\lambda_\dimension]
+	= \E[\E[f(Z)\mid H] \mid \lambda_1,\dots,\lambda_\dimension]
+	= \E[f(Z)\mid H].
+\]
+Which finally implies \(\rf\mid H = \rf\mid \lambda,\dots,\lambda_\dimension\).

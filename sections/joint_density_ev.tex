@@ -45,10 +45,10 @@ with
 		\vdots & \vdots & \ddots & \vdots \\
 		\sqC'(0) & \sqC''(0) & \cdots &  3 \sqC''(0)
 	\end{pmatrix}
-	=: \begin{pmatrix}
-		d & b \\
-		b^T & \Sigma_\partial
-	\end{pmatrix}.
+	% =: \begin{pmatrix}
+	% 	d & b \\
+	% 	b^T & \Sigma_\partial
+	% \end{pmatrix}.
 \]
 As the distribution of centered multivariate normal random variables is fully
 determined by their covariance matrix, we can manually construct
@@ -84,3 +84,64 @@ We now define
 \]
 By construction \((Z,H)\) is centered multivariate normal. It is an easy
 exercise to check that the covariance structure is correct.
+
+As \(X\) is independent of \(H_0\), its eigenvalues
+\(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension\) are independent of
+\(H_0\). Assume that
+\[
+	X = P\diag[\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension]P^{-1}
+\]
+Since the identity matrix is commonly diagonizable with every matrix, this
+results in
+\[
+	H = P(\sqrt{\sqC''(0)} \diag[\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension] + H_0) P^{-1}
+\]
+in other words, the eigenvalues of \(H\) are
+\[
+	\lambda_i
+	:= \sqrt{\sqC''(0)}\tilde{\lambda}_i + \underbrace{\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}\rf}_{=H_0}.
+\]
+The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
+GOE multiplied by a common factor and shifted by an independent shift \(H_0\)
+consisting of the current height \(\rf\) and an additional random component
+\(\epsilon\).
+
+In particular we have
+\[
+	(\lambda_1,\dots,\lambda_\dimension \mid \rf = z)
+	\overset{d}= 
+	(\sqrt{\sqC''(0)}\tilde{\lambda}_i + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z)_{i=1,\dots,\dimension}
+\]
+More specifically, we have
+\[
+	\begin{aligned}
+		&\int f(x) \Pr(\lambda_1,\dots,\lambda_\dimension \in dx\mid \rf=z)\\
+		&= \int
+		\int f(x) \Pr(\lambda_1,\dots,\lambda_\dimension \in dx\mid \rf=z, \epsilon=t)
+		\Pr(\epsilon\in dt)\\
+		&= \int \int f\left(y + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+		\Pr(\sqrt{\sqC''(0)}(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension)\in dy)
+		\Pr(\epsilon \in dt)\\
+		&= \int \int f\left(y + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+		\varphi_{\text{GOE}}\left(\frac{y}{\sqrt{\sqC''(0)}}\right) dy \varphi_\epsilon(t)dt\\
+		\overset{y_i=\sqrt{\sqC''(0)}x_i}&= \sqrt{\sqC''(0)}^\dimension \int \int f\left(\sqrt{\sqC''(0)}x + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+		\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt
+	\end{aligned}
+\]
+where \(\varphi_{\text{GOE}}\) is the joint distribution of the eigenvalues of
+the GOE and \(\varphi_\epsilon\) is the density of \(\normal\left(0,
+\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}\right)\). The height distribution
+of minima is therefore up to constants
+\[\begin{aligned}
+	&\phi(z)\\
+	&\sim\int \prod_{i=1}^\dimension x_i \ind_{x_i\ge 0}
+	\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)\\
+	&\sim\int \int \prod_{i=1}^\dimension
+	\left(\sqrt{\sqC''(0)}x_i + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
+	\ind_{x_i\ge - \tfrac{t+\frac{\sqC'(0)}{\sqC(0)}z}{\sqrt{\sqC''(0)}}}
+	\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt \varphi_Z(z)\\
+\end{aligned}\]
+Let us first have a look at
+\[
+	\int\prod_{i=1}^\dimension (c x_i + b) \ind_{x_i \ge -\tfrac{b}{c}}\varphi_{\text{GOE}}(x)dx
+\]

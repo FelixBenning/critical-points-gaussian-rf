@@ -42,3 +42,33 @@
 		\qedhere
 	\end{align*}
 \end{proof}
+
+
+\begin{lemma}[Conditional Variance in the Gaussian Case]
+	\label{lem: conditional variance in the gaussian case}
+	In the Gaussian case we have	
+	\[
+		\Var(X\mid Y) = \Var(X) - \Var(\E[X\mid Y])
+	\]
+\end{lemma}
+\begin{proof}
+	W.l.o.g. assume \(X\) is centered. Define \(\Delta := X
+	- \E[X\mid Y]\). We have 
+	\[
+		\E[(Y-\E[Y])\Delta] = \E[(Y-\E[Y])\underbrace{\E[\Delta\mid Y]}_{=0}] =0.
+	\]
+	So \(Y\) and \(\Delta\) are uncorrelated and therefore independent. This
+	implies
+	\begin{align*}
+		\Var(X\mid Y)
+		\overset{\text{def}}&= \E[\Delta^2 \mid Y]
+		\overset{\text{indep.}}= \E[\Delta^2]
+		= \E[X\Delta] - \underbrace{\E[\E[X\mid Y]\Delta]}_{
+				=\Cov(\E[X\mid Y],\Delta)
+				\mathrlap{\overset{\Delta\indep Y}=0}
+		}\\
+		&= \E[X^2] - \E[X\E[X\mid Y]]\\
+		&= \Var(X) - \underbrace{\E[\E[X\mid Y]^2]}_{=\Var(\E[X\mid Y])}.
+		\qedhere
+	\end{align*}
+\end{proof}

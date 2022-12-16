@@ -487,6 +487,8 @@ notational clutter, we will from now on write
 	\end{align*}
 \end{proof}
 
+\subsection{Height Distribution of Minima}
+
 Of particular interest, is the height distribution of minima
 \[\begin{aligned}
 	\Pr(\rf(T)\in A \mid T\text{ is minimum})
@@ -510,7 +512,7 @@ this leads to
 \[\begin{aligned}
 	&\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))\\
 	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(0)} |\det(h)| p(z,h)dz dh\\
-	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)\det(H)]\\
+	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)|\det(H)|]\\
 	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension \lambda_i \ind_{\lambda_i \ge 0}]\\
 	&= \int_A c\underbrace{
 		\int \prod_{i=1}^\dimension x_i \ind_{x_i\ge 0}

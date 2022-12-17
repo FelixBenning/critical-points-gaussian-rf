@@ -2,13 +2,15 @@
 
 
 In this section we want to derive the joint density of \((\rf, H):=
-(\rf(0), \nabla^2\rf(0))\). As \(\partial_{ij}\rf\) are limits of differences
-of multivariate normal random variables, this is a centered multivariate normal
+(\rf(0), \nabla^2\rf(0))\), since it is a vital part of mark distribution
+\(\Omega\). As \(\partial_{ij}\rf\) are limits of differences of multivariate
+normal random variables, this is a centered multivariate normal
 random vector. We therefore only need to consider the covariance. Additionally
 we know \(H_{ij} = H_{ji}\), so we are only interested
 in \((\rf, (H_{ij})_{i\le j})\).
 
-As for the covariances, we have \fxnote{reference}
+As for the covariances, we have by repeated application of Lemma~\ref{lem:
+covariance of derivative}
 \begin{align*}
 	\Cov(\rf,\rf) &= \sqC(0)\\
 	\Cov(\rf, H_{ij}) &= \delta_{ij} \sqC'(0)\\
@@ -107,6 +109,7 @@ consisting of the current height \(\rf\) and an additional random component
 \(\epsilon\).
 
 \subsection{\texorpdfstring{From \(\rf\) to \(\lambda_1,\dots,\lambda_\dimension\)}{From Z to λ1,...,λN}}
+\label{subsec: from rf to lambda}
 
 In particular we have
 \[
@@ -157,9 +160,9 @@ the GOE and \(\varphi_\epsilon\) is the density of \(\normal\left(0,
 	\[
 		\bar{\lambda}
 		:=\frac1\dimension\sum_{i=1}^\dimension \lambda_i
-		=\frac{\trace{H}}\dimension,
+		=\frac{\trace{H}}\dimension
 	\]
-	approximate the shift \(H_S\) and therefore approximates \(H\mid H_S\) in
+	approximate the shift \(H_S\) and therefore approximates \(\rf\mid H_S\) in
 	the limit.
 \end{theorem}
 \begin{proof}

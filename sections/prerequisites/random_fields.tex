@@ -1,0 +1,142 @@
+\section{Random Fields}
+
+\begin{definition}[Random Field]
+	A collection of random variables \((\rf(t))_{t\in\real^\dimension}\) is called
+	\textbf{random field} over \(\real^\dimension\). The \textbf{covariance function}
+	is defined as
+	\begin{equation*}
+		\C(x,y) = \Cov(\rf(x), \rf(y)).
+	\end{equation*}
+	A random field is called \textbf{Gaussian random field}, if all finite
+	dimensional marginals are multivariate Gaussian.
+	A random field is called \textbf{centered}, if for all \(t\in\real^\dimension\)
+	\[
+		\E[\rf(t)] = 0.
+	\]
+	A random field is called \textbf{strictly stationary}, if for all
+	\(h\in\real^\dimension\) we have the following equality in distribution
+	\[
+		(\rf(t+h))_{t\in\real^\dimension} \overset{d}= (\rf(t))_{t\in\real^\dimension}.
+	\]
+	In particular this implies	\textbf{(weak) stationarity}, i.e.
+	\begin{equation*}
+		\C(x,y) = \C(x-y)\qquad \text{and} \qquad \E[\rf(t)]=\mu.
+	\end{equation*}
+	For Gaussian random fields, strict and weak stationarity coincides.
+	A random field is called \textbf{isotropic} (rotation invariant) if	
+	\begin{equation*}
+		\C(x,y) = \sqC\left(\frac{\|x-y\|^2}{2}\right).
+	\end{equation*}
+\end{definition}
+
+\subsection{Differentiability}
+
+\begin{lemma}[Covariance and Derivative]
+	\label{lem: covariance of derivative}
+	Assume the partial derivative \(\partial_i\rf(x)\) to exists almost surely and
+	\(x\mapsto\Var(\partial_i\rf(x))\) to be continuous in some neighborhood of
+	\(x\). Then we have
+	\begin{equation*}
+		\Cov(\partial_i\rf(x), \rf(y)) = \partial_{x_i} \C(x,y).
+	\end{equation*}
+	Since \(\partial_i\rf(x)\) is just a random field again, we can iterate
+	on this idea to get the covariance between \(\partial_i\rf(x)\) and
+	\(\partial_j\rf(y)\) or higher order derivatives \(\partial_{ij}\rf(x)\).
+\end{lemma}
+\begin{proof}
+	Assume without loss of generality \(Z\) is centered. To apply
+	Theorem~\ref{thm: swap integration and differentiation} we need
+	\(x\mapsto\E[|\partial_i\rf(x)\rf(y)|]\) to be integrable in a local neighborhood.
+	But by the Hölder inequality, we have
+	\[
+		\E[|\partial_i\rf(x)\rf(y)|]
+		\le \E[\partial_i\rf(x)^2]^{\tfrac12} 
+		\underbrace{\E[\rf(y)^2]^{\tfrac12}}_{=\sqrt{\C(y,y)}}
+	\]
+	and we assumed \(x\mapsto\E[\partial_i\rf(x)^2]\) to be continuous. It is therefore
+	locally integrable and we have
+	\begin{align*}
+		\Cov(\partial_i \rf(x), \rf(y))
+		&= \int \partial_{x_i}\rf(x,\omega) \rf(y,\omega) d\Pr(\omega)
+		\overset{\ref{thm: swap integration and differentiation}}= \partial_{x_i} \int \rf(x,\omega) \rf(y,\omega) d\Pr(\omega)\\
+		&= \partial_{x_i} \C(x,y).
+		\qedhere
+	\end{align*}
+\end{proof}
+Since we want
+\[
+	\Cov(\partial_i \rf(x), \partial_j\rf(y)) = \partial_{x_i}\partial_{y_i}\C(x,y)
+	\overset{\text{stationary case}}= -\partial_{ij}\C(x-y),
+\]
+it is natural that the existence of this second order derivative of \(\C\) is
+necessary for the existence of directional derivatives of \(\rf\). It turns out
+that it is also almost sufficient. If \(\C\) is twice differentiable, then
+\[
+	\Delta_v^n \rf(x)	:= \frac{\rf(x+\frac{v}n)-\rf(x-\frac{v}n)}{2/n}
+\]
+is an \(L^2\) cauchy sequence and its \(L^2\) limit therefore exists and is
+almost surely unique. In particular we can now define
+\[
+	\partial_i\rf(x):=\lim_{n\to\infty} \Delta_{e_i}^n\rf(x)
+\]
+in the \(L^2\) sense. Whenever \(\rf\) is Gaussian \((\Delta_v^n \rf(x),
+\rf(y))\) is multivariate Gaussian, and therefore also its limit.
+
+But we want almost sure point-wise limits, not \(L^2\) limits. To recover this
+property, we can use a trick from 
+\textcite[Sec.~1.4.2]{adlerRandomFieldsGeometry2007}. We define the random field
+\[
+	F: \begin{cases}
+		\real^\dimension \times \real^\dimension \times \real \to \real\\
+		(x,v,h)	\mapsto \frac{\rf(x+hv)-\rf(x-hv)}{2h}
+	\end{cases}
+\]
+where \(\Delta_i^n Z(x) = F(x,e_i,\tfrac1n)\). Technically \(F(x,v,0)\) is not
+well defined right now. In its place, we insert the appropriate directional
+derivative (which exists in the \(L^2\) sense). If this insertion leaves \(F\)
+to be almost surely continuous, then we have almost surely
+\[
+	\Delta_i^n Z(x)=F(x,e_i,\tfrac1n)\to F(x, e_i, 0)= \partial_i Z(x).
+\]
+we obtain for free, that \(x\mapsto \partial_i Z(x) = F(x,e_i,0)\) is almost
+surely continuous. So we only need a condition for random fields to be almost
+surely continuous and simply apply this to \(F\) instead of \(\rf\). Higher
+order derivatives work similarly. For details see
+\textcite[Sec.~1.4.2]{adlerRandomFieldsGeometry2007}.
+
+To count critical points with restrictions on the second derivative, we need
+the second derivative to exist. And continuity would be nice. The following
+assumption is sufficient for both \parencite*[cf.
+Theorem~1.4.2]{adlerRandomFieldsGeometry2007}
+
+\begin{assumption}[Smooth Random Field]\label{assmpt: smoothness assumption}
+	\fxwarning{Copied wrong theorem so far}
+	A sufficient condition for smooth second derivatives \(\partial_{ij}	\rf\)
+	of a random field, is
+	\begin{equation}\label{eq: sufficient for continuous second derivative}
+		\max_{i,j}\E[|\partial_{ij}\rf(t) - \partial_{ij}\rf(s)|^2]
+		\le K |\ln(|t-s|)|^{-(1+\alpha)}
+	\end{equation}
+	for some \(K>0\), \(\alpha>0\) for all \(|t-s|\) small enough.
+	In the stationary case this condition simplifies to
+	\[
+		\max_{i,j}|\partial_{ii jj}\C(0)
+		-\partial_{ii jj}\C(h)| \le \frac{K}2 |\ln(|h|)|^{-(1+\alpha)}
+	\]
+	for \(h\in\real^\dimension\) with \(|h|\) small enough.
+\end{assumption}
+
+
+\begin{remark}\label{rem: covariance uncorrelated}
+	For stationary random fields \(\C(x,y)=\C(x-y)\), the covariance
+	function \(\C\) is symmetric, i.e. \(\C(h)=\C(-h)\)
+	and therefore the derivative antisymmetric, i.e.
+	\(\partial_i\C(-h)=-\partial_i\C(h)\). In particular
+	\begin{equation*}
+		\Cov(\nabla\rf(x), \rf(x)) = \nabla \C(0)=0.
+	\end{equation*}
+\end{remark}
+\begin{corollary}[Gaussian Case] \label{cor: uncorr leads to indep in gaussian case}
+	If \(\rf\) is a stationary gaussian random field, \(\rf(x)\) and
+	\(\nabla\rf(x)\) are independent multivariate gaussian for every \(x\).
+\end{corollary}

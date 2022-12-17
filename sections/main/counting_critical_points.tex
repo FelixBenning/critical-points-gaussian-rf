@@ -1,0 +1,218 @@
+\section{Making it Count}
+
+\begin{definition}[Counting Critical Points]
+	Let \(\rf\) be a random field. We implicitly\footnote{
+		\(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2})\) is a semiring. So by
+		Carathéodory's extension theorem there is a unique extension of
+		\(\crit\) to
+		\(\sigma(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}))=\borel(\real^{\dimension+1+\dimension^2})\).
+		Use this extension to obtain \(\crit(\omega)\in\locFiniteMeasure[\dimension+1+\dimension^2]\).
+	} define the marked point process of critical points as
+	\begin{align*}
+		\crit:
+		\begin{cases}
+			\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}) \to \real\\
+			(\Vol, M) \mapsto
+			\#\left\{t\in\Vol:
+				\nabla\rf(t)=0,
+				(\rf(t), \nabla^2 \rf(t))\in M
+			\right\}.
+		\end{cases}
+	\end{align*}
+	This is a marked point process with \((\rf(t), \nabla^2\rf(t))\) as marks.
+	Let \(\negEV(H)\) be the number of negative eigenvalues\footnote{
+		Since the eigenvalues are continuous in the entries of the matrix, the
+		number of negative eigenvalues is a measurable function.
+	} of \(H\in\real^{\dimension\times\dimension}\). Then, the number of minima in
+	\(\Vol\) with height \(\rf(t)\) in \(A\) can be expressed as
+	\[
+		\crit^0(\Vol, A):= \crit(\Vol, A\times\negEV^{-1}(0)).
+	\]
+	More generally we define the point-process of critical points with index
+	\(\alpha\) (the share of negative eigenvalues) as
+	\[
+		\crit^\alpha(\Vol, A)
+		:= \crit(\Vol, A\times\negEV^{-1}(\dimension\alpha)).
+	\]
+\end{definition}
+\begin{proof}[Proof (Measurability)]
+	First note that	
+	\begin{align*}
+		\locFiniteMeasAlg[\dimension+1+\dimension^2]
+		&= \sigma(\pi_B : B\in\borel(\real^{\dimension+1+\dimension^2}))\\
+		&=\sigma(\underbrace{
+			\{\pi_B^{-1}(C) : B\in\borel(\real^{\dimension+1+\dimension^2}), C\in\borel(\real)\}
+		}_{=:\mathcal{E}}
+		)
+	\end{align*}
+	since it is sufficient to prove measurability on the generator
+	\(\mathcal{E}\), we only need that the following sets are measurable
+	\begin{align*}
+		(\crit)^{-1}(\pi^{-1}_{B}(C))
+		&= (\pi_{B} \circ \crit)^{-1}(C)
+		= (\crit(B))^{-1}(C)\\
+		&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
+			\nabla\rf(t)=0
+		\right\}\\
+		&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
+		\ind\left\{
+			\inf_{t\in \left(\text{id}, \rf, \nabla^2\rf\right)^{-1}(B^\epsilon_k) }
+		|\nabla \rf(t)| = 0
+		\right\}
+	\end{align*}
+	\fxwarning{probably not quite right yet}
+	where \((B^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(B\) (countable).
+	We can swap the limit with the series due to monotone convergence.
+\end{proof}
+
+\begin{lemma}[Stationarity]
+	If \(\rf\) is strictly stationary, \(\crit\) is stationary.
+\end{lemma}
+\begin{proof}
+	Let \(h\in \real^\dimension\) and note that
+	\[
+		\tilde{\rf}(t) := \rf(t+h)
+	\]
+	has the same distribution as \(\rf\) since \(\rf\) is strictly stationary. Define
+	\(\tilde{\crit}\) using \(\tilde{\rf}\) in place of \(\rf\). Then
+	\(\tilde{\crit}\) has the same distribution as \(\crit\).
+	And we have
+	\begin{align*}
+		&\crit(\Vol+h, M)\\
+		&= \#\left\{t\in\Vol+h:
+			\nabla\rf(t)=0,
+			(\rf(t),\nabla^2\rf(t))\in M
+		\right\}\\
+		&= \#\left\{t\in\Vol:
+			\nabla\tilde{\rf}(t)=0,
+			(\tilde{\rf}(t),\nabla^2\tilde{\rf}(t))\in M
+		\right\}\\
+		&= \tilde{\crit}(\Vol, M).
+	\end{align*}
+	So \(\crit\) is stationary:
+	\begin{align*}
+		\Pr\left(\crit((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
+		&= \Pr\left(\tilde{\crit}(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
+		&= \Pr\left(\crit(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
+		\qedhere
+	\end{align*}
+\end{proof}
+
+
+\begin{theorem}[Kac-Rice Formula]
+	\label{thm: kac-rice formula}
+	For a centered Gaussian random field \(\rf\) satisfying our smoothness
+	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
+	critical points \(\crit\) is given by
+	\begin{align*}
+		&\Lambda(\Vol,M)
+		=\E[\crit(\Vol, M)]\\
+		&= \int_\Vol \E\left[
+			\left|\det(\nabla^2 \rf(t))\right|
+			\ind_M(\rf(t), \nabla^2\rf(t))
+			\bigm| \nabla\rf(t) = 0 
+		\right] \density_{\nabla\rf(t)}(0)dt
+		\\
+		\overset{\text{stationary}}&=
+		|\Vol|\ \underbrace{\E\left[
+			|\det(\nabla^2 \rf(0))|
+			\ind_M(\rf(0), \nabla^2\rf(0))
+		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(M)}
+	\end{align*}
+	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
+	second equality is only true when \(\rf\) is stationary.
+\end{theorem}
+
+\begin{proof}
+	This is an immediate result from Corollary~\ref{cor: gaussian kac-rice}
+	\parencite[Corollary~11.2.2]{adlerRandomFieldsGeometry2007}. More precisely
+	we define
+	\begin{align*}
+		f(t) &:= \nabla \rf(t)\\
+		g(t) &:= (\rf(t), \nabla^2 \rf(t))
+	\end{align*}
+	We now simply need to check that the covariance function of the components of
+	\(\partial_j f^i(t) = \partial_{ji} \rf(t)\) and \(g^i\) (which are
+	also just the second derivatives and \(\rf\) itself) satisfy the smoothness
+	requirement of the corollary. As smoothness of the second derivative implies
+	smoothness of \(\rf\), we only need to check the requirement for \(\partial_{ji} \rf\).
+	In other words, we need
+	\[
+		\max_{i,j}|\partial_{x_i x_j, y_i y_j}\C(t,t)
+		+ \partial_{x_i x_j, y_i y_j}\C(s,s)
+		-2\partial_{x_i x_j, y_i y_j}\C(s,t)| \le K |\ln(|t-s|)|^{-(1+\alpha)}
+	\]
+	But that is \eqref{eq: sufficient for continuous second derivative} in
+	Assumption~\ref{assmpt: smoothness assumption} written in terms of
+	covariances. By application
+	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get
+	\begin{align*}
+		\Lambda(\Vol, M) 
+		&= \E[\crit^\alpha(\Vol, M)]
+		= \E[\level(f, g: \Vol, M)]\\
+		&= \int_\Vol \E\left[
+			|\det \nabla f(t)| \ind_M(\rf(t), \nabla^2\rf(t)) \mid f(t) = 0
+		\right] \density_{\nabla\rf(t)}(0)dt.
+	\end{align*}
+	
+	
+	The second inequality follows as \(\nabla\rf(t)\) is independent of
+	\((\rf(t),\nabla^2\rf(t))\) due to Corollary~\ref{cor: uncorr leads to indep
+	in gaussian case} which turns the conditional expectation into a normal
+	expectation. Lastly replace all \(t\) with \(0\) due to stationarity.
+\end{proof}
+\begin{remark}
+	As can be seen in Theorem~\ref{thm: general kac-rice} \parencite[Theorem
+	11.2.1]{adlerRandomFieldsGeometry2007}, \(\rf\) does not necessarily
+	need to be Gaussian. We just need it and its derivatives to satisfy a
+	list of properties which are satisfied for Gaussian process with
+	smooth enough covariance functions.
+\end{remark}
+
+Due to stationarity, we have completely dropped the dependence of \(\rf\) on
+\(t\) in Theorem~\ref{thm: kac-rice formula} to define \(\lambda\). To reduce
+notational clutter, we will from now on write
+\[
+	(\rf,H):= (Z(0), \nabla^2\rf(0))
+\]
+
+\begin{corollary}[Mark Distribution of Critical Points in a Stationary Random Field]
+	Let \(p(z,h)\) be the joint density of \((\rf, H)\) and define
+	\[
+		\Omega(z,h) := c |det(h)| p(z,h)
+	\]
+	with \(c\in\real\) such that \(\int \Omega(z,h)dz dh = 1\).
+	If we take a random critical point \((T,\rf(T),\nabla^2\rf(T))\sim \crit\),
+	then the distribution over its marks is given by
+	\[
+		\Pr_{\rf(T),\nabla^2\rf(T)}(A) = \int_A \Omega(z,h) dz dh.
+	\]
+\end{corollary}
+\begin{remark}
+	Notice how this distribution of marks is different from
+	\[
+		\Pr((\rf(t),\nabla^2\rf(t))\in A \mid \nabla\rf(t) = 0)
+		\overset{\text{stationary}}
+		= \Pr((\rf,H)\in A)
+		= \int_A p(z,h)dz dh.
+	\]
+	In particular the density of marks is \(\Omega\) not \(p\), like it is if
+	we simply condition on the fact that \(t\) is a critical point.
+\end{remark}
+\begin{proof}
+	With Lemma~\ref{lem: Campbell}, we have that the distribution of marks is
+	given by
+	\begin{align*}
+		\Pr_{\rf(T),\nabla^2\rf(T)}(L)
+		&= \frac{\lambda(L)}{\lambda(\real)}
+		\overset{\ref{thm: kac-rice formula}}= \frac{
+			\E[|\det(\nabla^2 \rf(0))|
+			\ind_L(\rf(0), \nabla^2\rf(0))
+			]
+		}{
+			\E[|\det(\nabla^2 \rf(0))|]
+		}\\
+		&= \int_L \Omega(z,h) dz dh.
+		\qedhere
+	\end{align*}
+\end{proof}

@@ -114,29 +114,29 @@ Sample independently
 We now define
 \[
 	H := \tilde{H}
-	+ \overbrace{\underbrace{[\epsilon + \tfrac{\sqC'(0)}{\sqC(0)} Z]}_{=:H_S}\identity}^{\text{``shift''}}
+	+ \overbrace{\underbrace{[\epsilon + \tfrac{\sqC'(0)}{\sqC(0)} Z]}_{=:\shift}\identity}^{\text{``shift''}}
 \]
 By construction \((Z,H)\) is centered multivariate normal. It is an easy
 exercise to check that the covariance structure is correct.
 
-As \(\tilde{H}\) is independent of \(H_S\), its eigenvalues
+As \(\tilde{H}\) is independent of \(\shift\), its eigenvalues
 \(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) are independent of
-\(H_S\). Assume that
+\(\shift\). Assume that
 \[
 	X = P\diag[\lambda]P^{-1}
 \]
 Since the identity matrix is commonly diagonizable with every matrix, this
 results in
 \[
-	H = P(\diag[\lambda] + H_S\identity) P^{-1}
+	H = P(\diag[\lambda] + \shift\identity) P^{-1}
 \]
 in other words, the eigenvalues of \(H\) are
 \[
 	\Lambda_i
-	:= \lambda_i + \underbrace{H_S}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
+	:= \lambda_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
 \]
 The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
-GOE multiplied by a common factor and shifted by an independent shift \(H_S\)
+GOE multiplied by a common factor and shifted by an independent shift \(\shift\)
 consisting of the current height \(\rf\) and an additional random component
 \(\epsilon\).
 
@@ -164,9 +164,9 @@ More specifically we have
 	\label{thm: conditional distributions of rf}
 	We have
 	\begin{align}
-		\rf\mid H_S
+		\rf\mid \shift
 		&\sim \normal\left(
-			\tfrac{\sqC'(0)}{\sqC''(0)} H_S,
+			\tfrac{\sqC'(0)}{\sqC''(0)} \shift,
 			\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
 		\right)\\
 		\rf\mid \Lambda
@@ -183,17 +183,17 @@ More specifically we have
 		:=\frac1\dimension\sum_{i=1}^\dimension \Lambda_i
 		=\frac{\trace{H}}\dimension
 	\]
-	approximate the shift \(H_S\) and therefore approximates \(\rf\mid H_S\) in
+	approximate the shift \(\shift\) and therefore approximates \(\rf\mid \shift\) in
 	the limit.
 \end{theorem}
 \begin{proof}
 	See Appendix~\ref{sec: proof of conditionals}.
 \end{proof}
 \begin{remark}
-	The conditional variance \(\Var(\rf\mid H_S)= \sqC(0) -
+	The conditional variance \(\Var(\rf\mid \shift)= \sqC(0) -
 	\tfrac{\sqC'(0)^2}{\sqC''(0)}\) is zero, iff \(\epsilon\) is almost surely
 	zero (because it has the same variance up to a factor). In that case the
-	shift \(H_S\) consists only of \(\rf\) so this should not be surprising.
+	shift \(\shift\) consists only of \(\rf\) so this should not be surprising.
 \end{remark}
 
 

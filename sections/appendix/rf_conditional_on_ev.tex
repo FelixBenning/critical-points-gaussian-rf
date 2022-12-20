@@ -3,23 +3,23 @@
 
 In this section we want to determine the distribution of \(\rf\mid
 \Lambda\). As a warmup we will first consider
-\(\E[Z\mid H_S]\). \(H_S\) is the shift we can obtain from \(\Lambda_i\) by
+\(\E[Z\mid \shift]\). \(\shift\) is the shift we can obtain from \(\Lambda_i\) by
 averaging if we have sufficiently many. But we can not really separate
-\(\epsilon\) from \(\rf\) using only \(\Lambda\), so \(\rf\mid H_S\) will be
+\(\epsilon\) from \(\rf\) using only \(\Lambda\), so \(\rf\mid \shift\) will be
 close to \(\rf\mid\Lambda\) for large
 \(\dimension\).
 
-\subsection{\texorpdfstring{\(\rf\mid H_S\)}{Z|H0}}
+\subsection{\texorpdfstring{\(\rf\mid \shift\)}{Z|H0}}
 
-Since \(\rf\) and \(H_S\) are multivariate normal, we have 
+Since \(\rf\) and \(\shift\) are multivariate normal, we have 
 \[
-	\rf\mid H_S\sim \normal(\E[\rf\mid H_S], \Var(\rf\mid H_S)).
+	\rf\mid \shift\sim \normal(\E[\rf\mid \shift], \Var(\rf\mid \shift)).
 \]
-So we only need to calculate the conditional expectation \(\E[\rf\mid H_S]\) and
+So we only need to calculate the conditional expectation \(\E[\rf\mid \shift]\) and
 the remaining variance
 \[
-	\Var(\rf\mid H_S)\overset{\text{def}}
-	=\E[(\rf-\E[\rf\mid H_S])^2\mid H_S].
+	\Var(\rf\mid \shift)\overset{\text{def}}
+	=\E[(\rf-\E[\rf\mid \shift])^2\mid \shift].
 \]
 For the conditional expectation it is sufficient to calculate the best linear
 unbiased estimator (BLUE) as it coincides with the conditional expectation in
@@ -28,7 +28,7 @@ the Gaussian case.
 Let \(\langle X, Y\rangle := \E[XY]\) and \(\|\cdot\|^2\) the induced norm.
 Then we want to find the \(\alpha\in\real\) which minimizes
 \[
-	\|Z-\alpha H_S\|^2
+	\|Z-\alpha \shift\|^2
 	= (1-\tfrac{\sqC'(0)}{\sqC(0)}\alpha)^2 \underbrace{\|\rf\|^2}_{=\sqC(0)}
 	+ \alpha^2 \underbrace{\|\epsilon\|^2}_{=\sqC''(0)\mathrlap{-\frac{\sqC'(0)^2}{\sqC(0)}}}
 \]
@@ -40,15 +40,15 @@ The first order condition is therefore
 \]
 which leads to \(\alpha = \frac{\sqC'(0)}{\sqC''(0)}\) and therefore
 \[
-	\E[\rf\mid H_S] = \tfrac{\sqC'(0)}{\sqC''(0)} H_S.
+	\E[\rf\mid \shift] = \tfrac{\sqC'(0)}{\sqC''(0)} \shift.
 \]
 Using Lemma~\ref{lem: conditional variance in the gaussian case} we finally
 have
 \[\begin{aligned}
-	\Var(\rf\mid H_S)
+	\Var(\rf\mid \shift)
 	\overset{\ref{lem: conditional variance in the gaussian case}}&=
-	\Var(\rf) - \Var(\E[\rf\mid H_S])
-	= \sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)^2}\underbrace{\Var(H_S)}_{
+	\Var(\rf) - \Var(\E[\rf\mid \shift])
+	= \sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)^2}\underbrace{\Var(\shift)}_{
 		= \Var(\epsilon) \mathrlap{+ \frac{\sqC'(0)^2}{\sqC(0)^2}\Var(\rf)}
 	}\\
 	&= \sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)^2}\left[
@@ -58,8 +58,8 @@ have
 \end{aligned}\]
 In summary we have:
 \[
-	\rf\mid H_S \sim \normal\left(
-		\tfrac{\sqC'(0)}{\sqC''(0)} H_S,
+	\rf\mid \shift \sim \normal\left(
+		\tfrac{\sqC'(0)}{\sqC''(0)} \shift,
 		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
 	\right)
 \]

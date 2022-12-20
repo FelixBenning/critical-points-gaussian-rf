@@ -75,9 +75,38 @@ Sample independently
 		leads to the required inequality. So for covariance models valid in all
 		dimensions, we have this inequality.
 	}
-	\item \(X_{11},\dots,X_{\dimension\dimension}\sim\normal(0, 2)\) and
-	independently \(X_{ji}:=X_{ij}\sim\normal(0,1)\) for \(i<j\le\dimension\).
-	In other words: \(X = (X_{ij})\) is a Gaussian Orthogonal Ensemble (GOE).
+	\item \(\tilde{H}_{11},\dots,\tilde{H}_{\dimension\dimension}\sim\normal(0,
+	a)\) and independently
+	\(\tilde{H}_{ji}:=\tilde{H}_{ij}\sim\normal(0,\frac{a}{2})\) for
+	\(i<j\le\dimension\). We choose \(a=\sqrt{\sqC''(0)}\).
+	In other words: \(\tilde{H} = (X_{ij})\) is a (scaled) Gaussian Orthogonal
+	Ensemble (GOE)\footnote{
+		Oftentimes the definition of the GOE demands \(a=2\). To make notation
+		easier, we follow \textcite{fyodorovHighDimensionalRandomFields2013} in
+		this this more general definition.
+		For real symmetric matrices \(h\) the density of the GOE is then given by
+		\[
+			\varphi^{\GOE}_{\dimension,a}(h)
+			= c_\dimension(a)^{-1}\exp\left(-\frac{\dimension}{2a}\trace(h^2)\right)
+		\]
+		with scaling constant
+		\[
+			c^{\GOE}_\dimension(a) = (\pi a)^{-\frac{\dimension(\dimension+1)}{4}}2^{-\dimension/2}.
+		\]
+		The joint density of eigenvalues \(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension\)	
+		is then known to be
+		\[
+			\varphi^{\lambda}_{\dimension, a}(x_1,\dots,x_n)
+			= c^{\lambda}_\dimension(a)
+			\exp\left(-\frac{1}{2a}\sum_{i=1}^\dimension x_i\right)
+			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dimension}
+		\]
+		where \(\Delta_\dimension\) is the so-called Vandermonde Determinant and
+		the scaling constant is given by
+		\[
+			c^{\lambda}_\dimension(a) = (2\pi)^{\frac{\dimension}2}a^{\frac{\dimension(\dimension+1)}4}\prod_{j=1}^\dimension \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}
+		\]
+	}.
 \end{enumerate}
 We now define
 \[

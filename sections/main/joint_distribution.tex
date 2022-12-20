@@ -147,26 +147,16 @@ In particular we have for \(\Lambda = (\Lambda_1,\dots,\Lambda_\dimension)\)
 \[
 	(\Lambda \mid \rf = z)
 	\overset{d}= 
-	\lambda \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z)
+	\lambda \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z),
 \]
+where \(\dotPlus\) is entry-wise addition.
 More specifically we have
-\[
-	\begin{aligned}
-		&\int f(x) \Pr(\Lambda \in dx\mid \rf=z)\\
-		&= \int
-		\int f(x) \Pr(\Lambda \in dx\mid \rf=z, \epsilon=t)
-		\Pr(\epsilon\in dt)\\
-		&= \int \int f\left(y \dotPlus (t + \tfrac{\sqC'(0)}{\sqC(0)}z)\right)
-		\Pr(\tilde{\Lambda}\in dy)
-		\Pr(\epsilon \in dt)\\
-		&= \int \int f\left(y \dotPlus (t + \tfrac{\sqC'(0)}{\sqC(0)}z)\right)
-		\varphi^\GOE_{\dimension,2\sqC''(0)}(y) dy \varphi_\epsilon(t)dt\\
-	\end{aligned}
-\]
-where \(\dotPlus\) is entry-wise addition, \(\varphi^\GOE_{\dimension,
-2\sqC''(0)}\) is the distribution of eigenvalues from the GOE given in
-Equation~\eqref{eq: GOE ev density}, and \(\varphi_\epsilon\) is the density of
-\(\normal\big(0, \sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}\big)\).
+\begin{equation}\label{eq: expectation f(Lambda) | Z}
+		\E[f(\Lambda)\mid Z=z]
+		= \E\left[
+			f\left(\lambda \dotPlus (\epsilon+\tfrac{\sqC'(0)}{\sqC(0)}z)\right)
+		\right].
+\end{equation}
 
 \subsection{\texorpdfstring{\(\rf\mid\Lambda\)}{Z|Λ}}
 

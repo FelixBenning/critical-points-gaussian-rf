@@ -2,11 +2,11 @@
 \label{sec: proof of conditionals}
 
 In this section we want to determine the distribution of \(\rf\mid
-\lambda_1,\dots,\lambda_\dimension\). As a warmup we will first consider
-\(\E[Z\mid H_S]\). \(H_S\) is the shift we can obtain from \(\lambda_i\) by
+\Lambda\). As a warmup we will first consider
+\(\E[Z\mid H_S]\). \(H_S\) is the shift we can obtain from \(\Lambda_i\) by
 averaging if we have sufficiently many. But we can not really separate
-\(\epsilon\) from \(\rf\) using only \(\lambda_i\), so \(\rf\mid H_S\) will be
-close to \(\rf\mid\lambda_1,\dots,\lambda_\dimension\) for large
+\(\epsilon\) from \(\rf\) using only \(\Lambda\), so \(\rf\mid H_S\) will be
+close to \(\rf\mid\Lambda\) for large
 \(\dimension\).
 
 \subsection{\texorpdfstring{\(\rf\mid H_S\)}{Z|H0}}
@@ -128,12 +128,12 @@ So we finally get
 	\E[\rf\mid H_1,\dots,H_\dimension]
 	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
 	\frac1\dimension\underbrace{\sum_{i=1}^\dimension H_i}_{
-		=\trace(H) \mathrlap{=\sum_{i=1}^\dimension\lambda_i}
+		=\trace(H) \mathrlap{=\sum_{i=1}^\dimension\Lambda_i}
 	}\\
 	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
-	\bar{\lambda}
+	\bar{\Lambda}
 \end{align*}
-where \(\bar{\lambda}\) is the mean eigenvalue. Lastly we want to determine
+where \(\bar{\Lambda}\) is the mean eigenvalue. Lastly we want to determine
 the explained variance
 \begin{align*}
 	\Var(\E[\rf\mid H_1,\dots,H_\dimension])
@@ -153,20 +153,20 @@ Since the off-diagonal elements are independent from \(\rf\), we get with
 Lemma~\ref{lem: conditional variance in the gaussian case}
 \[
 	\rf\mid H = \rf \mid H_1,\dots, H_\dimension \sim \normal\left(
-		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\lambda},
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\Lambda},
 		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
 	\right).
 \]
 
-\subsection{\texorpdfstring{\(\rf\mid \lambda_1,\dots,\lambda_\dimension\)}{Z|λ1,...,λN}}
+\subsection{\texorpdfstring{\(\rf\mid \Lambda\)}{Z|Λ}}
 
-So we know that \(\E[f(\rf)\mid H]\) is \(\lambda_1,\dots,\lambda_\dimension\)
-measurable. And since \(\lambda_1,\dots,\lambda_\dimension\) are as eigenvalues
-of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\lambda_1,\dots,\lambda_\dimension)\)
+So we know that \(\E[f(\rf)\mid H]\) is \(\Lambda\)
+measurable. And since \(\Lambda\) are as eigenvalues
+of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\Lambda)\)
 and therefore get
 \[
-	\E[f(Z)\mid \lambda_1,\dots,\lambda_\dimension]
-	= \E[\E[f(Z)\mid H] \mid \lambda_1,\dots,\lambda_\dimension]
+	\E[f(Z)\mid \Lambda]
+	= \E[\E[f(Z)\mid H] \mid \Lambda]
 	= \E[f(Z)\mid H].
 \]
-Which finally implies \(\rf\mid H = \rf\mid \lambda,\dots,\lambda_\dimension\).
+Which finally implies \(\rf\mid H = \rf\mid \Lambda\).

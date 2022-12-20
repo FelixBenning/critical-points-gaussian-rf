@@ -16,40 +16,53 @@ calculable, the set \(\negEV^{-1}(0)\) is anything but pretty. We are therefore
 going to switch to the eigenvalues \(\lambda_1,\dots,\lambda_\dimension\) of
 the random matrix \(H\). We have
 \[
-	\det(H) = \prod_{i=1}^\dimension \lambda_i
+	\det(H) = \prod_{i=1}^\dimension \Lambda_i
 	\quad\text{and}\quad
-	\ind_{\negEV(H) = 0} = \prod_{i=1}^\dimension \ind_{\lambda_i\ge 0}
+	\ind_{\negEV(H) = 0} = \prod_{i=1}^\dimension \ind_{\Lambda_i\ge 0}
 \]
 this leads to 
 \[\begin{aligned}
 	&\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))\\
 	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(0)} |\det(h)| p(z,h)dz dh\\
 	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)|\det(H)|]\\
-	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension |\lambda_i| \ind_{\lambda_i \ge 0}]\\
+	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension |\Lambda_i| \ind_{\Lambda_i \ge 0}]\\
 	&= \int_A c\underbrace{
-		\int \prod_{i=1}^\dimension |x_i| \ind_{x_i\ge 0}
-		\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)
+		\E\left[
+			\int \prod_{i=1}^\dimension |\Lambda_i| \ind_{\Lambda_i\ge 0}
+			\bigm| Z=z
+		\right]
+		% \int \prod_{i=1}^\dimension |x_i| \ind_{x_i\ge 0}
+		% \Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z)
+		\varphi_Z(z)
 	}_{\sim\phi(z)}
 	dz,
 \end{aligned}\]
-where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). At first glance
-the conditional distribution of the eigenvalues \(\lambda_i\) given the
-height \(Z\) is just as difficult. But recall that we derived the conditional
-distribution in Subsection~\ref{subsec: Lambda|rf}. And
-it were simply GOE eigenvalues with an independent shift.
-
-The height distribution
-of minima is therefore up to constants
+where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). Now recall that we
+derived the conditional distribution in Subsection~\ref{subsec: Lambda|rf}. And
+it were simply GOE eigenvalues with an independent shift. So the height
+distribution of minima is therefore up to constants
 \[\begin{aligned}
-	&\phi(z)\\
-	&\sim\int \prod_{i=1}^\dimension |x_i| \ind_{x_i\ge 0}
-	\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)\\
-	&\sim\int \int \prod_{i=1}^\dimension
-	\left|\sqrt{\sqC''(0)}x_i + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right|
-	\ind_{x_i\ge - \tfrac{t+\frac{\sqC'(0)}{\sqC(0)}z}{\sqrt{\sqC''(0)}}}
-	\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt \varphi_Z(z)\\
+	\phi(z)
+	\overset{\eqref{eq: expectation f(Lambda) | Z}}&\sim
+	\E\left[
+		\prod_{i=1}^\dimension \left|
+			\lambda_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
+		\right| \ind_{\lambda_i\ge - \left(\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right)}
+	\right]
+	\varphi_\rf(z)\\
+	&\sim \int \E\left[
+		\prod_{i=1}^\dimension \left|
+			\lambda_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
+		\right| \ind_{\lambda_i\ge - \left(t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)}
+	\right]
+	d\Pr(\epsilon \in dt)
+	\varphi_\rf(z)\\
 \end{aligned}\]
 Let us first have a look at
 \[
-	\int\prod_{i=1}^\dimension |c x_i + b| \ind_{x_i \ge -\tfrac{b}{c}}\varphi_{\text{GOE}}(x)dx
+	\E\left[
+		\prod_{i=1}^\dimension \left|
+			\lambda_i  + b 
+		\right| \ind_{\lambda_i\ge - b}
+	\right]
 \]

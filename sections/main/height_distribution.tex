@@ -51,18 +51,24 @@ distribution of minima is therefore up to constants
 	\right]
 	\varphi_\rf(z)\\
 	&\sim \int \E\left[
-		\prod_{i=1}^\dimension \left|
+		\left(\prod_{i=1}^\dimension \left|
 			\lambda_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
-		\right| \ind_{\lambda_i\ge - \left(t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)}
+		\right|\right) \prod_{j=1}^\dimension\ind_{\lambda_j\ge - \left(t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)}
 	\right]
-	d\Pr(\epsilon \in dt)
-	\varphi_\rf(z)\\
+	\Pr(\epsilon \in dt)
+	\varphi_\rf(z)
 \end{aligned}\]
 Let us first have a look at
-\[
-	\E\left[
-		\prod_{i=1}^\dimension \left|
-			\lambda_i  + b 
-		\right| \ind_{\lambda_i\ge - b}
-	\right]
-\]
+\[\begin{aligned}
+	\prod_{i=1}^\dimension \ind_{\lambda_i\ge - b}
+	&= \ind_{\forall i : \lambda_i \ge -b}
+	= \ind_{\neg(\exists i : \lambda_i < -b)}
+	= \ind\left\{
+		\left(\frac1\dimension\sum_{i=1}^\dimension\ind_{\lambda_i < -b} \right) = 0
+	\right\}\\
+	&= \ind\left\{
+		\int \ind_{x < -b} L_\dimension(dx) = 0
+	\right\}
+\end{aligned}\]
+where \(L_\dimension(A) = \frac1\dimension\sum_{i=1}^\dimension
+\delta_{\lambda_i}(A)\) is the spectral distribution\fxnote{?}.

@@ -27,12 +27,10 @@ this leads to
 	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)|\det(H)|]\\
 	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension |\Lambda_i| \ind_{\Lambda_i \ge 0}]\\
 	&= \int_A c\underbrace{
-		\E\left[
+		\E\Big[
 			\int \prod_{i=1}^\dimension |\Lambda_i| \ind_{\Lambda_i\ge 0}
-			\bigm| Z=z
-		\right]
-		% \int \prod_{i=1}^\dimension |x_i| \ind_{x_i\ge 0}
-		% \Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z)
+			\Bigm| Z=z
+		\Big]
 		\varphi_Z(z)
 	}_{\sim\phi(z)}
 	dz,
@@ -42,33 +40,107 @@ derived the conditional distribution in Subsection~\ref{subsec: Lambda|rf}. And
 it were simply GOE eigenvalues with an independent shift. So the height
 distribution of minima is therefore up to constants
 \[\begin{aligned}
-	\phi(z)
+	&\phi(z)\\
 	\overset{\eqref{eq: expectation f(Lambda) | Z}}&\sim
-	\E\left[
+	\E\Bigg[
 		\prod_{i=1}^\dimension \left|
 			\lambda_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right| \ind_{\lambda_i\ge - \left(\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right)}
-	\right]
+	\Bigg]
 	\varphi_\rf(z)\\
-	&\sim \int \E\left[
-		\left(\prod_{i=1}^\dimension \left|
+	&\sim \int \E\Bigg[
+		\prod_{i=1}^\dimension \left|
 			\lambda_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
-		\right|\right) \prod_{j=1}^\dimension\ind_{\lambda_j\ge - \left(t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)}
-	\right]
-	\Pr(\epsilon \in dt)
-	\varphi_\rf(z)
+		\right|
+		\ind\{\min_{1\le j\le\dimension}\lambda_j\ge - \left(t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)\}
+	\Bigg]
+	\varphi_\epsilon(t)dt
+	\varphi_\rf(z),
 \end{aligned}\]
-Let us first have a look at
+where \(\varphi_\epsilon\) is the density of \(\normal\bigl(0,
+\sqC''(0)-\frac{\sqC'(0)^2}{\sqC(0)}\bigr)\).
+
+The difficult part is
+\[
+	f_\dimension(b):=\E\Bigg[
+		\prod_{i=1}^\dimension \left|
+			\lambda_i - b
+		\right|
+		\ind\{\min_{1\le j\le\dimension}\lambda_j\ge b\}
+	\Bigg]
+\]
+afterwards we simply get
 \[\begin{aligned}
-	\prod_{i=1}^\dimension \ind_{\lambda_i\ge - b}
-	&= \ind_{\forall i : \lambda_i \ge -b}
-	= \ind_{\neg(\exists i : \lambda_i < -b)}
-	= \ind\left\{
-		\left(\frac1\dimension\sum_{i=1}^\dimension\ind_{\lambda_i < -b} \right) = 0
-	\right\}\\
-	&= \ind\left\{
-		\int \ind_{x < -b} L_\dimension(dx) = 0
-	\right\}
+	\phi(z)
+	&\sim \varphi_\rf(z)
+	\int f_\dimension\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
+	\varphi_\epsilon(t)dt\\
+	&= \varphi_\rf(z)
+	(f_\dimension * \varphi_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
 \end{aligned}\]
-where \(L_\dimension(A) = \frac1\dimension\sum_{i=1}^\dimension
-\delta_{\lambda_i}(A)\) is the spectral distribution\fxnote{?}.
+where \(f*g\) denotes the convolution of \(f\) and \(g\).
+
+% Let us first have a look at
+% \[\begin{aligned}
+% 	\prod_{i=1}^\dimension \ind_{\lambda_i\ge - b}
+% 	&= \ind_{\forall i : \lambda_i \ge -b}
+% 	= \ind_{\neg(\exists i : \lambda_i < -b)}\\
+% 	&= \ind\Big\{
+% 		\Big(
+% 			\frac1\dimension\sum_{i=1}^\dimension
+% 			\ind_{
+% 				\frac{\lambda_i}{\sqrt{\dimension\sqC''(0)}} < -\frac{b}{\sqrt{\dimension\sqC''(0)}}
+% 			}
+% 		\Big) \le 0
+% 	\Big\}\\
+% 	&= \ind\Big\{
+% 		\int \ind_{x < -\frac{b}{\sqrt{\dimension\sqC''(0)}}}
+% 		L_\dimension(dx) \le 0
+% 	\Big\}\\
+% 	&= \ind\Big\{
+% 		L_\dimension\big( (-\infty, -\tfrac{b}{\sqrt{\dimension\sqC''(0)}})\big)
+% 		\le 0
+% 	\Big\},
+% \end{aligned}\]
+% where
+% \[
+% 	L_\dimension
+% 	:= \frac1\dimension\sum_{i=1}^\dimension
+% 	\delta_{\frac{\lambda_i}{\sqrt{\dimension\sqC''(0)}}}
+% \]
+% is the empirical spectral distribution of the Wigner matrix
+% \(\frac1{\sqrt{\dimension\sqC''(0)}}\tilde{H}\). To stabilize the distribution
+% of minima, we are going to look at the scaled process \(\rf^s :=
+% \frac1{\sqrt{\dimension}}\rf^u\) with covariance function \(\sqC_s(h) =
+% \frac{\sqC_u(h)}\dimension\) of an unscaled process \(\rf^u\) with fixed
+% covariance function \(\sqC_u\).
+% We then have \(\sqC_s''(h)=\frac{\sqC_u''(h)}{\dimension}\). So if we apply
+% the results we got so far to \(\rf^s\), we get
+% \[
+% 	\prod_{i=1}^\dimension \lambda^s_i \ge -b
+% 	= 
+% 	\ind\Big\{
+% 		L^s_\dimension\big( (-\infty, -\tfrac{b}{\sqrt{\sqC_u''(0)}})\big)
+% 		\le 0
+% 	\Big\},
+% \]
+% By Wigner's theorem \(L^s_\dimension\) converges almost surely against the
+% semicircle law \(\sigma\) with density
+% \[
+% 	\varphi^\sigma(x) = \frac1{2\pi}\sqrt{4-x^2}\ind_{|x|\le 2}
+% \]
+% Since \(\sigma\) is absolutely continuous, every open interval is a continuity
+% set, so by the Portmanteau theorem we have almost surely
+% \[\begin{aligned}
+% 	X_\dimension(b)&:=L^s_\dimension\Bigl(
+% 		\bigl(-\infty, -\frac{b}{\sqrt{\sqC_u''(0)}}\bigr)
+% 	\Bigr)\\
+% 	&\to \sigma\Bigl(
+% 		\bigl(-\infty, -\frac{b}{\sqrt{\sqC_u''(0)}}\bigr)
+% 	\Bigr)\\
+% 	&= \begin{cases}
+% 		0 & 2\sqC_u''(0) \le b\\
+% 	 	\frac1{2\pi}\int_{-2}^{-b/\sqrt{\sqC_u''(0)}} \sqrt{4-x^2}dx & b\in \sqC_u''(0)(-2,2)\\
+% 		1 & b\le -2\sqC''(0)
+% 	\end{cases}
+% \end{aligned}\]

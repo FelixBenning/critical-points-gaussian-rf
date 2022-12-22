@@ -87,25 +87,25 @@ Sample independently
 		For real symmetric matrices \(h\) the density of the GOE is then given by
 		\[
 			\varphi^{\GOE}_{\dimension,a}(h)
-			= c_\dimension(a)^{-1}\exp\left(-\frac{\dimension}{2a}\trace(h^2)\right)
+			= c_{\dimension,a}\exp\left(-\frac{\dimension}{2a}\trace(h^2)\right)
 		\]
 		with scaling constant
 		\[
-			c^{\GOE}_\dimension(a)
+			(c^{\GOE}_{\dimension,a})^{-1}
 			= (\pi a)^{-\frac{\dimension(\dimension+1)}{4}}2^{-\dimension/2}.
 		\]
 		The joint density of eigenvalues
 		\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) is known to be
 		\begin{equation}\label{eq: GOE ev density}
 			\varphi^{\lambda}_{\dimension, a}(x_1,\dots,x_n)
-			= c^\lambda_\dimension(a)^{-1}
-			\exp\left(-\frac{1}{2a}\sum_{i=1}^\dimension x_i\right)
-			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dimension(\lambda)}
+			= c^\lambda_{\dimension,a}
+			\exp\Bigl(-\frac{1}{2a}\sum_{i=1}^\dimension x_i^2\Bigr)
+			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dimension}
 		\end{equation}
-		where \(\Delta_\dimension(\lambda)\) is the so-called Vandermonde Determinant and
+		where \(\Delta_\dimension\) is the so-called Vandermonde Determinant and
 		the scaling constant is given by
 		\[
-			c^\lambda_\dimension(a)
+			(c^\lambda_{\dimension,a})^{-1}
 			= (2\pi)^{\frac{\dimension}2}a^{\frac{\dimension(\dimension+1)}4}
 			\prod_{j=1}^\dimension \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
 		\]

@@ -1,38 +1,42 @@
-\section{Height Distribution of Minima}
+\section{Height Distribution}
+\label{sec: height distribution}
 
-Let \((T,\rf(T),\nabla^2\rf(T))\sim\crit\) be a random critical point.
+Let \((T,\rf_T,H_T)\sim\crit\) be a random critical point.
 Of particular interest, is the height distribution of minima
 \[\begin{aligned}
-	\Pr(\rf(T)\in A \mid T\text{ is minimum})
-	&=\Pr(\rf(T)\in A \mid \negEV[\nabla^2\rf(T)]=0)\\
-	&= \frac{\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))}{\Pr(\negEV[\nabla^2\rf(T)]=0)}\\
+	\Pr(\rf_T\in A \mid T\text{ is minimum})
+	&=\Pr(\rf_T\in A \mid \negEV(H_T)=0)\\
+	&= \frac{\Pr_{(\rf_T, H_T)}(A\times \negEV^{-1}(0))}{\Pr(\negEV(H_T)=0)}\\
 	&= \int_A \underbrace{
 		\frac{\int_{\negEV^{-1}(0)} \Omega(z,h) dh}{\Pr(T\text{ is min})}
-	}_{=: \phi(z)} dz.
+	}_{=: \phi_0(z)} dz.
 \end{aligned}\]
-It turns out to be absolutely continuous with density \(\phi\). Unfortunately
-our term for \(\phi\) looks horrible. While \(\Omega\) itself might be
-calculable, the set \(\negEV^{-1}(0)\) is anything but pretty. We are therefore
-going to switch to the eigenvalues \(\Lambda_1,\dots,\Lambda_\dimension\) of
-the random matrix \(H\). We have
+It turns out to be absolutely continuous with density \(\phi_0\). Unfortunately
+our term for \(\phi_0\) looks horrible. While \(\Omega\) itself might be
+calculable, the set \(\negEV^{-1}(0)\) of positive definite matrices is anything
+but pretty. We are therefore going to switch to the eigenvalues
+\(\Lambda_1,\dots,\Lambda_\dimension\) of the random matrix \(H\). We have
+with some abuse of notation
 \[
 	\det(H) = \prod_{i=1}^\dimension \Lambda_i
 	\quad\text{and}\quad
-	\ind_{\negEV(H) = 0} = \prod_{i=1}^\dimension \ind_{\Lambda_i\ge 0}
+	\negEV(H) = \negEV(\Lambda)
+	= \frac1\dimension \sum_{i=1}^\dimension \ind_{\Lambda_i < 0}.
 \]
-this leads to 
+So more generally for critical points of index \(\alpha\) we have
 \[\begin{aligned}
-	&\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))\\
-	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(0)} |\det(h)| p(z,h)dz dh\\
-	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)|\det(H)|]\\
-	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension |\Lambda_i| \ind_{\Lambda_i \ge 0}]\\
+	\Pr_{(\rf_T, H_T)}(A\times \negEV^{-1}(\alpha))
+	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(\alpha)} |\det(h)| p(z,h)dz dh\\
+	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(\alpha)}(H)|\det(H)|]\\
+	&= c\E[\ind_{A}(Z)
+	\ind_{\negEV^{-1}(\alpha)}(\Lambda)\prod_{i=1}^\dimension |\Lambda_i|]\\
 	&= \int_A c\underbrace{
 		\E\Big[
-			\int \prod_{i=1}^\dimension |\Lambda_i| \ind_{\Lambda_i\ge 0}
+			\ind_{\negEV(\Lambda) = \alpha}\prod_{i=1}^\dimension |\Lambda_i|
 			\Bigm| Z=z
 		\Big]
 		\varphi_Z(z)
-	}_{\sim\phi(z)}
+	}_{\sim\phi_\alpha(z)}
 	dz,
 \end{aligned}\]
 where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). Now recall that we
@@ -79,4 +83,6 @@ afterwards we simply get
 	(f_\dimension * \varphi_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
 \end{aligned}\]
 where \(f*g\) denotes the convolution of \(f\) and \(g\).
+
+
 

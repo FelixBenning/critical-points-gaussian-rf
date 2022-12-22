@@ -1,55 +1,184 @@
-\section{Height Distribution of Minima}
+\section{Height Distribution}
+\label{sec: height distribution}
 
-Let \((T,\rf(T),\nabla^2\rf(T))\sim\crit\) be a random critical point.
+Let \((T,\rf_T,H_T)\sim\crit\) be a random critical point.
 Of particular interest, is the height distribution of minima
 \[\begin{aligned}
-	\Pr(\rf(T)\in A \mid T\text{ is minimum})
-	&=\Pr(\rf(T)\in A \mid \negEV[\nabla^2\rf(T)]=0)\\
-	&= \frac{\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))}{\Pr(\negEV[\nabla^2\rf(T)]=0)}\\
+	\Pr(\rf_T\in A \mid T\text{ is minimum})
+	&=\Pr(\rf_T\in A \mid \negEV(H_T)=0)\\
+	&= \frac{\Pr_{(\rf_T, H_T)}(A\times \negEV^{-1}(0))}{\Pr(\negEV(H_T)=0)}\\
 	&= \int_A \underbrace{
 		\frac{\int_{\negEV^{-1}(0)} \Omega(z,h) dh}{\Pr(T\text{ is min})}
-	}_{=: \phi(z)} dz.
+	}_{=: \phi_0(z)} dz.
 \end{aligned}\]
-It turns out to be absolutely continuous with density \(\phi\). Unfortunately
-our term for \(\phi\) looks horrible. While \(\Omega\) itself might be
-calculable, the set \(\negEV^{-1}(0)\) is anything but pretty. We are therefore
-going to switch to the eigenvalues \(\lambda_1,\dots,\lambda_\dimension\) of
-the random matrix \(H\). We have
+It turns out to be absolutely continuous with density \(\phi_0\). Unfortunately
+our term for \(\phi_0\) looks horrible. While \(\Omega\) itself might be
+calculable, the set \(\negEV^{-1}(0)\) of positive definite matrices is anything
+but pretty. We are therefore going to switch to the eigenvalues
+\(\Lambda_1,\dots,\Lambda_\dimension\) of the random matrix \(H\). We have
+with some abuse of notation
 \[
-	\det(H) = \prod_{i=1}^\dimension \lambda_i
+	\det(H) = \prod_{i=1}^\dimension \Lambda_i
 	\quad\text{and}\quad
-	\ind_{\negEV(H) = 0} = \prod_{i=1}^\dimension \ind_{\lambda_i\ge 0}
+	\negEV(H) = \negEV(\Lambda)
+	= \frac1\dimension \sum_{i=1}^\dimension \ind_{\Lambda_i < 0}.
 \]
-this leads to 
+So more generally for critical points of index \(\alpha\) we have
 \[\begin{aligned}
-	&\Pr_{(\rf(T), \nabla^2\rf(T))}(A\times \negEV^{-1}(0))\\
-	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(0)} |\det(h)| p(z,h)dz dh\\
-	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(0)}(H)|\det(H)|]\\
-	&= c\E[\ind_{A}(Z)\prod_{i=1}^\dimension |\lambda_i| \ind_{\lambda_i \ge 0}]\\
+	\Pr_{(\rf_T, H_T)}(A\times \negEV^{-1}(\alpha))
+	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(\alpha)} |\det(h)| p(z,h)dz dh\\
+	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(\alpha)}(H)|\det(H)|]\\
+	&= c\E[\ind_{A}(Z)
+	\ind_{\negEV^{-1}(\alpha)}(\Lambda)\prod_{i=1}^\dimension |\Lambda_i|]\\
 	&= \int_A c\underbrace{
-		\int \prod_{i=1}^\dimension |x_i| \ind_{x_i\ge 0}
-		\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)
-	}_{\sim\phi(z)}
+		\E\Big[
+			\ind_{\negEV(\Lambda) = \alpha}\prod_{i=1}^\dimension |\Lambda_i|
+			\Bigm| Z=z
+		\Big]
+		\varphi_Z(z)
+	}_{\sim\phi_\alpha(z)}
 	dz,
 \end{aligned}\]
-where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). At first glance
-the conditional distribution of the eigenvalues \(\lambda_i\) given the
-height \(Z\) is just as difficult. But recall that we derived the conditional
-distribution in Subsection~\ref{subsec: from rf to lambda}. And
-it were simply GOE eigenvalues with an independent shift.
-
-The height distribution
-of minima is therefore up to constants
+where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). Now recall that we
+derived the conditional distribution in Subsection~\ref{subsec: Lambda|rf}. And
+it were simply GOE eigenvalues with an independent shift. So the height
+distribution of minima is therefore up to constants
 \[\begin{aligned}
-	&\phi(z)\\
-	&\sim\int \prod_{i=1}^\dimension |x_i| \ind_{x_i\ge 0}
-	\Pr((\lambda_1,\dots,\lambda_\dimension)\in dx\mid Z=z) \varphi_Z(z)\\
-	&\sim\int \int \prod_{i=1}^\dimension
-	\left|\sqrt{\sqC''(0)}x_i + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right|
-	\ind_{x_i\ge - \tfrac{t+\frac{\sqC'(0)}{\sqC(0)}z}{\sqrt{\sqC''(0)}}}
-	\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt \varphi_Z(z)\\
+	\phi_\alpha(z)
+	\overset{\eqref{eq: expectation f(Lambda) | Z}}&\sim
+	\E\Bigg[
+		\ind\Bigl\{
+			\negEV\left(\lambda \dotPlus \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
+		\Bigr\}
+		\prod_{i=1}^\dimension \left|
+			\lambda_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
+		\right|
+	\Bigg]
+	\varphi_\rf(z)\\
+	&\sim \int \E\Bigg[
+		\ind\Bigl\{
+			\negEV\left(\lambda \dotPlus t + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
+		\Bigr\}
+		\prod_{i=1}^\dimension \left|
+			\lambda_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
+		\right|
+	\Bigg]
+	\varphi_\epsilon(t)dt
+	\varphi_\rf(z),
 \end{aligned}\]
-Let us first have a look at
+where \(\varphi_\epsilon\) is the density of \(\normal\bigl(0,
+\sqC''(0)-\frac{\sqC'(0)^2}{\sqC(0)}\bigr)\).
+
+The interesting bit is
 \[
-	\int\prod_{i=1}^\dimension |c x_i + b| \ind_{x_i \ge -\tfrac{b}{c}}\varphi_{\text{GOE}}(x)dx
+	f_\dimension(x):=\E\Bigg[
+		\ind\Bigl\{
+			\negEV\left(\lambda \dotMinus x\right) = \alpha
+		\Bigr\}
+		\prod_{i=1}^\dimension \left|
+			\lambda_i - x
+		\right|
+	\Bigg]
 \]
+using this abstraction we simply have
+\[\begin{aligned}
+	\phi(z)
+	&\sim \varphi_\rf(z)
+	\int f_\dimension\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
+	\varphi_\epsilon(t)dt\\
+	&= \varphi_\rf(z)
+	(f_\dimension * \varphi_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
+\end{aligned}\]
+where \(f*g\) denotes the convolution of \(f\) and \(g\).
+
+Let us now take a closer look at \(f_\dimension\). 
+By definition we have
+\[
+		\ind\Bigl\{
+			\negEV\left(\lambda \dotMinus x\right) = \alpha
+		\Bigr\}
+		= \ind\Bigl\{
+			\frac1\dimension\sum_{i=1}^\dimension \ind_{\lambda_i < x} = \alpha
+		\Bigr\}
+\]
+So using the density of the
+eigenvalues of the GOE \eqref{eq: GOE ev density} and \(a:=2\sqC''(0)\),
+we can expand \(f_\dimension\) to
+\[
+	f_\dimension(x)
+	= c^\lambda_{\dimension,a}\int
+	\ind\Bigl\{
+			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x} = \alpha
+	\Bigr\}
+	\underbrace{
+	\prod_{i=1}^\dimension \left|
+		x_i - x
+	\right|
+	}_{=:(*)}
+	e^{-\tfrac1{2a}\sum_{k=1}^\dimension x_k^2} \Delta_N dx_1\dots dx_\dimension
+\]
+where \(\Delta_\dimension = \prod_{i<j}|x_i-x_j|\) is the Vandermonde
+Determinant. Using the observation
+\[
+	\Delta_{\dimension+1} = 
+	\Delta_\dimension\prod_{i=1}^\dimension \left|
+		x_i - x_{\dimension+1}
+	\right|,
+\]
+\textcite{fyodorovComplexityRandomEnergy2004} defined \(x_{\dimension+1}:=x\) to
+incorporate the determinant \((*)\) into the density of the GOE of dimension
+\(\dimension+1\). With a correction of the exponential and constant this
+clever trick results in
+\[\begin{aligned}
+	&f_\dimension(x_{\dimension+1})\\
+	&= \tfrac{c^\lambda_{\dimension, a}}{c^\lambda_{\dimension+1,a}}
+	e^{\tfrac{x_{\dimension+1}^2}{2a}}
+	\int \ind\Bigl\{
+			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x_{\dimension+1}} = \alpha
+	\Bigr\}
+	\varphi^\lambda_{\dimension+1,a}(x_1,\dots,x_{\dimension+1})
+	dx_1\dots d_{x_\dimension},
+\end{aligned}\]
+where \(\varphi^\lambda_{\dimension+1,a}\) is the eigenvalue density of the GOE
+in \(\dimension+1\) dimensions. At this point
+\textcite{fyodorovComplexityRandomEnergy2004} was done, but we still have an
+indicator left over. For this indicator to be one, exactly \(\dimension\alpha\)
+of the \(x_i\) need to be smaller \(x_{\dimension+1}\). For the ordering
+\(x_{(1)}\le\dots\le x_{(\dimension+1)}\), we therefore have
+\[
+	\ind\Bigl\{
+			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x_{\dimension+1}} = \alpha
+	\Bigr\}
+	= \ind\{x_{(\dimension\alpha+1)} = x_{\dimension+1}\}.
+\]
+It is now helpful to calculate the density of \(\lambda_{(k)}\) for an ordering
+\(\lambda_{(1)}\le\dots\le\lambda_{(m)}\) of the GOE eigenvalues of \(m\)
+dimensions. Since \(\lambda_1,\dots,\lambda_m\) are exchangeable random
+variables, we get
+\[\begin{aligned}
+	\Pr(\lambda_{(k)}\in A)
+	&= \int \varphi^\lambda_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}dx_1\dots dx_m\\
+	&= \int \varphi^\lambda_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}
+	\sum_{i=1}^m \ind_{x_{(k)}=x_i} dx_1\dots dx_m\\
+	&= \sum_{i=1}^m \int \varphi^\lambda_{m,a}(x_1,\dots,x_m) \ind_{x_i\in A}
+	\ind_{x_{(k)}=x_i} dx_1\dots dx_m\\
+	\overset{\text{exchangeable}}&= m \int \varphi^\lambda_{m,a}(x_1,\dots,x_m)
+	\ind_{x_m\in A} \ind_{x_{(k)}=x_m} dx_1\dots dx_m\\
+	&= \int_A \underbrace{m\left(\int \varphi^\lambda_{m,a}(x_1,\dots,x_m)
+	\ind_{x_{(k)}=x_m} dx_1\dots dx_{m-1}\right)}_{
+		= \varphi_{\lambda_{(k)}}(x_m)
+	} dx_m.
+\end{aligned}\]
+If we take \(m=\dimension+1\), \(k=\dimension\alpha+1\) and re-substitute
+\(x=x_{\dimension+1}\) we can put the last three equations together to finally
+get
+\[
+	f_\dimension(x)
+	= \tfrac{c^\lambda_{\dimension, a}}{c^\lambda_{\dimension+1,a}}
+	\exp\bigl(\tfrac{x^2}{2a}\bigr)
+	\frac1{\dimension+1}\varphi_{\lambda_{(\dimension\alpha+1)}}(x).
+\]
+
+
+
+

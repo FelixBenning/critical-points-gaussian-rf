@@ -75,104 +75,125 @@ Sample independently
 		leads to the required inequality. So for covariance models valid in all
 		dimensions, we have this inequality.
 	}
-	\item \(X_{11},\dots,X_{\dimension\dimension}\sim\normal(0, 2)\) and
-	independently \(X_{ji}:=X_{ij}\sim\normal(0,1)\) for \(i<j\le\dimension\).
-	In other words: \(X = (X_{ij})\) is a Gaussian Orthogonal Ensemble (GOE).
+	\item \(\tilde{H}_{11},\dots,\tilde{H}_{\dimension\dimension}\sim\normal(0,
+	a)\) and independently
+	\(\tilde{H}_{ji}:=\tilde{H}_{ij}\sim\normal(0,\frac{a}{2})\) for
+	\(i<j\le\dimension\). And we choose \(a=2\sqC''(0)\).
+	In other words: \(\tilde{H} = (X_{ij})\) is a (scaled) Gaussian Orthogonal
+	Ensemble (GOE)\footnote{
+		Oftentimes the definition of the GOE demands \(a=2\). To make notation
+		easier, we follow \textcite{fyodorovHighDimensionalRandomFields2013} in
+		this this more general definition.
+		For real symmetric matrices \(h\) the density of the GOE is then given by
+		\[
+			\varphi^{\GOE}_{\dimension,a}(h)
+			= c_{\dimension,a}\exp\left(-\frac{\dimension}{2a}\trace(h^2)\right)
+		\]
+		with scaling constant
+		\[
+			(c^{\GOE}_{\dimension,a})^{-1}
+			= (\pi a)^{-\frac{\dimension(\dimension+1)}{4}}2^{-\dimension/2}.
+		\]
+		The joint density of eigenvalues
+		\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) is known to be
+		\begin{equation}\label{eq: GOE ev density}
+			\varphi^{\lambda}_{\dimension, a}(x_1,\dots,x_n)
+			= c^\lambda_{\dimension,a}
+			\exp\Bigl(-\frac{1}{2a}\sum_{i=1}^\dimension x_i^2\Bigr)
+			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dimension}
+		\end{equation}
+		where \(\Delta_\dimension\) is the so-called Vandermonde Determinant and
+		the scaling constant is given by
+		\[
+			(c^\lambda_{\dimension,a})^{-1}
+			= (2\pi)^{\frac{\dimension}2}a^{\frac{\dimension(\dimension+1)}4}
+			\prod_{j=1}^\dimension \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
+		\]
+	}.
 \end{enumerate}
 We now define
 \[
-	H := \underbrace{\sqrt{\sqC''(0)}X}_{=:\tilde{H}}
-	+ \overbrace{\underbrace{[\epsilon + \tfrac{\sqC'(0)}{\sqC(0)} Z]}_{=:H_S}\identity}^{\text{``shift''}}
+	H := \tilde{H}
+	+ \overbrace{\underbrace{[\epsilon + \tfrac{\sqC'(0)}{\sqC(0)} Z]}_{=:\shift}\identity}^{\text{``shift''}}
 \]
 By construction \((Z,H)\) is centered multivariate normal. It is an easy
 exercise to check that the covariance structure is correct.
 
-As \(X\) is independent of \(H_S\), its eigenvalues
-\(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension\) are independent of
-\(H_S\). Assume that
+As \(\tilde{H}\) is independent of \(\shift\), its eigenvalues
+\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) are independent of
+\(\shift\). Assume that
 \[
-	X = P\diag[\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension]P^{-1}
+	X = P\diag[\lambda]P^{-1}
 \]
 Since the identity matrix is commonly diagonizable with every matrix, this
 results in
 \[
-	H = P(\sqrt{\sqC''(0)} \diag[\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension] + H_S) P^{-1}
+	H = P(\diag[\lambda] + \shift\identity) P^{-1}
 \]
 in other words, the eigenvalues of \(H\) are
 \[
-	\lambda_i
-	:= \sqrt{\sqC''(0)}\tilde{\lambda}_i + \underbrace{\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}\rf}_{=H_S}.
+	\Lambda_i
+	:= \lambda_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
 \]
 The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
-GOE multiplied by a common factor and shifted by an independent shift \(H_S\)
+GOE multiplied by a common factor and shifted by an independent shift \(\shift\)
 consisting of the current height \(\rf\) and an additional random component
 \(\epsilon\).
 
-\subsection{\texorpdfstring{From \(\rf\) to \(\lambda_1,\dots,\lambda_\dimension\)}{From Z to λ1,...,λN}}
-\label{subsec: from rf to lambda}
+\subsection{\texorpdfstring{\(\Lambda\mid\rf\)}{Λ|Z}}
+\label{subsec: Lambda|rf}
 
-In particular we have
+In particular we have for \(\Lambda = (\Lambda_1,\dots,\Lambda_\dimension)\)
 \[
-	(\lambda_1,\dots,\lambda_\dimension \mid \rf = z)
+	(\Lambda \mid \rf = z)
 	\overset{d}= 
-	(\sqrt{\sqC''(0)}\tilde{\lambda}_i + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z)_{i=1,\dots,\dimension}
+	\lambda \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z),
 \]
-More specifically, we have
-\[
-	\begin{aligned}
-		&\int f(x) \Pr(\lambda_1,\dots,\lambda_\dimension \in dx\mid \rf=z)\\
-		&= \int
-		\int f(x) \Pr(\lambda_1,\dots,\lambda_\dimension \in dx\mid \rf=z, \epsilon=t)
-		\Pr(\epsilon\in dt)\\
-		&= \int \int f\left(y + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
-		\Pr(\sqrt{\sqC''(0)}(\tilde{\lambda}_1,\dots,\tilde{\lambda}_\dimension)\in dy)
-		\Pr(\epsilon \in dt)\\
-		&= \int \int f\left(y + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
-		\varphi_{\text{GOE}}\left(\frac{y}{\sqrt{\sqC''(0)}}\right) dy \varphi_\epsilon(t)dt\\
-		\overset{y_i=\sqrt{\sqC''(0)}x_i}&= \sqrt{\sqC''(0)}^\dimension \int \int f\left(\sqrt{\sqC''(0)}x + t + \tfrac{\sqC'(0)}{\sqC(0)}z\right)
-		\varphi_{\text{GOE}}(x) dx \varphi_\epsilon(t)dt
-	\end{aligned}
-\]
-where \(\varphi_{\text{GOE}}\) is the joint distribution of the eigenvalues of
-the GOE and \(\varphi_\epsilon\) is the density of \(\normal\left(0,
-\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}\right)\).
+where \(\dotPlus\) is entry-wise addition.
+More specifically we have
+\begin{equation}\label{eq: expectation f(Lambda) | Z}
+		\E[f(\Lambda)\mid Z=z]
+		= \E\left[
+			f\left(\lambda \dotPlus (\epsilon+\tfrac{\sqC'(0)}{\sqC(0)}z)\right)
+		\right].
+\end{equation}
 
-\subsection{\texorpdfstring{From \(\lambda_1,\dots,\lambda_\dimension\) to \(\rf\)}{From λ1,...,λN to Z}}
+\subsection{\texorpdfstring{\(\rf\mid\Lambda\)}{Z|Λ}}
 
 \begin{theorem}[Conditional Distributions of \(\rf\)]
 	\label{thm: conditional distributions of rf}
 	We have
 	\begin{align}
-		\rf\mid H_S
+		\rf\mid \shift
 		&\sim \normal\left(
-			\tfrac{\sqC'(0)}{\sqC''(0)} H_S,
+			\tfrac{\sqC'(0)}{\sqC''(0)} \shift,
 			\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
 		\right)\\
-		\rf\mid \lambda_1\dots,\lambda_\dimension
+		\rf\mid \Lambda
 		&=\rf\mid H = \rf \mid H_1,\dots, H_\dimension
 		\nonumber\\
 		&\sim \normal\left(
-		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\lambda},
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\Lambda},
 		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
 	\right)
 	\end{align}
 	where the mean of eigenvalues (or the mean of the diagonal)
 	\[
-		\bar{\lambda}
-		:=\frac1\dimension\sum_{i=1}^\dimension \lambda_i
+		\bar{\Lambda}
+		:=\frac1\dimension\sum_{i=1}^\dimension \Lambda_i
 		=\frac{\trace{H}}\dimension
 	\]
-	approximate the shift \(H_S\) and therefore approximates \(\rf\mid H_S\) in
+	approximate the shift \(\shift\) and therefore approximates \(\rf\mid \shift\) in
 	the limit.
 \end{theorem}
 \begin{proof}
 	See Appendix~\ref{sec: proof of conditionals}.
 \end{proof}
 \begin{remark}
-	The conditional variance \(\Var(\rf\mid H_S)= \sqC(0) -
+	The conditional variance \(\Var(\rf\mid \shift)= \sqC(0) -
 	\tfrac{\sqC'(0)^2}{\sqC''(0)}\) is zero, iff \(\epsilon\) is almost surely
 	zero (because it has the same variance up to a factor). In that case the
-	shift \(H_S\) consists only of \(\rf\) so this should not be surprising.
+	shift \(\shift\) consists only of \(\rf\) so this should not be surprising.
 \end{remark}
 
 

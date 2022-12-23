@@ -12,25 +12,25 @@ a Gaussian random field \(\rf\).
 \begin{lemma}[Joint Density]\label{lem: joint density}
 	We have
 	\[
-		p(H, \rf) = C_\dimension \exp(-\dimension^2 S_2(H) - \dimension S_1(H, \rf))
+		p(H, \rf) = C_\dims \exp(-\dims^2 S_2(H) - \dims S_1(H, \rf))
 	\]
 	with
 	\begin{align*}
 		S_2(H)
-		&= \frac{1}{4\dimension\sqC''(0)}\left[
-			\trace H^2 - \frac1{2+\dimension}(\trace H)^2
+		&= \frac{1}{4\dims\sqC''(0)}\left[
+			\trace H^2 - \frac1{2+\dims}(\trace H)^2
 		\right]
 		\\
 		S_1(H,\rf)
 		&= \frac1{2\sqC''(0)Q}\left[
-			\tfrac{\dimension+2}{\dimension^3}\rf^2
-			- \tfrac{2\sqC'(0)}{\dimension^2\sqC''(0)}\rf\trace H
-			+ \tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(\dimension+2)}(\trace H)^2
+			\tfrac{\dims+2}{\dims^3}\rf^2
+			- \tfrac{2\sqC'(0)}{\dims^2\sqC''(0)}\rf\trace H
+			+ \tfrac{\sqC'(0)^2}{\sqC''(0)^2\dims(\dims+2)}(\trace H)^2
 		\right],
 	\end{align*}
 	where
 	\[
-		Q = \left(1+\frac2\dimension\right)
+		Q = \left(1+\frac2\dims\right)
 		\frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}.
 	\]
 \end{lemma}
@@ -40,10 +40,10 @@ a Gaussian random field \(\rf\).
 Recall
 
 \[
-	\Sigma := \Cov((H_{ii})_{i\le\dimension}, \rf, (H_{ij})_{i<j})
+	\Sigma := \Cov((H_{ii})_{i\le\dims}, \rf, (H_{ij})_{i<j})
 	= \begin{pmatrix}
 		B & 0\\
-		0 & \frac{\sqC''(0)}{\dimension}\identity
+		0 & \frac{\sqC''(0)}{\dims}\identity
 	\end{pmatrix}
 \]
 with
@@ -73,13 +73,13 @@ covariance of partial derivatives \(\Sigma_\partial\), we have
 \]
 as one can verify by calculating \(BB^{-1}\). As \(\Sigma_\partial\) is of the form
 \[
-	\Sigma_\partial=\frac{\sqC''(0)}{\dimension}[2\identity + \ones\ones^T]
+	\Sigma_\partial=\frac{\sqC''(0)}{\dims}[2\identity + \ones\ones^T]
 \]
-with \(\ones=(1,\dots,1)^T\in\real^\dimension\), we can use the Sherman-Morrison
+with \(\ones=(1,\dots,1)^T\in\real^\dims\), we can use the Sherman-Morrison
 formula.
 
 \begin{lemma}[Sherman-Morrison Formula]
-	Let \(A\) be an invertible matrix, \(u,v\in\real^\dimension\) column vectors.
+	Let \(A\) be an invertible matrix, \(u,v\in\real^\dims\) column vectors.
 	Then \(A+ uv^T\) is invertible iff \(1+v^T A^{-1}u \neq 0\), and if that is
 	the case, we have
 	\[
@@ -93,32 +93,32 @@ formula.
 The application of this formula results in
 \begin{equation}\label{eq: sigma_partial inverse}
 	\Sigma_\partial^{-1}
-	= \frac{\dimension}{\sqC''(0)}\left[
+	= \frac{\dims}{\sqC''(0)}\left[
 		\tfrac12\identity - \frac{\tfrac14\ones\ones^T}{1+\tfrac12\ones^T\ones}
 	\right]
-	= \frac{\dimension}{2\sqC''(0)}\left[
-		\identity - \frac{1}{2+\dimension}\ones\ones^T
+	= \frac{\dims}{2\sqC''(0)}\left[
+		\identity - \frac{1}{2+\dims}\ones\ones^T
 	\right].
 \end{equation}
 To determine \(B^{-1}\), we first define
 \begin{align*}
 	q := d - b^T \Sigma_\partial^{-1}b
-	&= \dimension\sqC(0) - \tfrac{\dimension\sqC'(0)^2}{2\sqC''(0)}\ones^T
-	[\identity-\tfrac1{2+\dimension}\ones\ones^T]\ones\\
-	&= \dimension\left[
+	&= \dims\sqC(0) - \tfrac{\dims\sqC'(0)^2}{2\sqC''(0)}\ones^T
+	[\identity-\tfrac1{2+\dims}\ones\ones^T]\ones\\
+	&= \dims\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{2\sqC''(0)}
-		\dimension( 1-\tfrac{\dimension}{2+\dimension} )
+		\dims( 1-\tfrac{\dims}{2+\dims} )
 	\right]\\
-	&= \dimension\left[
+	&= \dims\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
-		\tfrac{\dimension}{2+\dimension}
+		\tfrac{\dims}{2+\dims}
 	\right],
 \end{align*}
 and then calculate
 \begin{equation}\label{eq: definition of c=sigma_partial^{-1} b}
 	c:=\Sigma_\partial^{-1}b
-	= \tfrac{\dimension\sqC'(0)}{2\sqC''(0)}( 1 - \tfrac{\dimension}{2+\dimension} )\ones
-	= \tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\ones.
+	= \tfrac{\dims\sqC'(0)}{2\sqC''(0)}( 1 - \tfrac{\dims}{2+\dims} )\ones
+	= \tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\ones.
 \end{equation}
 Therefore we have
 \begin{equation}\label{eq: inv B split}
@@ -139,7 +139,7 @@ Therefore we have
 Let us take a step back now. We want to calculate
 \begin{equation*}
 	p(H, \rf)
-	=C_\dimension\exp\left(
+	=C_\dims\exp\left(
 		-\tfrac12
 		( H_{ii},\rf, H_{ij} )\Sigma^{-1}
 		\begin{pmatrix}
@@ -150,10 +150,10 @@ Let us take a step back now. We want to calculate
 	\right)
 \end{equation*}
 where we abbreviate for readability \((H_{ii}, \rf, H_{ij})= ((H_{ii})_{i\le
-\dimension}, \rf, (H_{ij})_{i<j})\) and define
+\dims}, \rf, (H_{ij})_{i<j})\) and define
 \begin{align*}
-	C_\dimension &:= \left((2\pi)^{n(\dimension)}\det(\Sigma)\right)^{-1/2}\\
-	n(\dimension) &:= 1 + \tfrac{\dimension(\dimension+1)}{2}.
+	C_\dims &:= \left((2\pi)^{n(\dims)}\det(\Sigma)\right)^{-1/2}\\
+	n(\dims) &:= 1 + \tfrac{\dims(\dims+1)}{2}.
 \end{align*}
 Looking at just the exponent we have
 \begin{align*}
@@ -168,7 +168,7 @@ Looking at just the exponent we have
 		\tfrac12
 		( H_{ii},\rf, H_{ij} )\begin{pmatrix}
 			B^{-1} & 0\\
-			0 & \tfrac{\dimension}{\sqC''(0)}\identity
+			0 & \tfrac{\dims}{\sqC''(0)}\identity
 		\end{pmatrix}
 		\begin{pmatrix}
 			H_{ii}\\
@@ -178,8 +178,8 @@ Looking at just the exponent we have
 		&= \tfrac12(H_{ii},\rf)B^{-1}\begin{pmatrix}
 			H_{ii}\\ \rf
 		\end{pmatrix}
-		+ \underbrace{\tfrac{\dimension}{2\sqC''(0)}\| (H_{ij})_{i<j}\|^2}_{
-			=\tfrac{\dimension}{4\sqC''(0)}\| (H_{ij})_{i\neq j}\|^2.
+		+ \underbrace{\tfrac{\dims}{2\sqC''(0)}\| (H_{ij})_{i<j}\|^2}_{
+			=\tfrac{\dims}{4\sqC''(0)}\| (H_{ij})_{i\neq j}\|^2.
 		}
 \end{align*}
 For the first part we can use \eqref{eq: inv B split} to get
@@ -200,13 +200,13 @@ For the first part we can use \eqref{eq: inv B split} to get
 				\begin{pmatrix}
 					H_{ii}\\ \rf
 				\end{pmatrix}
-			}_{=: \dimension S_1(H, \rf)}.
+			}_{=: \dims S_1(H, \rf)}.
 \]
 Using \eqref{eq: sigma_partial inverse}, we also obtain
 \[
 	\frac12 H_{ii} \Sigma_\partial^{-1} H_{ii}
-	= \frac{\dimension}{4\sqC''(0)}
-	\left[\|H_{ii}\|^2 - \tfrac{(\trace H)^2}{2+\dimension}\right].
+	= \frac{\dims}{4\sqC''(0)}
+	\left[\|H_{ii}\|^2 - \tfrac{(\trace H)^2}{2+\dims}\right].
 \]
 Putting the last three equations back together, we get
 \begin{align*}
@@ -218,46 +218,46 @@ Putting the last three equations back together, we get
 			H_{ij}
 		\end{pmatrix}
 		&= \underbrace{
-			\tfrac{\dimension}{4\sqC''(0)}\left[
+			\tfrac{\dims}{4\sqC''(0)}\left[
 			\|(H_{ij})_{ij}\|^2
-			- \tfrac{(\trace H)^2}{2+\dimension}
+			- \tfrac{(\trace H)^2}{2+\dims}
 		\right]
-		}_{=: \dimension^2 S_2(H)}
-		+ \dimension S_1(H,\rf),
+		}_{=: \dims^2 S_2(H)}
+		+ \dims S_1(H,\rf),
 \end{align*}
 where we joined the norm over the diagonal elements with the norm over the rest.
 This can be further simplified to
 \begin{align*}
-	\|(H_{ij})_{ij}\|^2 = \sum_{i,j=1}^\dimension H_{ij}^2
-	= \sum_{i=1}^\dimension \underbrace{\sum_{j=1}^\dimension H_{ij}H_{ji}}_{(H^2)_{ii}}
+	\|(H_{ij})_{ij}\|^2 = \sum_{i,j=1}^\dims H_{ij}^2
+	= \sum_{i=1}^\dims \underbrace{\sum_{j=1}^\dims H_{ij}H_{ji}}_{(H^2)_{ii}}
 	= \trace(H^2).
 \end{align*}
 As claimed in Lemma~\ref{lem: joint density}, we therefore have
 \[
-	S_2(H) = \frac{1}{4 \dimension \sqC''(0)} \left[
-		\trace H^2 - \frac{(\trace H)^2}{2+\dimension}
+	S_2(H) = \frac{1}{4 \dims \sqC''(0)} \left[
+		\trace H^2 - \frac{(\trace H)^2}{2+\dims}
 	\right].
 \]
 Now we just need to prove that the \(S_1\) we defined here, is also the same as
 in the Lemma. For that recall the definition of \(c\) in \eqref{eq: definition of
 c=sigma_partial^{-1} b} and the definition of \(q\) which resulted in
 \[
-	c=\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\ones
+	c=\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\ones
 	\qquad \text{and} \qquad
-	q=\dimension\left[
+	q=\dims\left[
 		\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
-		\tfrac{\dimension}{2+\dimension}
+		\tfrac{\dims}{2+\dims}
 	\right].
 \]
 As a first result, we get
 \[
 	\langle c, H_{ii}\rangle = 
-	\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\trace H.
+	\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\trace H.
 \]
 Now we apply this to \(S_1\), resulting in
 \begin{align*}
 	S_1(H, \rf)
-	&= \frac{1}{2\dimension q}
+	&= \frac{1}{2\dims q}
 	(H_{ii},\rf)
 	\begin{pmatrix}
 		cc^T & -c \\
@@ -266,44 +266,44 @@ Now we apply this to \(S_1\), resulting in
 	\begin{pmatrix}
 		H_{ii}\\ \rf
 	\end{pmatrix}\\
-	&= \frac1{2\dimension q}
+	&= \frac1{2\dims q}
 	\left[\langle c, H_{ii}\rangle^2 - 2\langle c, H_{ii}\rangle + \rf^2\right]
 	\\
-	&= \frac1{2\dimension q}
+	&= \frac1{2\dims q}
 	\left[
-		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2(\trace H)^2
-		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension} \rf\trace H
+		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\right)^2(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims} \rf\trace H
 		+ \rf^2
 	\right].
 \end{align*}
 Finally note, that
 \[
-	q = \frac{\dimension^2\sqC''(0)}{\dimension+2}
+	q = \frac{\dims^2\sqC''(0)}{\dims+2}
 	\underbrace{
 	\left[
-		\frac{\dimension +2}{\dimension}\frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}
+		\frac{\dims +2}{\dims}\frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}
 	\right]
 	}_{=:Q},
 \]
 as this concludes our proof of Lemma~\ref{lem: joint density}:
 \begin{align*}
 	S_1(H, \rf)
-	&= \frac1{2\dimension Q}\frac{\dimension+2}{\dimension^2\sqC''(0)}
+	&= \frac1{2\dims Q}\frac{\dims+2}{\dims^2\sqC''(0)}
 	\left[
-		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2(\trace H)^2
-		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\rf \trace H
+		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\right)^2(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\rf \trace H
 		+ \rf^2
 	\right]\\
-	&= \frac1{2\sqC''(0)Q}\frac{\dimension+2}{\dimension^3}
+	&= \frac1{2\sqC''(0)Q}\frac{\dims+2}{\dims^3}
 	\left[
-		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension}\right)^2(\trace H)^2
-		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dimension}{2+\dimension} \rf\trace H
+		\left(\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims}\right)^2(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\sqC''(0)}\tfrac{\dims}{2+\dims} \rf\trace H
 		+ \rf^2
 	\right]\\
 	&= \frac1{2\sqC''(0)Q}
 	\left[
-		\tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(2+\dimension)}(\trace H)^2
-		- 2\tfrac{\sqC'(0)}{\dimension^2\sqC''(0)}\rf\trace H
-		+ \tfrac{\dimension+2}{\dimension^3}\rf^2
+		\tfrac{\sqC'(0)^2}{\sqC''(0)^2\dims(2+\dims)}(\trace H)^2
+		- 2\tfrac{\sqC'(0)}{\dims^2\sqC''(0)}\rf\trace H
+		+ \tfrac{\dims+2}{\dims^3}\rf^2
 	\right].
 \end{align*}

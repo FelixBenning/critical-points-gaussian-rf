@@ -7,12 +7,12 @@ measure. Let us consider the random set \(\pp\)
 \[
 	\pp = \{ X_1, \dots, X_K\}
 \]
-where \(X_1,\dots, X_K\in\real^\dimension\) are the random points of this set. Then with some
+where \(X_1,\dots, X_K\in\real^\dims\) are the random points of this set. Then with some
 abuse of notation, we can define the measure
 \[
 	\pp :
 	\begin{cases}
-		\borel(\real^\dimension) \to \real \\
+		\borel(\real^\dims) \to \real \\
 		A \mapsto \pp(A):= \sum_{X\in \pp}\delta_X(A) 
 	\end{cases}
 \]
@@ -27,13 +27,13 @@ So let us introduce some nomenclature for these specific measures.
 We want our point-counting measure \(\mu\) to be
 \begin{itemize}
 	\item \textbf{locally finite}, i.e. \(\mu(A) < \infty\) for all bounded
-	\(A\in\borel(\real^\dimension)\),
+	\(A\in\borel(\real^\dims)\),
 	\item a \textbf{counting measure}, i.e. it should be discrete,
 	\item \textbf{simple}, i.e. \(\mu(\{x\})\in\{0,1\}\), if we do not want
 	to allow duplicate points.
 \end{itemize}
 Let \(\locFiniteMeasure\) be the \textbf{set of all locally finite counting measures}
-on \(\real^\dimension\) and \(\locFiniteMeasAlg\) the smallest \(\sigma\)-algebra
+on \(\real^\dims\) and \(\locFiniteMeasAlg\) the smallest \(\sigma\)-algebra
 such that
 \[
 	\pi_B : \begin{cases}
@@ -41,9 +41,9 @@ such that
 		\mu \mapsto \mu(B)
 	\end{cases}
 \]
-is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
+is measurable for every \(B\in\borel(\real^\dims)\). I.e.
 \[
-	\locFiniteMeasAlg := \sigma(\pi_B : B\in\borel(\real^\dimension))
+	\locFiniteMeasAlg := \sigma(\pi_B : B\in\borel(\real^\dims))
 \]
 
 \begin{definition}[Point Process]
@@ -53,10 +53,10 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\[
 		\pp(B) := \pi_B\circ \pp : \Omega \to \real
 	\]
-	is a random variable for any \(B\in\borel(\real^\dimension)\). If
+	is a random variable for any \(B\in\borel(\real^\dims)\). If
 	\[
 		\intensityMeas:\begin{cases}
-			\borel(\real^\dimension)\to [0,\infty)\\
+			\borel(\real^\dims)\to [0,\infty)\\
 			B \mapsto \E[\pp(B)]
 		\end{cases}
 	\]
@@ -82,12 +82,12 @@ But of course not every point process can be interpreted as a point with a mark.
 So we define the special case
 
 \begin{definition}[Marked Point Process]
-	A point process \(\pp\) on \(\locFiniteMeasure[\dimension+n]\) is called
+	A point process \(\pp\) on \(\locFiniteMeasure[\dims+n]\) is called
 	\textbf{marked point process}, if \(\pp_p = \pp(\cdot \times \real^n)\)
 	is a point process on \(\locFiniteMeasure\).
 
 	A marked point process is called \textbf{stationary}, if for all
-	\(h\in\real^\dimension\), \(A_i\in\borel(\real^\dimension)\),
+	\(h\in\real^\dims\), \(A_i\in\borel(\real^\dims)\),
 	\(M_i\in\borel(\real^n)\) and \(B_i\subseteq\nat_0\) we have
 	\[
 		\Pr(\pp(A_i\times M_i) \in B_i, i=1,2,\dots)

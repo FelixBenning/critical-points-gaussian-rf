@@ -15,13 +15,13 @@ It turns out to be absolutely continuous with density \(\Psi_0\). Unfortunately
 our term for \(\Psi_0\) looks horrible. While \(\Omega\) itself might be
 calculable, the set \(\negEV^{-1}(0)\) of positive definite matrices is anything
 but pretty. We are therefore going to switch to the eigenvalues
-\(\evH_1,\dots,\evH_\dimension\) of the random matrix \(H\). We have
+\(\evH_1,\dots,\evH_\dims\) of the random matrix \(H\). We have
 with some abuse of notation
 \[
-	\det(H) = \prod_{i=1}^\dimension \evH_i
+	\det(H) = \prod_{i=1}^\dims \evH_i
 	\quad\text{and}\quad
 	\negEV(H) = \negEV(\evH)
-	= \frac1\dimension \sum_{i=1}^\dimension \ind_{\evH_i < 0}.
+	= \frac1\dims \sum_{i=1}^\dims \ind_{\evH_i < 0}.
 \]
 So more generally for critical points of index \(\alpha\) we have
 \[\begin{aligned}
@@ -29,10 +29,10 @@ So more generally for critical points of index \(\alpha\) we have
 	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(\alpha)} |\det(h)| p(z,h)dz dh\\
 	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(\alpha)}(H)|\det(H)|]\\
 	&= c\E[\ind_{A}(Z)
-	\ind_{\negEV^{-1}(\alpha)}(\evH)\prod_{i=1}^\dimension |\evH_i|]\\
+	\ind_{\negEV^{-1}(\alpha)}(\evH)\prod_{i=1}^\dims |\evH_i|]\\
 	&= \int_A c\underbrace{
 		\E\Big[
-			\ind_{\negEV(\evH) = \alpha}\prod_{i=1}^\dimension |\evH_i|
+			\ind_{\negEV(\evH) = \alpha}\prod_{i=1}^\dims |\evH_i|
 			\Bigm| Z=z
 		\Big]
 		\varphi_Z(z)
@@ -50,7 +50,7 @@ distribution of minima is therefore up to constants
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotPlus \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
 		\Bigr\}
-		\prod_{i=1}^\dimension \left|
+		\prod_{i=1}^\dims \left|
 			\evGOE_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right|
 	\Bigg]
@@ -59,7 +59,7 @@ distribution of minima is therefore up to constants
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotPlus t + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
 		\Bigr\}
-		\prod_{i=1}^\dimension \left|
+		\prod_{i=1}^\dims \left|
 			\evGOE_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right|
 	\Bigg]
@@ -71,11 +71,11 @@ where \(\varphi_\epsilon\) is the density of \(\normal\bigl(0,
 
 The interesting bit is
 \[
-	f_\dimension(x):=\E\Bigg[
+	f_\dims(x):=\E\Bigg[
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotMinus x\right) = \alpha
 		\Bigr\}
-		\prod_{i=1}^\dimension \left|
+		\prod_{i=1}^\dims \left|
 			\evGOE_i - x
 		\right|
 	\Bigg]
@@ -84,72 +84,72 @@ using this abstraction we simply have
 \[\begin{aligned}
 	\Psi(z)
 	&\sim \varphi_\rf(z)
-	\int f_\dimension\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
+	\int f_\dims\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
 	\varphi_\epsilon(t)dt\\
 	&= \varphi_\rf(z)
-	(f_\dimension * \varphi_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
+	(f_\dims * \varphi_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
 \end{aligned}\]
 where \(f*g\) denotes the convolution of \(f\) and \(g\).
 
-Let us now take a closer look at \(f_\dimension\). 
+Let us now take a closer look at \(f_\dims\). 
 By definition we have
 \[
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotMinus x\right) = \alpha
 		\Bigr\}
 		= \ind\Bigl\{
-			\frac1\dimension\sum_{i=1}^\dimension \ind_{\evGOE_i < x} = \alpha
+			\frac1\dims\sum_{i=1}^\dims \ind_{\evGOE_i < x} = \alpha
 		\Bigr\}
 \]
 So using the density of the
 eigenvalues of the GOE \eqref{eq: GOE ev density} and \(a:=2\sqC''(0)\),
-we can expand \(f_\dimension\) to
+we can expand \(f_\dims\) to
 \[
-	f_\dimension(x)
-	= c^\evGOE_{\dimension,a}\int
+	f_\dims(x)
+	= c^\evGOE_{\dims,a}\int
 	\ind\Bigl\{
-			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x} = \alpha
+			\frac1\dims\sum_{i=1}^\dims \ind_{x_i < x} = \alpha
 	\Bigr\}
 	\underbrace{
-	\prod_{i=1}^\dimension \left|
+	\prod_{i=1}^\dims \left|
 		x_i - x
 	\right|
 	}_{=:(*)}
-	e^{-\tfrac1{2a}\sum_{k=1}^\dimension x_k^2} \Delta_N dx_1\dots dx_\dimension
+	e^{-\tfrac1{2a}\sum_{k=1}^\dims x_k^2} \Delta_N dx_1\dots dx_\dims
 \]
-where \(\Delta_\dimension = \prod_{i<j}|x_i-x_j|\) is the Vandermonde
+where \(\Delta_\dims = \prod_{i<j}|x_i-x_j|\) is the Vandermonde
 Determinant. Using the observation
 \[
-	\Delta_{\dimension+1} = 
-	\Delta_\dimension\prod_{i=1}^\dimension \left|
-		x_i - x_{\dimension+1}
+	\Delta_{\dims+1} = 
+	\Delta_\dims\prod_{i=1}^\dims \left|
+		x_i - x_{\dims+1}
 	\right|,
 \]
-\textcite{fyodorovComplexityRandomEnergy2004} defined \(x_{\dimension+1}:=x\) to
+\textcite{fyodorovComplexityRandomEnergy2004} defined \(x_{\dims+1}:=x\) to
 incorporate the determinant \((*)\) into the density of the GOE of dimension
-\(\dimension+1\). With a correction of the exponential and constant this
+\(\dims+1\). With a correction of the exponential and constant this
 clever trick results in
 \[\begin{aligned}
-	&f_\dimension(x_{\dimension+1})\\
-	&= \tfrac{c^\evGOE_{\dimension, a}}{c^\evGOE_{\dimension+1,a}}
-	e^{\tfrac{x_{\dimension+1}^2}{2a}}
+	&f_\dims(x_{\dims+1})\\
+	&= \tfrac{c^\evGOE_{\dims, a}}{c^\evGOE_{\dims+1,a}}
+	e^{\tfrac{x_{\dims+1}^2}{2a}}
 	\int \ind\Bigl\{
-			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x_{\dimension+1}} = \alpha
+			\frac1\dims\sum_{i=1}^\dims \ind_{x_i < x_{\dims+1}} = \alpha
 	\Bigr\}
-	\varphi^\evGOE_{\dimension+1,a}(x_1,\dots,x_{\dimension+1})
-	dx_1\dots d_{x_\dimension},
+	\varphi^\evGOE_{\dims+1,a}(x_1,\dots,x_{\dims+1})
+	dx_1\dots d_{x_\dims},
 \end{aligned}\]
-where \(\varphi^\evGOE_{\dimension+1,a}\) is the eigenvalue density of the GOE
-in \(\dimension+1\) dimensions. At this point
+where \(\varphi^\evGOE_{\dims+1,a}\) is the eigenvalue density of the GOE
+in \(\dims+1\) dimensions. At this point
 \textcite{fyodorovComplexityRandomEnergy2004} was done, but we still have an
-indicator left over. For this indicator to be one, exactly \(\dimension\alpha\)
-of the \(x_i\) need to be smaller \(x_{\dimension+1}\). For the ordering
-\(x_{(1)}\le\dots\le x_{(\dimension+1)}\), we therefore have
+indicator left over. For this indicator to be one, exactly \(\dims\alpha\)
+of the \(x_i\) need to be smaller \(x_{\dims+1}\). For the ordering
+\(x_{(1)}\le\dots\le x_{(\dims+1)}\), we therefore have
 \[
 	\ind\Bigl\{
-			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x_{\dimension+1}} = \alpha
+			\frac1\dims\sum_{i=1}^\dims \ind_{x_i < x_{\dims+1}} = \alpha
 	\Bigr\}
-	= \ind\{x_{(\dimension\alpha+1)} = x_{\dimension+1}\}.
+	= \ind\{x_{(\dims\alpha+1)} = x_{\dims+1}\}.
 \]
 It is now helpful to calculate the density of \(\evGOE_{(k)}\) for an ordering
 \(\evGOE_{(1)}\le\dots\le\evGOE_{(m)}\) of the GOE eigenvalues of \(m\)
@@ -169,14 +169,14 @@ variables, we get
 		= \varphi_{\evGOE_{(k)}}(x_m)
 	} dx_m.
 \end{aligned}\]
-If we take \(m=\dimension+1\), \(k=\dimension\alpha+1\) and re-substitute
-\(x=x_{\dimension+1}\) we can put the last three equations together to finally
+If we take \(m=\dims+1\), \(k=\dims\alpha+1\) and re-substitute
+\(x=x_{\dims+1}\) we can put the last three equations together to finally
 get
 \[
-	f_\dimension(x)
-	= \tfrac{c^\evGOE_{\dimension, a}}{c^\evGOE_{\dimension+1,a}}
+	f_\dims(x)
+	= \tfrac{c^\evGOE_{\dims, a}}{c^\evGOE_{\dims+1,a}}
 	\exp\bigl(\tfrac{x^2}{2a}\bigr)
-	\frac1{\dimension+1}\varphi_{\evGOE_{(\dimension\alpha+1)}}(x).
+	\frac1{\dims+1}\varphi_{\evGOE_{(\dims\alpha+1)}}(x).
 \]
 
 

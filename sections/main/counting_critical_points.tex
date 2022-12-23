@@ -2,16 +2,16 @@
 
 \begin{definition}[Counting Critical Points]
 	Let \(\rf\) be a random field. We implicitly\footnote{
-		\(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2})\) is a semiring. So by
+		\(\borel(\real^\dims)\times\borel(\real^{1+\dims^2})\) is a semiring. So by
 		Carathéodory's extension theorem there is a unique extension of
 		\(\pp\) to
-		\(\sigma(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}))=\borel(\real^{\dimension+1+\dimension^2})\).
-		Use this extension to obtain \(\pp(\omega)\in\locFiniteMeasure[\dimension+1+\dimension^2]\).
+		\(\sigma(\borel(\real^\dims)\times\borel(\real^{1+\dims^2}))=\borel(\real^{\dims+1+\dims^2})\).
+		Use this extension to obtain \(\pp(\omega)\in\locFiniteMeasure[\dims+1+\dims^2]\).
 	} define the marked point process of critical points as
 	\begin{align*}
 		\pp:
 		\begin{cases}
-			\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}) \to \real\\
+			\borel(\real^\dims)\times\borel(\real^{1+\dims^2}) \to \real\\
 			(\Vol, M) \mapsto
 			\#\left\{t\in\Vol:
 				\nabla\rf(t)=0,
@@ -25,14 +25,14 @@
 		number of negative eigenvalues is a measurable function in \(H\).
 	}
 	\[
-		\negEV(H) := \negEV(\evH) := \frac1\dimension \sum_{k=1}^\dimension \ind_{\evH_i < 0},
+		\negEV(H) := \negEV(\evH) := \frac1\dims \sum_{k=1}^\dims \ind_{\evH_i < 0},
 	\]
-	where \(\evH=(\evH_1,\dots,\evH_\dimension)\) are the eigenvalues of
-	\(H\in\real^{\dimension\times\dimension}\).
+	where \(\evH=(\evH_1,\dots,\evH_\dims)\) are the eigenvalues of
+	\(H\in\real^{\dims\times\dims}\).
 	The point-process of critical points with index \(\alpha\) is therefore
 	\[
 		\pp^\alpha(\Vol, A)
-		:= \pp(\Vol, A\times\negEV^{-1}(\dimension\alpha)).
+		:= \pp(\Vol, A\times\negEV^{-1}(\dims\alpha)).
 	\]
 	In particular for \(\alpha=0\) we have the point process of minimas\footnote{
 		Technically ``no negative eigenvalues'' is only a necessary criterion for a
@@ -56,10 +56,10 @@
 \begin{proof}[Proof (Measurability)]
 	First note that	
 	\begin{align*}
-		\locFiniteMeasAlg[\dimension+1+\dimension^2]
-		&= \sigma(\pi_B : B\in\borel(\real^{\dimension+1+\dimension^2}))\\
+		\locFiniteMeasAlg[\dims+1+\dims^2]
+		&= \sigma(\pi_B : B\in\borel(\real^{\dims+1+\dims^2}))\\
 		&=\sigma(\underbrace{
-			\{\pi_B^{-1}(C) : B\in\borel(\real^{\dimension+1+\dimension^2}), C\in\borel(\real)\}
+			\{\pi_B^{-1}(C) : B\in\borel(\real^{\dims+1+\dims^2}), C\in\borel(\real)\}
 		}_{=:\mathcal{E}}
 		)
 	\end{align*}
@@ -87,7 +87,7 @@
 	If \(\rf\) is strictly stationary, \(\pp\) is stationary.
 \end{lemma}
 \begin{proof}
-	Let \(h\in \real^\dimension\) and note that
+	Let \(h\in \real^\dims\) and note that
 	\[
 		\tilde{\rf}(t) := \rf(t+h)
 	\]

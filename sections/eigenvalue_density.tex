@@ -33,9 +33,9 @@
 Since Jacobi Matrices are symmetric they can be diagonalised via orthonormal matrices. This allows us to define the following.
 
 \begin{definition}[Spectral Measure of Jacobi Matrices]
-    If $\jacobiMat = QDQ^T$ with $Q$ orthonormal and $D = \operatorname{diag}(\lambda_1, \ldots, \lambda_\dimension)$, we define
+    If $\jacobiMat = QDQ^T$ with $Q$ orthonormal and $D = \operatorname{diag}(\xi_1, \ldots, \xi_\dimension)$, we define
     \begin{align*}
-        \spectralDiffeo(\jacobiMat) := \sum_{i=1}^{\dimension} (Q^T e_1)^2_i \delta_{\lambda_i},
+        \spectralDiffeo(\jacobiMat) := \sum_{i=1}^{\dimension} (Q^T e_1)^2_i \delta_{\xi_i},
     \end{align*}
     where $e_1 = (1,0,\ldots,0)^T$.
 \end{definition}
@@ -43,14 +43,14 @@ Since Jacobi Matrices are symmetric they can be diagonalised via orthonormal mat
 \begin{theorem}\label{thm: trafoTheorem}
     The map $\spectralDiffeo: \jacobiSpace \to \nPointMSpace$ that assigns a Jacobi-Matrix its spectral measure is actually a diffeomorphism. Furthermore the following points hold:
     \begin{enumerate}[label=(\alph*)]
-        \item If $\spectralDiffeo(\jacobiMat) = \sum_{i=1}^\dimension p_i \delta_{\lambda_i}$ then
+        \item If $\spectralDiffeo(\jacobiMat) = \sum_{i=1}^\dimension p_i \delta_{\xi_i}$ then
         \begin{align}
-            \prod_{k=1}^{\dimension-1} b_k^{2(\dimension-k)} = \prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^2
+            \prod_{k=1}^{\dimension-1} b_k^{2(\dimension-k)} = \prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\xi_i - \xi_j|^2
         \end{align}
         \item The absolute value of the Jacobian determinant of the map $\spectralDiffeo^{-1}$ equals
         \begin{align}\label{inverseSpectralDet}
             \frac{\prod_{k=1}^{\dimension-1} b_k}{2^{\dimension-1} \prod_{k=1}^\dimension p_k} 
-            = \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}}.
+            = \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\xi_i - \xi_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}}.
         \end{align}
     \end{enumerate}
 \end{theorem}
@@ -170,13 +170,13 @@ If we plug all this into Equation \ref{eq: trafoEquation} we obtain
 \end{align*}
 
 We now want to transform this Jacobi-Matrix density into an eigenvalue density with the help of Theorem \ref{thm: trafoTheorem}. Since we know that
-$$ \tr(\jacobiMat) = \sum_{i=1}^\dimension \lambda_i \qquad \text{and} \qquad \tr((\jacobiMat)^2) = \sum_{i=1}^\dimension \lambda_i^2 $$
+$$ \tr(\jacobiMat) = \sum_{i=1}^\dimension \xi_i \qquad \text{and} \qquad \tr((\jacobiMat)^2) = \sum_{i=1}^\dimension \xi_i^2 $$
 we can ignore the density $p(\jacobiMat,\rf)$ for now and take a look at what happens to the $b_i$-factor multiplied by the Jacobian (!) of the density of the diffeomorphism $\spectralDiffeo$:
 \begin{align*}
     & \left(\prod_{k=1}^{\dimension-1} b_k^{\dimension-k-1} \ind_{b_k>0} \right)
-    \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}} \\
-    & = \frac{1}{2^{\dimension-1}}  \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\lambda_i - \lambda_j|^4}{\prod_{k=1}^{\dimension-1} b_k^{3(\dimension - k)}} \\
-    & = \frac{1}{2^{\dimension-1}} \prod_{i<j} |\lambda_i - \lambda_j| \prod_{k=1}^\dimension p_k^{-\frac{1}{2}}.
+    \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\xi_i - \xi_j|^4}{2^{\dimension-1} \prod_{k=1}^{\dimension-1} b_k^{4(\dimension - k)-1}} \\
+    & = \frac{1}{2^{\dimension-1}}  \frac{\prod_{k=1}^\dimension p_k \cdot \prod_{i<j} |\xi_i - \xi_j|^4}{\prod_{k=1}^{\dimension-1} b_k^{3(\dimension - k)}} \\
+    & = \frac{1}{2^{\dimension-1}} \prod_{i<j} |\xi_i - \xi_j| \prod_{k=1}^\dimension p_k^{-\frac{1}{2}}.
 \end{align*}
 
 The last equality made use of Theorem \ref{thm: trafoTheorem} (a). To integrate out the $p_k$ we use the following well known definition.
@@ -193,20 +193,20 @@ The last equality made use of Theorem \ref{thm: trafoTheorem} (a). To integrate 
     and $\weightSpace$ is the space of weights of an $\dimension$-point measure introduced in Definition \ref{def: differenSpacesForRMT}.
 \end{definition}
 
-Thus, if we write $\lambda = (\lambda_1, \ldots, \lambda_\dimension)$ the joint eigenvalue distribution together with $\rf$ will be equal to 
+Thus, if we write $\xi = (\xi_1, \ldots, \xi_\dimension)$ the joint eigenvalue distribution together with $\rf$ will be equal to 
 \begin{align*}
-    \rho(\lambda,\rf) = \operatorname{const} \cdot \exp(- \dimension^2 \mathcal{S}_2(\lambda) - \dimension \mathcal{S}_1 (\lambda, \rf)) \prod_{i<j} |\lambda_i - \lambda_j| \ind_{\lambda_1 < \ldots < \lambda_\dimension},
+    \rho(\xi,\rf) = \operatorname{const} \cdot \exp(- \dimension^2 \mathcal{S}_2(\xi) - \dimension \mathcal{S}_1 (\xi, \rf)) \prod_{i<j} |\xi_i - \xi_j| \ind_{\xi_1 < \ldots < \xi_\dimension},
 \end{align*}
 where
 \begin{align*}
-    \dimension^2 \mathcal{S}_2(\lambda) = \frac{1}{4\secCorrFactor}  \left[ \sum_{i=1}^\dimension \lambda_i^2 - \frac{1}{2+\dimension} \left(\sum_{i=1}^\dimension \lambda_i \right)^2 \right]
+    \dimension^2 \mathcal{S}_2(\xi) = \frac{1}{4\secCorrFactor}  \left[ \sum_{i=1}^\dimension \xi_i^2 - \frac{1}{2+\dimension} \left(\sum_{i=1}^\dimension \xi_i \right)^2 \right]
 \end{align*}
 and
 \begin{align*}
-    \mathcal{S}_1(\lambda, \rf) = \frac1{2\sqC''(0)Q}\left[
+    \mathcal{S}_1(\xi, \rf) = \frac1{2\sqC''(0)Q}\left[
         \tfrac{\dimension+2}{\dimension^3}\rf^2
-        - \tfrac{2\sqC'(0)}{\dimension^2\sqC''(0)}\rf\left(\sum_{i=1}^\dimension \lambda_i \right)
-        + \tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(\dimension+2)}\left(\sum_{i=1}^\dimension \lambda_i \right)^2
+        - \tfrac{2\sqC'(0)}{\dimension^2\sqC''(0)}\rf\left(\sum_{i=1}^\dimension \xi_i \right)
+        + \tfrac{\sqC'(0)^2}{\sqC''(0)^2\dimension(\dimension+2)}\left(\sum_{i=1}^\dimension \xi_i \right)^2
     \right],
 \end{align*}
 and

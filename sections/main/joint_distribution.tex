@@ -95,17 +95,17 @@ Sample independently
 			= (\pi a)^{-\frac{\dimension(\dimension+1)}{4}}2^{-\dimension/2}.
 		\]
 		The joint density of eigenvalues
-		\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) is known to be
+		\(\xi=(\xi_1,\dots,\xi_\dimension)\) is known to be
 		\begin{equation}\label{eq: GOE ev density}
-			\varphi^{\lambda}_{\dimension, a}(x_1,\dots,x_n)
-			= c^\lambda_{\dimension,a}
+			\varphi^{\xi}_{\dimension, a}(x_1,\dots,x_n)
+			= c^\xi_{\dimension,a}
 			\exp\Bigl(-\frac{1}{2a}\sum_{i=1}^\dimension x_i^2\Bigr)
 			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dimension}
 		\end{equation}
 		where \(\Delta_\dimension\) is the so-called Vandermonde Determinant and
 		the scaling constant is given by
 		\[
-			(c^\lambda_{\dimension,a})^{-1}
+			(c^\xi_{\dimension,a})^{-1}
 			= (2\pi)^{\frac{\dimension}2}a^{\frac{\dimension(\dimension+1)}4}
 			\prod_{j=1}^\dimension \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
 		\]
@@ -120,45 +120,45 @@ By construction \((Z,H)\) is centered multivariate normal. It is an easy
 exercise to check that the covariance structure is correct.
 
 As \(\tilde{H}\) is independent of \(\shift\), its eigenvalues
-\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) are independent of
+\(\xi=(\xi_1,\dots,\xi_\dimension)\) are independent of
 \(\shift\). Assume that
 \[
-	X = P\diag[\lambda]P^{-1}
+	X = P\diag[\xi]P^{-1}
 \]
 Since the identity matrix is commonly diagonizable with every matrix, this
 results in
 \[
-	H = P(\diag[\lambda] + \shift\identity) P^{-1}
+	H = P(\diag[\xi] + \shift\identity) P^{-1}
 \]
 in other words, the eigenvalues of \(H\) are
 \[
-	\Lambda_i
-	:= \lambda_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
+	\zeta_i
+	:= \xi_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
 \]
 The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
 GOE multiplied by a common factor and shifted by an independent shift \(\shift\)
 consisting of the current height \(\rf\) and an additional random component
 \(\epsilon\).
 
-\subsection{\texorpdfstring{\(\Lambda\mid\rf\)}{Λ|Z}}
+\subsection{\texorpdfstring{\(\zeta\mid\rf\)}{Λ|Z}}
 \label{subsec: Lambda|rf}
 
-In particular we have for \(\Lambda = (\Lambda_1,\dots,\Lambda_\dimension)\)
+In particular we have for \(\zeta = (\zeta_1,\dots,\zeta_\dimension)\)
 \[
-	(\Lambda \mid \rf = z)
+	(\zeta \mid \rf = z)
 	\overset{d}= 
-	\lambda \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z),
+	\xi \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z),
 \]
 where \(\dotPlus\) is entry-wise addition.
 More specifically we have
 \begin{equation}\label{eq: expectation f(Lambda) | Z}
-		\E[f(\Lambda)\mid Z=z]
+		\E[f(\zeta)\mid Z=z]
 		= \E\left[
-			f\left(\lambda \dotPlus (\epsilon+\tfrac{\sqC'(0)}{\sqC(0)}z)\right)
+			f\left(\xi \dotPlus (\epsilon+\tfrac{\sqC'(0)}{\sqC(0)}z)\right)
 		\right].
 \end{equation}
 
-\subsection{\texorpdfstring{\(\rf\mid\Lambda\)}{Z|Λ}}
+\subsection{\texorpdfstring{\(\rf\mid\zeta\)}{Z|Λ}}
 
 \begin{theorem}[Conditional Distributions of \(\rf\)]
 	\label{thm: conditional distributions of rf}
@@ -169,18 +169,18 @@ More specifically we have
 			\tfrac{\sqC'(0)}{\sqC''(0)} \shift,
 			\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
 		\right)\\
-		\rf\mid \Lambda
+		\rf\mid \zeta
 		&=\rf\mid H = \rf \mid H_1,\dots, H_\dimension
 		\nonumber\\
 		&\sim \normal\left(
-		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\Lambda},
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\zeta},
 		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
 	\right)
 	\end{align}
 	where the mean of eigenvalues (or the mean of the diagonal)
 	\[
-		\bar{\Lambda}
-		:=\frac1\dimension\sum_{i=1}^\dimension \Lambda_i
+		\bar{\zeta}
+		:=\frac1\dimension\sum_{i=1}^\dimension \zeta_i
 		=\frac{\trace{H}}\dimension
 	\]
 	approximate the shift \(\shift\) and therefore approximates \(\rf\mid \shift\) in

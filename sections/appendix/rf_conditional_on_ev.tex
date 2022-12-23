@@ -2,11 +2,11 @@
 \label{sec: proof of conditionals}
 
 In this section we want to determine the distribution of \(\rf\mid
-\Lambda\). As a warmup we will first consider
-\(\E[Z\mid \shift]\). \(\shift\) is the shift we can obtain from \(\Lambda_i\) by
+\zeta\). As a warmup we will first consider
+\(\E[Z\mid \shift]\). \(\shift\) is the shift we can obtain from \(\zeta_i\) by
 averaging if we have sufficiently many. But we can not really separate
-\(\epsilon\) from \(\rf\) using only \(\Lambda\), so \(\rf\mid \shift\) will be
-close to \(\rf\mid\Lambda\) for large
+\(\epsilon\) from \(\rf\) using only \(\zeta\), so \(\rf\mid \shift\) will be
+close to \(\rf\mid\zeta\) for large
 \(\dimension\).
 
 \subsection{\texorpdfstring{\(\rf\mid \shift\)}{Z|H0}}
@@ -128,12 +128,12 @@ So we finally get
 	\E[\rf\mid H_1,\dots,H_\dimension]
 	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
 	\frac1\dimension\underbrace{\sum_{i=1}^\dimension H_i}_{
-		=\trace(H) \mathrlap{=\sum_{i=1}^\dimension\Lambda_i}
+		=\trace(H) \mathrlap{=\sum_{i=1}^\dimension\zeta_i}
 	}\\
 	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
-	\bar{\Lambda}
+	\bar{\zeta}
 \end{align*}
-where \(\bar{\Lambda}\) is the mean eigenvalue. Lastly we want to determine
+where \(\bar{\zeta}\) is the mean eigenvalue. Lastly we want to determine
 the explained variance
 \begin{align*}
 	\Var(\E[\rf\mid H_1,\dots,H_\dimension])
@@ -153,36 +153,36 @@ Since the off-diagonal elements are independent from \(\rf\), we get with
 Lemma~\ref{lem: conditional variance in the gaussian case}
 \[
 	\rf\mid H = \rf \mid H_1,\dots, H_\dimension \sim \normal\left(
-		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\Lambda},
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\zeta},
 		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
 	\right).
 \]
 
-\subsection{\texorpdfstring{\(\rf\mid \Lambda\)}{Z|Λ}}
+\subsection{\texorpdfstring{\(\rf\mid \zeta\)}{Z|Λ}}
 
-So we know that \(\E[f(\rf)\mid H]\) is \(\Lambda\)
-measurable. And since \(\Lambda\) are as eigenvalues
-of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\Lambda)\)
+So we know that \(\E[f(\rf)\mid H]\) is \(\zeta\)
+measurable. And since \(\zeta\) are as eigenvalues
+of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\zeta)\)
 and therefore get
 \[
-	\E[f(Z)\mid \Lambda]
-	= \E[\E[f(Z)\mid H] \mid \Lambda]
+	\E[f(Z)\mid \zeta]
+	= \E[\E[f(Z)\mid H] \mid \zeta]
 	= \E[f(Z)\mid H].
 \]
-Which finally implies \(\rf\mid H = \rf\mid \Lambda\).
+Which finally implies \(\rf\mid H = \rf\mid \zeta\).
 
 \subsection{\texorpdfstring{\(\rf\mid\negEV(H)\)}{Z|I(H)}}
 
 Let the index be defined as
 \[
-	\negEV(H)=\frac1{\dimension}\sum_{i=1}^\dimension \ind_{\Lambda_i \le 0}.
+	\negEV(H)=\frac1{\dimension}\sum_{i=1}^\dimension \ind_{\zeta_i \le 0}.
 \]
-Then the index is \(\Lambda\) measurable. Therefore we have
+Then the index is \(\zeta\) measurable. Therefore we have
 \[
 	\E[Z\mid \negEV(H)]
-	= \E[\E[Z\mid \Lambda]\mid \negEV(H)]
+	= \E[\E[Z\mid \zeta]\mid \negEV(H)]
 	= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
-	\E[\bar{\Lambda}\mid \negEV(H)].
+	\E[\bar{\zeta}\mid \negEV(H)].
 \]
 \fxwarning*{Is this going anywhere?}
 

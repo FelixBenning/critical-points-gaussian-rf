@@ -15,13 +15,13 @@ It turns out to be absolutely continuous with density \(\phi_0\). Unfortunately
 our term for \(\phi_0\) looks horrible. While \(\Omega\) itself might be
 calculable, the set \(\negEV^{-1}(0)\) of positive definite matrices is anything
 but pretty. We are therefore going to switch to the eigenvalues
-\(\Lambda_1,\dots,\Lambda_\dimension\) of the random matrix \(H\). We have
+\(\zeta_1,\dots,\zeta_\dimension\) of the random matrix \(H\). We have
 with some abuse of notation
 \[
-	\det(H) = \prod_{i=1}^\dimension \Lambda_i
+	\det(H) = \prod_{i=1}^\dimension \zeta_i
 	\quad\text{and}\quad
-	\negEV(H) = \negEV(\Lambda)
-	= \frac1\dimension \sum_{i=1}^\dimension \ind_{\Lambda_i < 0}.
+	\negEV(H) = \negEV(\zeta)
+	= \frac1\dimension \sum_{i=1}^\dimension \ind_{\zeta_i < 0}.
 \]
 So more generally for critical points of index \(\alpha\) we have
 \[\begin{aligned}
@@ -29,10 +29,10 @@ So more generally for critical points of index \(\alpha\) we have
 	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(\alpha)} |\det(h)| p(z,h)dz dh\\
 	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(\alpha)}(H)|\det(H)|]\\
 	&= c\E[\ind_{A}(Z)
-	\ind_{\negEV^{-1}(\alpha)}(\Lambda)\prod_{i=1}^\dimension |\Lambda_i|]\\
+	\ind_{\negEV^{-1}(\alpha)}(\zeta)\prod_{i=1}^\dimension |\zeta_i|]\\
 	&= \int_A c\underbrace{
 		\E\Big[
-			\ind_{\negEV(\Lambda) = \alpha}\prod_{i=1}^\dimension |\Lambda_i|
+			\ind_{\negEV(\zeta) = \alpha}\prod_{i=1}^\dimension |\zeta_i|
 			\Bigm| Z=z
 		\Big]
 		\varphi_Z(z)
@@ -48,19 +48,19 @@ distribution of minima is therefore up to constants
 	\overset{\eqref{eq: expectation f(Lambda) | Z}}&\sim
 	\E\Bigg[
 		\ind\Bigl\{
-			\negEV\left(\lambda \dotPlus \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
+			\negEV\left(\xi \dotPlus \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
 		\Bigr\}
 		\prod_{i=1}^\dimension \left|
-			\lambda_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
+			\xi_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right|
 	\Bigg]
 	\varphi_\rf(z)\\
 	&\sim \int \E\Bigg[
 		\ind\Bigl\{
-			\negEV\left(\lambda \dotPlus t + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
+			\negEV\left(\xi \dotPlus t + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
 		\Bigr\}
 		\prod_{i=1}^\dimension \left|
-			\lambda_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
+			\xi_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right|
 	\Bigg]
 	\varphi_\epsilon(t)dt
@@ -73,10 +73,10 @@ The interesting bit is
 \[
 	f_\dimension(x):=\E\Bigg[
 		\ind\Bigl\{
-			\negEV\left(\lambda \dotMinus x\right) = \alpha
+			\negEV\left(\xi \dotMinus x\right) = \alpha
 		\Bigr\}
 		\prod_{i=1}^\dimension \left|
-			\lambda_i - x
+			\xi_i - x
 		\right|
 	\Bigg]
 \]
@@ -95,10 +95,10 @@ Let us now take a closer look at \(f_\dimension\).
 By definition we have
 \[
 		\ind\Bigl\{
-			\negEV\left(\lambda \dotMinus x\right) = \alpha
+			\negEV\left(\xi \dotMinus x\right) = \alpha
 		\Bigr\}
 		= \ind\Bigl\{
-			\frac1\dimension\sum_{i=1}^\dimension \ind_{\lambda_i < x} = \alpha
+			\frac1\dimension\sum_{i=1}^\dimension \ind_{\xi_i < x} = \alpha
 		\Bigr\}
 \]
 So using the density of the
@@ -106,7 +106,7 @@ eigenvalues of the GOE \eqref{eq: GOE ev density} and \(a:=2\sqC''(0)\),
 we can expand \(f_\dimension\) to
 \[
 	f_\dimension(x)
-	= c^\lambda_{\dimension,a}\int
+	= c^\xi_{\dimension,a}\int
 	\ind\Bigl\{
 			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x} = \alpha
 	\Bigr\}
@@ -131,15 +131,15 @@ incorporate the determinant \((*)\) into the density of the GOE of dimension
 clever trick results in
 \[\begin{aligned}
 	&f_\dimension(x_{\dimension+1})\\
-	&= \tfrac{c^\lambda_{\dimension, a}}{c^\lambda_{\dimension+1,a}}
+	&= \tfrac{c^\xi_{\dimension, a}}{c^\xi_{\dimension+1,a}}
 	e^{\tfrac{x_{\dimension+1}^2}{2a}}
 	\int \ind\Bigl\{
 			\frac1\dimension\sum_{i=1}^\dimension \ind_{x_i < x_{\dimension+1}} = \alpha
 	\Bigr\}
-	\varphi^\lambda_{\dimension+1,a}(x_1,\dots,x_{\dimension+1})
+	\varphi^\xi_{\dimension+1,a}(x_1,\dots,x_{\dimension+1})
 	dx_1\dots d_{x_\dimension},
 \end{aligned}\]
-where \(\varphi^\lambda_{\dimension+1,a}\) is the eigenvalue density of the GOE
+where \(\varphi^\xi_{\dimension+1,a}\) is the eigenvalue density of the GOE
 in \(\dimension+1\) dimensions. At this point
 \textcite{fyodorovComplexityRandomEnergy2004} was done, but we still have an
 indicator left over. For this indicator to be one, exactly \(\dimension\alpha\)
@@ -151,22 +151,22 @@ of the \(x_i\) need to be smaller \(x_{\dimension+1}\). For the ordering
 	\Bigr\}
 	= \ind\{x_{(\dimension\alpha+1)} = x_{\dimension+1}\}.
 \]
-It is now helpful to calculate the density of \(\lambda_{(k)}\) for an ordering
-\(\lambda_{(1)}\le\dots\le\lambda_{(m)}\) of the GOE eigenvalues of \(m\)
-dimensions. Since \(\lambda_1,\dots,\lambda_m\) are exchangeable random
+It is now helpful to calculate the density of \(\xi_{(k)}\) for an ordering
+\(\xi_{(1)}\le\dots\le\xi_{(m)}\) of the GOE eigenvalues of \(m\)
+dimensions. Since \(\xi_1,\dots,\xi_m\) are exchangeable random
 variables, we get
 \[\begin{aligned}
-	\Pr(\lambda_{(k)}\in A)
-	&= \int \varphi^\lambda_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}dx_1\dots dx_m\\
-	&= \int \varphi^\lambda_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}
+	\Pr(\xi_{(k)}\in A)
+	&= \int \varphi^\xi_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}dx_1\dots dx_m\\
+	&= \int \varphi^\xi_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}
 	\sum_{i=1}^m \ind_{x_{(k)}=x_i} dx_1\dots dx_m\\
-	&= \sum_{i=1}^m \int \varphi^\lambda_{m,a}(x_1,\dots,x_m) \ind_{x_i\in A}
+	&= \sum_{i=1}^m \int \varphi^\xi_{m,a}(x_1,\dots,x_m) \ind_{x_i\in A}
 	\ind_{x_{(k)}=x_i} dx_1\dots dx_m\\
-	\overset{\text{exchangeable}}&= m \int \varphi^\lambda_{m,a}(x_1,\dots,x_m)
+	\overset{\text{exchangeable}}&= m \int \varphi^\xi_{m,a}(x_1,\dots,x_m)
 	\ind_{x_m\in A} \ind_{x_{(k)}=x_m} dx_1\dots dx_m\\
-	&= \int_A \underbrace{m\left(\int \varphi^\lambda_{m,a}(x_1,\dots,x_m)
+	&= \int_A \underbrace{m\left(\int \varphi^\xi_{m,a}(x_1,\dots,x_m)
 	\ind_{x_{(k)}=x_m} dx_1\dots dx_{m-1}\right)}_{
-		= \varphi_{\lambda_{(k)}}(x_m)
+		= \varphi_{\xi_{(k)}}(x_m)
 	} dx_m.
 \end{aligned}\]
 If we take \(m=\dimension+1\), \(k=\dimension\alpha+1\) and re-substitute
@@ -174,9 +174,9 @@ If we take \(m=\dimension+1\), \(k=\dimension\alpha+1\) and re-substitute
 get
 \[
 	f_\dimension(x)
-	= \tfrac{c^\lambda_{\dimension, a}}{c^\lambda_{\dimension+1,a}}
+	= \tfrac{c^\xi_{\dimension, a}}{c^\xi_{\dimension+1,a}}
 	\exp\bigl(\tfrac{x^2}{2a}\bigr)
-	\frac1{\dimension+1}\varphi_{\lambda_{(\dimension\alpha+1)}}(x).
+	\frac1{\dimension+1}\varphi_{\xi_{(\dimension\alpha+1)}}(x).
 \]
 
 

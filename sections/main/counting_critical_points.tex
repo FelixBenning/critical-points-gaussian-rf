@@ -4,12 +4,12 @@
 	Let \(\rf\) be a random field. We implicitly\footnote{
 		\(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2})\) is a semiring. So by
 		Carathéodory's extension theorem there is a unique extension of
-		\(\crit\) to
+		\(\pp\) to
 		\(\sigma(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}))=\borel(\real^{\dimension+1+\dimension^2})\).
-		Use this extension to obtain \(\crit(\omega)\in\locFiniteMeasure[\dimension+1+\dimension^2]\).
+		Use this extension to obtain \(\pp(\omega)\in\locFiniteMeasure[\dimension+1+\dimension^2]\).
 	} define the marked point process of critical points as
 	\begin{align*}
-		\crit:
+		\pp:
 		\begin{cases}
 			\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}) \to \real\\
 			(\Vol, M) \mapsto
@@ -25,14 +25,14 @@
 		number of negative eigenvalues is a measurable function in \(H\).
 	}
 	\[
-		\negEV(H) := \negEV(\zeta) := \frac1\dimension \sum_{k=1}^\dimension \ind_{\zeta_i < 0},
+		\negEV(H) := \negEV(\evH) := \frac1\dimension \sum_{k=1}^\dimension \ind_{\evH_i < 0},
 	\]
-	where \(\zeta=(\zeta_1,\dots,\zeta_\dimension)\) are the eigenvalues of
+	where \(\evH=(\evH_1,\dots,\evH_\dimension)\) are the eigenvalues of
 	\(H\in\real^{\dimension\times\dimension}\).
 	The point-process of critical points with index \(\alpha\) is therefore
 	\[
-		\crit^\alpha(\Vol, A)
-		:= \crit(\Vol, A\times\negEV^{-1}(\dimension\alpha)).
+		\pp^\alpha(\Vol, A)
+		:= \pp(\Vol, A\times\negEV^{-1}(\dimension\alpha)).
 	\]
 	In particular for \(\alpha=0\) we have the point process of minimas\footnote{
 		Technically ``no negative eigenvalues'' is only a necessary criterion for a
@@ -51,7 +51,7 @@
 		\(\negEV\), one can convince themselves about equality of the first and
 		last term. This then directly translates to the conditionals used in
 		Sec.~\ref{sec: height distribution}.
-	}\(\crit^0\).
+	}\(\pp^0\).
 \end{definition}
 \begin{proof}[Proof (Measurability)]
 	First note that	
@@ -66,9 +66,9 @@
 	since it is sufficient to prove measurability on the generator
 	\(\mathcal{E}\), we only need that the following sets are measurable
 	\begin{align*}
-		(\crit)^{-1}(\pi^{-1}_{B}(C))
-		&= (\pi_{B} \circ \crit)^{-1}(C)
-		= (\crit(B))^{-1}(C)\\
+		(\pp)^{-1}(\pi^{-1}_{B}(C))
+		&= (\pi_{B} \circ \pp)^{-1}(C)
+		= (\pp(B))^{-1}(C)\\
 		&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
 			\nabla\rf(t)=0
 		\right\}\\
@@ -84,7 +84,7 @@
 \end{proof}
 
 \begin{lemma}[Stationarity]
-	If \(\rf\) is strictly stationary, \(\crit\) is stationary.
+	If \(\rf\) is strictly stationary, \(\pp\) is stationary.
 \end{lemma}
 \begin{proof}
 	Let \(h\in \real^\dimension\) and note that
@@ -92,11 +92,11 @@
 		\tilde{\rf}(t) := \rf(t+h)
 	\]
 	has the same distribution as \(\rf\) since \(\rf\) is strictly stationary. Define
-	\(\tilde{\crit}\) using \(\tilde{\rf}\) in place of \(\rf\). Then
-	\(\tilde{\crit}\) has the same distribution as \(\crit\).
+	\(\tilde{\pp}\) using \(\tilde{\rf}\) in place of \(\rf\). Then
+	\(\tilde{\pp}\) has the same distribution as \(\pp\).
 	And we have
 	\begin{align*}
-		&\crit(\Vol+h, M)\\
+		&\pp(\Vol+h, M)\\
 		&= \#\left\{t\in\Vol+h:
 			\nabla\rf(t)=0,
 			(\rf(t),\nabla^2\rf(t))\in M
@@ -105,13 +105,13 @@
 			\nabla\tilde{\rf}(t)=0,
 			(\tilde{\rf}(t),\nabla^2\tilde{\rf}(t))\in M
 		\right\}\\
-		&= \tilde{\crit}(\Vol, M).
+		&= \tilde{\pp}(\Vol, M).
 	\end{align*}
-	So \(\crit\) is stationary:
+	So \(\pp\) is stationary:
 	\begin{align*}
-		\Pr\left(\crit((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
-		&= \Pr\left(\tilde{\crit}(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
-		&= \Pr\left(\crit(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
+		\Pr\left(\pp((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
+		&= \Pr\left(\tilde{\pp}(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
+		&= \Pr\left(\pp(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
 		\qedhere
 	\end{align*}
 \end{proof}
@@ -121,10 +121,10 @@
 	\label{thm: kac-rice formula}
 	For a centered Gaussian random field \(\rf\) satisfying our smoothness
 	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
-	critical points \(\crit\) is given by
+	critical points \(\pp\) is given by
 	\begin{align*}
 		&\intensityMeas(\Vol,M)
-		=\E[\crit(\Vol, M)]\\
+		=\E[\pp(\Vol, M)]\\
 		&= \int_\Vol \E\left[
 			\left|\det(\nabla^2 \rf(t))\right|
 			\ind_M(\rf(t), \nabla^2\rf(t))
@@ -166,7 +166,7 @@
 	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get
 	\begin{align*}
 		\intensityMeas(\Vol, M) 
-		&= \E[\crit(\Vol, M)]
+		&= \E[\pp(\Vol, M)]
 		= \E[\level(f, g: \Vol, M)]\\
 		&= \int_\Vol \E\left[
 			|\det \nabla f(t)| \ind_M(\rf(t), \nabla^2\rf(t)) \mid f(t) = 0
@@ -201,7 +201,7 @@ Due to stationarity, we have completely dropped the dependence of \(\rf\) on
 		\Omega(z,h) := c |det(h)| p(z,h)
 	\]
 	with \(c\in\real\) such that \(\int \Omega(z,h)dz dh = 1\).
-	If we take a random critical point \((T,\rf_T,H_T)\sim \crit\),
+	If we take a random critical point \((T,\rf_T,H_T)\sim \pp\),
 	then the distribution over its marks is given by
 	\[
 		\Pr_{\rf_T,H_T}(A) = \int_A \Omega(z,h) dz dh.

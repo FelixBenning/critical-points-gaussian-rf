@@ -55,7 +55,7 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	\]
 	is a random variable for any \(B\in\borel(\real^\dimension)\). If
 	\[
-		\Lambda:\begin{cases}
+		\intensityMeas:\begin{cases}
 			\borel(\real^\dimension)\to [0,\infty)\\
 			B \mapsto \E[\Phi(B)]
 		\end{cases}
@@ -63,8 +63,8 @@ is measurable for every \(B\in\borel(\real^\dimension)\). I.e.
 	is locally finite, then it is called the \textbf{intensity measure}
 	(expectation measure) of \(\Phi\). The intensity measure essentially tells
 	us, how many points we should expect in some set \(B\) on average.
-	If \(\Lambda(dx) = \lambda dx\) for some
-	constant \(\lambda\in\real\), then \(\lambda\) is called the
+	If \(\intensityMeas(dx) = \intensity dx\) for some
+	constant \(\intensity\in\real\), then \(\intensity\) is called the
 	\textbf{intensity} of \(\Phi\).
 	A point process is called \textbf{simple}, if \(\Phi(\omega)\) is simple
 	for every \(\omega\in\Omega\).
@@ -103,22 +103,24 @@ our random field at our critical points. And the following Lemma will allow us
 to recover the distribution of marks on these critical points
 
 \begin{lemma}[Campbell]\label{lem: Campbell}
-	For a stationary marked point process \(\Phi\) with intensity \(\Lambda\),
-	we have	
+	For a stationary marked point process \(\Phi\) with intensity
+	\(\intensityMeas\), we have	
 	\[
-		\Lambda(\Vol \times L) = \lambda(L) |\Vol|
+		\intensityMeas(\Vol \times L) = \intensity(L) |\Vol|
 	\]
 	where \(|\Vol|\) is the lebesgue measure of \(\Vol\). We call
 	\[
-		\Pr_M(L) = \frac{\lambda(L)}{\lambda(\real^n)}
+		\Pr_M(L) = \frac{\intensity(L)}{\intensity(\real^n)}
 	\]
 	the \textbf{distribution of marks}, because we have for integrable \(f\)
 	(Campbell)
 	\[
 		\E\left[\int f(x,m) \Phi(dx,dm)\right]
-		= \lambda \int \int f(x,m) \Pr_M(dm) dx
+		= \intensity \int \int f(x,m) \Pr_M(dm) dx,
 	\]
+	where \(\intensity=\intensity(\real^n)\) is the intensity.
 \end{lemma}
+
 \begin{proof}
 	\fxwarning{TODO: Fakt in 3.5 räumliche statistik skript schlather}
 \end{proof}

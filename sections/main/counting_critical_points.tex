@@ -123,7 +123,7 @@
 	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
 	critical points \(\crit\) is given by
 	\begin{align*}
-		&\Lambda(\Vol,M)
+		&\intensityMeas(\Vol,M)
 		=\E[\crit(\Vol, M)]\\
 		&= \int_\Vol \E\left[
 			\left|\det(\nabla^2 \rf(t))\right|
@@ -135,7 +135,7 @@
 		|\Vol|\ \underbrace{\E\left[
 			|\det(\nabla^2 \rf(0))|
 			\ind_M(\rf(0), \nabla^2\rf(0))
-		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(M)}
+		\right] \density_{\nabla\rf(0)}(0)}_{=:\intensity(M)}
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
 	second equality is only true when \(\rf\) is stationary.
@@ -165,7 +165,7 @@
 	covariances. By application
 	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get
 	\begin{align*}
-		\Lambda(\Vol, M) 
+		\intensityMeas(\Vol, M) 
 		&= \E[\crit(\Vol, M)]
 		= \E[\level(f, g: \Vol, M)]\\
 		&= \int_\Vol \E\left[
@@ -188,8 +188,8 @@
 \end{remark}
 
 Due to stationarity, we have completely dropped the dependence of \(\rf\) on
-\(t\) in Theorem~\ref{thm: kac-rice formula} to define \(\lambda\). To reduce
-notational clutter, we will from now on write
+\(t\) in Theorem~\ref{thm: kac-rice formula} to define the intensity
+\(\intensity\). To reduce notational clutter, we will from now on write
 \[
 	(\rf,H):= (Z(0), \nabla^2\rf(0))
 \]
@@ -223,7 +223,7 @@ notational clutter, we will from now on write
 	given by
 	\begin{align*}
 		\Pr_{\rf_T,H_T}(L)
-		&= \frac{\lambda(L)}{\lambda(\real)}
+		&= \frac{\intensity(L)}{\intensity(\real)}
 		\overset{\ref{thm: kac-rice formula}}= \frac{
 			\E[|\det(\nabla^2 \rf(0))|
 			\ind_L(\rf(0), \nabla^2\rf(0))

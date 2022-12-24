@@ -106,11 +106,11 @@ to recover the distribution of marks on these critical points
 	For a stationary marked point process \(\pp\) with intensity
 	\(\intensityMeas\), we have	
 	\[
-		\intensityMeas(\Vol \times L) = \intensity(L) |\Vol|
+		\intensityMeas(\Vol \times L) = |\Vol|\markIntMeas(L)
 	\]
 	where \(|\Vol|\) is the lebesgue measure of \(\Vol\). We call
 	\[
-		\Pr_M(L) = \frac{\intensity(L)}{\intensity(\real^n)}
+		\Pr_M(L) = \frac{\markIntMeas(L)}{\markIntMeas(\real^n)}
 	\]
 	the \textbf{distribution of marks}, because we have for integrable \(f\)
 	(Campbell)
@@ -118,7 +118,7 @@ to recover the distribution of marks on these critical points
 		\E\left[\int f(x,m) \pp(dx,dm)\right]
 		= \intensity \int \int f(x,m) \Pr_M(dm) dx,
 	\]
-	where \(\intensity=\intensity(\real^n)\) is the intensity.
+	where \(\intensity=\markIntMeas(\real^n)\) is the intensity.
 \end{lemma}
 
 \begin{proof}

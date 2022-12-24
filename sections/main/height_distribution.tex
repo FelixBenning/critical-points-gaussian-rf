@@ -1,21 +1,29 @@
 \section{Height Distribution}
 \label{sec: height distribution}
 
-Let \((T,\rf_T,H_T)\sim\pp\) be a random critical point.
-Of particular interest, is the height distribution of minima
-\[\begin{aligned}
-	\Pr(\rf_T\in A \mid T\text{ is minimum})
-	&=\Pr(\rf_T\in A \mid \negEV(H_T)=0)\\
-	&= \frac{\Pr_{(\rf_T, H_T)}(A\times \negEV^{-1}(0))}{\Pr(\negEV(H_T)=0)}\\
-	&= \int_A \underbrace{
-		\frac{\int_{\negEV^{-1}(0)} \Omega(z,h) dh}{\Pr(T\text{ is min})}
-	}_{=: \Psi_0(z)} dz.
-\end{aligned}\]
-It turns out to be absolutely continuous with density \(\Psi_0\). Unfortunately
-our term for \(\Psi_0\) looks horrible. While \(\Omega\) itself might be
-calculable, the set \(\negEV^{-1}(0)\) of positive definite matrices is anything
-but pretty. We are therefore going to switch to the eigenvalues
-\(\evH_1,\dots,\evH_\dims\) of the random matrix \(H\). We have
+Let \((T,\rf_T,H_T)\sim\pp\) be a random critical point. As we have
+already pointed out in Subsection~\ref{subsubsec: height distriubtion of minimas},
+the height distribution of minima is of particular interest. But since it is
+not more difficult to look at the height distributions of critical points with
+index \(\alpha\), we are going to do this instead. Simply remember that the
+case \(\alpha=0\) is especially dear to us.
+
+Of course the height distribution is already a special case of the general
+conditional mark distribution and we have
+\[
+	\Pr(\rf_T \in A \mid \negEV(H_T) = \alpha)
+	\overset{\eqref{eq: index conditional distribution of marks}}=
+	\frac{
+		\E[|\det(H)|\ind_{\negEV(H)=\alpha}\ind_A(Z)]
+	}{
+		\E[|\det(H)|\ind_{\negEV(H)=\alpha}]
+	}.
+\]
+As the denominator is just the normalization constant, and is a special case
+of the enumerator anyway, we only need to consider the enumerator.
+Both determinant and index \(\negEV\) become more simple when we
+switch to the eigenvalues \(\evH_1,\dots,\evH_\dims\) of the random matrix
+\(H\). Because we have
 with some abuse of notation
 \[
 	\det(H) = \prod_{i=1}^\dims \evH_i
@@ -23,26 +31,29 @@ with some abuse of notation
 	\negEV(H) = \negEV(\evH)
 	= \frac1\dims \sum_{i=1}^\dims \ind_{\evH_i < 0}.
 \]
-So more generally for critical points of index \(\alpha\) we have
+This implies
 \[\begin{aligned}
-	\Pr_{(\rf_T, H_T)}(A\times \negEV^{-1}(\alpha))
-	&\overset{\text{def. }\Omega}= c\int_{A\times\negEV^{-1}(\alpha)} |\det(h)| p(z,h)dz dh\\
-	&\overset{\text{def. } p}= c\E[\ind_{A}(Z)\ind_{\negEV^{-1}(\alpha)}(H)|\det(H)|]\\
-	&= c\E[\ind_{A}(Z)
+	\E[\ind_{A}(Z)\ind_{\negEV(H) = \alpha}|\det(H)|]
+	&= \E[\ind_{A}(Z)
 	\ind_{\negEV^{-1}(\alpha)}(\evH)\prod_{i=1}^\dims |\evH_i|]\\
-	&= \int_A c\underbrace{
+	&= \int_A \underbrace{
 		\E\Big[
 			\ind_{\negEV(\evH) = \alpha}\prod_{i=1}^\dims |\evH_i|
 			\Bigm| Z=z
 		\Big]
 		\varphi_Z(z)
-	}_{\sim\Psi_\alpha(z)}
+	}_{=:c\Psi_\alpha(z)}
 	dz,
 \end{aligned}\]
-where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\). Now recall that we
-derived the conditional distribution in Subsection~\ref{subsec: Lambda|rf}. And
-it were simply GOE eigenvalues with an independent shift. So the height
-distribution of minima is therefore up to constants
+where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\) and \(c\) is the
+normalization constant in the denominator we discarded earlier.
+The conditional distribution \(Z_T \mid \negEV(H_T) = \alpha\) is therefore
+absolutely continuous with density \(\Psi_\alpha\).
+
+Recall that we derived the conditional distribution of the eigenvalues \(\evH\)
+in Subsection~\ref{subsec: Lambda|rf}. And it were simply GOE eigenvalues with
+an independent shift. So the conditional height distribution is up to
+a constant
 \[\begin{aligned}
 	\Psi_\alpha(z)
 	\overset{\eqref{eq: expectation f(Lambda) | Z}}&\sim
@@ -55,7 +66,7 @@ distribution of minima is therefore up to constants
 		\right|
 	\Bigg]
 	\varphi_\rf(z)\\
-	&\sim \int \E\Bigg[
+	&= \int \E\Bigg[
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotPlus t + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
 		\Bigr\}

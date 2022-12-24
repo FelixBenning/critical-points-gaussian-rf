@@ -2,7 +2,7 @@
 
 
 In this section we want to derive the joint density of \((\rf, H):=
-(\rf(0), \nabla^2\rf(0))\), since we need it to calculate
+(\rf(0), \nabla^2\rf(0))\), mostly because we need it to calculate
 \begin{enumerate}
 	\item the intensity \(\intensity = \E[|\det(H)|]\varphi_\rf(0)\),
 	\item the relative intensity \(\Pr(\negEV(H_T) = \alpha) =
@@ -15,6 +15,8 @@ In this section we want to derive the joint density of \((\rf, H):=
 		}{\E[|\det(H)|\ind_{\negEV(H) = \alpha}]}.
 	\]
 \end{enumerate}
+The conditional distributions in the subsections represent somewhat of a
+tangent to this goal and could be skipped\fxnote{true?}.
 As \(\partial_{ij}\rf\) are limits of differences of multivariate
 normal random variables, this is a centered multivariate normal
 random vector. We therefore only need to consider the covariance. Additionally

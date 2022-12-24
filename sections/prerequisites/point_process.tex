@@ -101,26 +101,3 @@ for ordinary point processes. This is the main reason we introduce this
 additional machinery. In our case we are interested in the height (mark) of
 our random field at our critical points. And the following Lemma will allow us
 to recover the distribution of marks on these critical points
-
-\begin{lemma}[Campbell]\label{lem: Campbell}
-	For a stationary marked point process \(\pp\) with intensity
-	\(\intensityMeas\), we have	
-	\[
-		\intensityMeas(\Vol \times L) = |\Vol|\markIntMeas(L)
-	\]
-	where \(|\Vol|\) is the lebesgue measure of \(\Vol\). We call
-	\[
-		\Pr_M(L) = \frac{\markIntMeas(L)}{\markIntMeas(\real^n)}
-	\]
-	the \textbf{distribution of marks}, because we have for integrable \(f\)
-	(Campbell)
-	\[
-		\E\left[\int f(x,m) \pp(dx,dm)\right]
-		= \intensity \int \int f(x,m) \Pr_M(dm) dx,
-	\]
-	where \(\intensity=\markIntMeas(\real^n)\) is the intensity.
-\end{lemma}
-
-\begin{proof}
-	\fxwarning{TODO: Fakt in 3.5 räumliche statistik skript schlather}
-\end{proof}

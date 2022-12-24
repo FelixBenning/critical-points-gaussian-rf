@@ -167,144 +167,130 @@ i.e. the intensity measure of marks is
 	\markIntMeas(L) = \E[|\det(H)| \ind_L(\rf,H)] \varphi_{\nabla \rf}(0)
 \end{equation}
 
-\begin{corollary}[Critical Point Breakdown]
-	Let the index of \(H\) be the share of negative eigenvalues\footnote{
-		Since the eigenvalues are continuous in the entries of the matrix, the
-		number of negative eigenvalues is a measurable function in \(H\).
-	}
-	\[
-		\negEV(H) := \negEV(\evH) := \frac1\dims \sum_{k=1}^\dims \ind_{\evH_i < 0},
-	\]
-	where \(\evH=(\evH_1,\dots,\evH_\dims)\) are the eigenvalues of a symmetric
-	matrix \(H\).
-	Then we can define the point process of critical points with index
-	\(\alpha\) as
-	\[
-		\pp^\alpha(\Vol, L)
-		:= \pp(\Vol, L\cap \real\times\negEV^{-1}(\alpha)).
-	\]
-	In particular for \(\alpha=0\) we have the height point process of minimas\footnote{
-		Technically ``no negative eigenvalues'' is only a necessary criterion for a
-		minima. But as eigenvalues will almost surely never be zero, we can
-		ignore this issue. If one wanted to convince themselves that this is
-		no issue, they could use ``\(\le\)'' in the definition of \(\negEV\) to
-		obtain \(\tilde{\negEV}\). For the height distribution of minima one
-		could then use a sandwich argument on
-		\[
-			\Pr(\rf_T\in A, \negEV(H_T) = 0)
-			\ge \Pr(\rf_T\in A, T\text{ is min})
-			\ge \Pr(\rf_T\in A, \tilde{\negEV}(H_T) = 0),
-		\]
-		with \((T,\rf_T,H_T)\sim \pp\).
-		By doing the same steps with \(\tilde{\negEV}\) as with
-		\(\negEV\), one can convince themselves about equality of the first and
-		last term. This then directly translates to the conditionals used in
-		Sec.~\ref{sec: height distribution}.
-	} \(\pp^0\).
+\subsection{Mark Distribution}
 
-	The sets \(\negEV^{-1}(\alpha)\) are disjoint and its union includes all
-	symmetric matrices. And since the hessian of a random field is almost surely
-	symmetric, this represents a decomposition of the critical point process,
-	i.e.
+For a random critical point we would like to talk about its mark
+distribution -- think ``height distribution of minimas''. If \(\pp\) is a finite measure (finite set), then picking a random
+critical point uniformly is equivalent to sampling
+\((T,\Mark)=(T,\rf_T,H_T)\sim\pp\).  Where we rescale \(\pp\) to be a
+probability measure. But of course \(\pp\) will generally not be finite over
+\(\Vol\), as its intensity is proportional to the lebesgue measure. So let us
+look at the point process restricted to a compact \(\Vol\) first. Asking for the
+probability of \(\Mark\) in \(L\) then results in
+\[
+	\Pr_\Mark(L)
+	=\frac{\E[\pp(\Vol, L)]}{\E[\pp(\Vol, \real^{1+\dims^2})]}
+	\overset{\text{Thm.~}\ref{thm: kac-rice formula}}=
+	\frac{\bcancel{|\Vol|}\markIntMeas(L)}{\bcancel{|\Vol|}\markIntMeas(\real^{1+\dims^2})}
+	= \frac{\markIntMeas(L)}{\markIntMeas(\real^{1+\dims^2})}
+\]
+As this distribution is independent from \(\Vol\), we simply call
+\(\Pr_\Mark\) the \textbf{distribution of marks} on the unrestricted point
+process of critical points.  If we define the
+\textbf{intensity} as
+\[
+	\intensity
+	:= \markIntMeas(\real^{1+\dims^2})
+	\overset{\eqref{eq: intensity meas of marks}}=
+	\E[|\det(H)|]\varphi_\rf(0),
+\]
+we can write our intensity measure \(\intensityMeas\) as
+\[
+	\intensityMeas(\Vol, L) 
+	\overset{\text{Thm.~}\ref{thm: kac-rice formula}}=
+	|\Vol|\markIntMeas(L)
+	= \intensity |\Vol| \Pr_\Mark(L).
+\]
+In other words, the intensity \(\intensity\) determines how many critical points
+there are in \(\Vol\) on average\footnote{
+	With Campbell's theorem we also have
 	\[
-		\pp(\Vol, L) = \sum_{k=0}^\dims \pp^{\frac{k}\dims}(\Vol, L).
+		\E\left[\sum_{[x,m]\in\pp} f(x,m)\right]
+		=\E\left[\int f(x,m) \pp(dx,dm)\right]
+		\overset{\text{Cam.}}= \intensity \int \int f(x,m) \Pr_M(dm) dx.
 	\]
-	This decomposition translates to the intensity measures of marks
-	\[
-		\intensityMeas^\alpha(\Vol, L)
-		= \E[\pp^\alpha(\Vol, L)]
-		\overset{\text{Thm.}~\ref{thm: kac-rice formula}}=
-		|\Vol| \markIntMeas^\alpha(L).
-	\]
-	Now for a random point we would like to talk about its mark distribution. If
-	\(\pp\) is a finite measure (finite set), then picking a random critical
-	point uniformly is equivalent to sampling \((T,\Mark)=(T,\rf_T,H_T)\sim\pp\).
-	Where we rescale \(\pp\) to be a probability measure. But of course, \(\pp\)
-	will generally not be finite in \(\Vol\) as its intensity is proportional to
-	the lebesgue measure. So let us look at the point process restricted to
-	\(\Vol\) first. Asking for the probability of \(\Mark\) in \(L\) then results
-	in
-	\[
-		\Pr_\Mark(L)
-		=\frac{\E[\pp(\Vol, L)]}{\E[\pp(\Vol, \real^{1+\dims^2})]}
-		= \frac{|\Vol|\markIntMeas(L)}{|\Vol|\markIntMeas(\real^{1+\dims^2})}
-		= \frac{\markIntMeas(L)}{\markIntMeas(\real^{1+\dims^2})}
-	\]
-	As this distribution is independent from \(\Vol\), we simply call
-	\(\Pr_\Mark\) the \textbf{distribution of marks}. If we define the intensity
-	as
-	\[
-		\intensity := \markIntMeas(\real\times\real^{\dims\times\dims})
-		\overset{\eqref{eq: intensity meas of marks}}= \E[|\det(H)|]\varphi_\rf(0),
-	\]
-	then we can write
-	\[
-		\intensityMeas(\Vol, L)
-		= \intensity |\Vol| \Pr_\Mark(L)
-		= \intensity |\Vol| \sum_{k=1}^\dims
-		\Pr(\negEV(H_T) = \tfrac{k}\dims)\Pr(M\in L\mid \negEV(H_T)=\tfrac{k}\dims),
-	\]
-	where
-	\[
- 		\Pr(\negEV(H_T) = \alpha)
-		= \Pr_M(\real\times\negEV^{-1}(\alpha))
-		= \frac{\markIntMeas(\real\times\negEV^{-1}(\alpha))}{\intensity}
-		\overset{\eqref{eq: intensity meas of marks}}=
-		\frac{\E[|\det(H)|\ind_{\negEV(H)=\alpha}]}{\E[|\det(H)|]},
-	\]
-	and
-	\[\begin{aligned}
-		\Pr(\Mark\in L\mid \negEV(H_T) = \alpha)
-		&= \frac{
-			\Pr_\Mark(L \cap \real\times\negEV^{-1}(\alpha))
-		}{\Pr_\Mark(\real\times\negEV^{-1}(\alpha))}
-		= \frac{
-			\markIntMeas(L \cap \real\times\negEV^{-1}(\alpha))
-		}{\markIntMeas(\real\times\negEV^{-1}(\alpha))}\\
-		&= \frac{
-			\markIntMeas^\alpha(L)
-		}{\intensity\Pr(\negEV(H_T) = \alpha)}
-	\end{aligned}\]
-\end{corollary}
+}.
 
-\begin{corollary}[Mark Distribution of Critical Points in a Stationary Random Field]
-	\label{cor: mark distribution}
-	Let \(p(z,h)\) be the joint density of \((\rf, H)\) and define
+\subsubsection{Decomposing Critical Points by Index}
+
+Let the index of \(H\) be the share of negative eigenvalues\footnote{
+	Since the eigenvalues are continuous in the entries of the matrix, the
+	number of negative eigenvalues is a measurable function in \(H\).
+}
+\[
+	\negEV(H) := \negEV(\evH) := \frac1\dims \sum_{k=1}^\dims \ind_{\evH_i < 0},
+\]
+where \(\evH=(\evH_1,\dots,\evH_\dims)\) are the eigenvalues of a symmetric
+matrix \(H\).
+The sets \(\negEV^{-1}(\tfrac{k}\dims)\) for \(k\in\{0,\dots,\dims\}\) are
+disjoint and its union includes all symmetric matrices. And since the hessian of
+a random field is almost surely symmetric, we can further decompose our intensity measure
+of critical points into
+\[
+	\intensityMeas(\Vol, L)
+	= \intensity |\Vol| \Pr_\Mark(L)
+	= \intensity |\Vol| \sum_{k=0}^\dims
+	\underbrace{\Pr(\negEV(H_T) = \tfrac{k}\dims)}_{
+		\text{relative intensity}
+	}\Pr(M\in L\mid \negEV(H_T)=\tfrac{k}\dims),
+\]
+where
+\[
+	\Pr(\negEV(H_T) = \alpha)
+	= \Pr_M(\real\times\negEV^{-1}(\alpha))
+	= \frac{\markIntMeas(\real\times\negEV^{-1}(\alpha))}{\intensity}
+	\overset{\eqref{eq: intensity meas of marks}}=
+	\frac{\E[|\det(H)|\ind_{\negEV(H)=\alpha}]}{\E[|\det(H)|]},
+\]
+and
+\begin{equation}
+	\label{eq: index conditional distribution of marks}
+	\begin{aligned}
+	\Pr(\Mark\in L\mid \negEV(H_T) = \alpha)
+	&= \frac{
+		\Pr_\Mark(L \cap \real\times\negEV^{-1}(\alpha))
+	}{\Pr_\Mark(\real\times\negEV^{-1}(\alpha))}
+	= \frac{
+		\markIntMeas(L \cap \real\times\negEV^{-1}(\alpha))
+	}{\markIntMeas(\real\times\negEV^{-1}(\alpha))}\\
+	\overset{\eqref{eq: intensity meas of marks}}&= \frac{
+		\E[|\det(H)|\ind_{\negEV(H) = \alpha}\ind_{(Z,H)\in L}]
+	}{\E[|\det(H)|\ind_{\negEV(H) = \alpha}]}.
+	\end{aligned}
+\end{equation}
+Similarly we could define the point process of critical points with index
+\(\alpha\) as
+\[
+	\pp^\alpha(\Vol, L)
+	:= \pp(\Vol, L\cap \real\times\negEV^{-1}(\alpha)).
+\]
+Resulting in the decomposition \(\pp = \sum_{k=0}^\dims \pp^{\frac{k}\dims}\).
+
+\subsubsection{Height Distribution of Minimas}
+
+We are especially interested in minima of course. And \(\pp^0\) is the point
+process of minima\footnote{
+	Technically ``no negative eigenvalues'' is only a necessary criterion for a
+	minima. But as eigenvalues will almost surely never be zero, we can
+	ignore this issue. If one wanted to convince themselves that this is
+	no issue, they could use ``\(\le\)'' in the definition of \(\negEV\) to
+	obtain \(\tilde{\negEV}\). For the height distribution of minima one
+	could then use a sandwich argument on
 	\[
-		\Omega(z,h) := c |det(h)| p(z,h)
+		\Pr(\rf_T\in A, \negEV(H_T) = 0)
+		\ge \Pr(\rf_T\in A, T\text{ is min})
+		\ge \Pr(\rf_T\in A, \tilde{\negEV}(H_T) = 0),
 	\]
-	with \(c\in\real\) such that \(\int \Omega(z,h)dz dh = 1\).
-	If we take a random critical point \((T,\rf_T,H_T)\sim \pp\),
-	then the distribution over its marks is given by
-	\[
-		\Pr_{\rf_T,H_T}(A) = \int_A \Omega(z,h) dz dh.
-	\]
-\end{corollary}
-\begin{remark}
-	Notice how this distribution of marks is different from
-	\[
-		\Pr((\rf(t),\nabla^2\rf(t))\in A \mid \nabla\rf(t) = 0)
-		\overset{\text{stationary}}
-		= \Pr((\rf,H)\in A)
-		= \int_A p(z,h)dz dh.
-	\]
-	In particular the density of marks is \(\Omega\) not \(p\), like it is if
-	we simply condition on the fact that \(t\) is a critical point.
-\end{remark}
-\begin{proof}
-	With Lemma~\ref{lem: Campbell}, we have that the distribution of marks is
-	given by
-	\begin{align*}
-		\Pr_{\rf_T,H_T}(L)
-		&= \frac{\intensity(L)}{\intensity(\real)}
-		\overset{\ref{thm: kac-rice formula}}= \frac{
-			\E[|\det(\nabla^2 \rf(0))|
-			\ind_L(\rf(0), \nabla^2\rf(0))
-			]
-		}{
-			\E[|\det(\nabla^2 \rf(0))|]
-		}\\
-		&= \int_L \Omega(z,h) dz dh.
-		\qedhere
-	\end{align*}
-\end{proof}
+	with \((T,\rf_T,H_T)\sim \pp\).
+	By doing the same steps with \(\tilde{\negEV}\) as with
+	\(\negEV\), one can convince themselves about equality of the first and
+	last term. This then directly translates to the conditionals.
+}.
+But much more interesting than the point process of minima is
+their height distribution. So we select \(\alpha=0\) and \(L=A\times
+\real^{\dims\times\dims}\) in \eqref{eq: index conditional distribution of marks}
+to obtain
+\[
+	\Pr(Z_T \in A \mid \underbrace{\negEV(H_T)=0}_{T\text{ is min}})
+	= \frac{\E[|\det(H)|\ind_{\negEV(H)=0}\ind_A(Z)]}{\E[|\det(H)|\ind_{\negEV(H)=0}]}
+\]

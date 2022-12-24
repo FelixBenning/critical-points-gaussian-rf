@@ -2,8 +2,22 @@
 
 
 In this section we want to derive the joint density of \((\rf, H):=
-(\rf(0), \nabla^2\rf(0))\), since it is a vital part of mark distribution
-\(\Omega\). As \(\partial_{ij}\rf\) are limits of differences of multivariate
+(\rf(0), \nabla^2\rf(0))\), mostly because we need it to calculate
+\begin{enumerate}
+	\item the intensity \(\intensity = \E[|\det(H)|]\varphi_\rf(0)\),
+	\item the relative intensity \(\Pr(\negEV(H_T) = \alpha) =
+	\frac{\E[|\det(H)|\ind_{\negEV(H)=\alpha}]}{\E[|\det(H)|]} \),
+	\item and the conditional mark distribution
+	\[
+		\Pr(\Mark\in L\mid \negEV(H_T) = \alpha)
+		\overset{\eqref{eq: index conditional distribution of marks}}= \frac{
+			\E[|\det(H)|\ind_{\negEV(H) = \alpha}\ind_{(Z,H)\in L}]
+		}{\E[|\det(H)|\ind_{\negEV(H) = \alpha}]}.
+	\]
+\end{enumerate}
+The conditional distributions in the subsections represent somewhat of a
+tangent to this goal and could be skipped\fxnote{true?}.
+As \(\partial_{ij}\rf\) are limits of differences of multivariate
 normal random variables, this is a centered multivariate normal
 random vector. We therefore only need to consider the covariance. Additionally
 we know \(H_{ij} = H_{ji}\), so we are only interested
@@ -33,10 +47,10 @@ As we are in the multivariate Gaussian case, this also implies independence.
 Shifting all these independent mixed derivatives to the end, our covariance
 matrix looks like
 \[
-	\Sigma := \Cov(\rf, (H_{ii})_{i\le\dimension}, (H_{ij})_{i<j})
+	\Sigma := \Cov(\rf, (H_{ii})_{i\le\dims}, (H_{ij})_{i<j})
 	= \begin{pmatrix}
 		B & 0\\
-		0 & \frac{\sqC''(0)}{\dimension}\identity
+		0 & \frac{\sqC''(0)}{\dims}\identity
 	\end{pmatrix}
 \]
 with
@@ -63,22 +77,22 @@ Sample independently
 	\item \(\epsilon \sim \normal(0, \sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)})\)
 	``left-over shift''\footnote{
 		Why is \(\sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)} \ge 0\)? Consider the
-		vector \(v:=\left(-\sqC'(0), \frac{\sqC(0)}\dimension, \dots,
-		\frac{\sqC(0)}\dimension\right)\).  Since \(B\) is a covariance matrix, it
+		vector \(v:=\left(-\sqC'(0), \frac{\sqC(0)}\dims, \dots,
+		\frac{\sqC(0)}\dims\right)\).  Since \(B\) is a covariance matrix, it
 		is necessarily positive definite.
 		So we have
 		\[
 			0 \le v B v^T
-			= \frac{\dimension+2}\dimension\sqC''(0)\sqC(0)^2 - \sqC'(0)^2\sqC(0)
+			= \frac{\dims+2}\dims\sqC''(0)\sqC(0)^2 - \sqC'(0)^2\sqC(0)
 		\]
-		Dividing both sides by \(\sqC(0)^2 > 0\) and letting \(\dimension\to\infty\)
+		Dividing both sides by \(\sqC(0)^2 > 0\) and letting \(\dims\to\infty\)
 		leads to the required inequality. So for covariance models valid in all
 		dimensions, we have this inequality.
 	}
-	\item \(\tilde{H}_{11},\dots,\tilde{H}_{\dimension\dimension}\sim\normal(0,
+	\item \(\tilde{H}_{11},\dots,\tilde{H}_{\dims\dims}\sim\normal(0,
 	a)\) and independently
 	\(\tilde{H}_{ji}:=\tilde{H}_{ij}\sim\normal(0,\frac{a}{2})\) for
-	\(i<j\le\dimension\). And we choose \(a=2\sqC''(0)\).
+	\(i<j\le\dims\). And we choose \(a=2\sqC''(0)\).
 	In other words: \(\tilde{H} = (X_{ij})\) is a (scaled) Gaussian Orthogonal
 	Ensemble (GOE)\footnote{
 		Oftentimes the definition of the GOE demands \(a=2\). To make notation
@@ -86,28 +100,28 @@ Sample independently
 		this this more general definition.
 		For real symmetric matrices \(h\) the density of the GOE is then given by
 		\[
-			\varphi^{\GOE}_{\dimension,a}(h)
-			= c_{\dimension,a}\exp\left(-\frac{\dimension}{2a}\trace(h^2)\right)
+			\varphi^{\GOE}_{\dims,a}(h)
+			= c_{\dims,a}\exp\left(-\frac{\dims}{2a}\trace(h^2)\right)
 		\]
 		with scaling constant
 		\[
-			(c^{\GOE}_{\dimension,a})^{-1}
-			= (\pi a)^{-\frac{\dimension(\dimension+1)}{4}}2^{-\dimension/2}.
+			(c^{\GOE}_{\dims,a})^{-1}
+			= (\pi a)^{-\frac{\dims(\dims+1)}{4}}2^{-\dims/2}.
 		\]
 		The joint density of eigenvalues
-		\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) is known to be
+		\(\evGOE=(\evGOE_1,\dots,\evGOE_\dims)\) is known to be
 		\begin{equation}\label{eq: GOE ev density}
-			\varphi^{\lambda}_{\dimension, a}(x_1,\dots,x_n)
-			= c^\lambda_{\dimension,a}
-			\exp\Bigl(-\frac{1}{2a}\sum_{i=1}^\dimension x_i^2\Bigr)
-			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dimension}
+			\varphi^{\evGOE}_{\dims, a}(x_1,\dots,x_n)
+			= c^\evGOE_{\dims,a}
+			\exp\Bigl(-\frac{1}{2a}\sum_{i=1}^\dims x_i^2\Bigr)
+			\underbrace{\prod_{i<j}|x_i - x_j|}_{=:\Delta_\dims}
 		\end{equation}
-		where \(\Delta_\dimension\) is the so-called Vandermonde Determinant and
+		where \(\Delta_\dims\) is the so-called Vandermonde Determinant and
 		the scaling constant is given by
 		\[
-			(c^\lambda_{\dimension,a})^{-1}
-			= (2\pi)^{\frac{\dimension}2}a^{\frac{\dimension(\dimension+1)}4}
-			\prod_{j=1}^\dimension \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
+			(c^\evGOE_{\dims,a})^{-1}
+			= (2\pi)^{\frac{\dims}2}a^{\frac{\dims(\dims+1)}4}
+			\prod_{j=1}^\dims \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
 		\]
 	}.
 \end{enumerate}
@@ -120,45 +134,45 @@ By construction \((Z,H)\) is centered multivariate normal. It is an easy
 exercise to check that the covariance structure is correct.
 
 As \(\tilde{H}\) is independent of \(\shift\), its eigenvalues
-\(\lambda=(\lambda_1,\dots,\lambda_\dimension)\) are independent of
+\(\evGOE=(\evGOE_1,\dots,\evGOE_\dims)\) are independent of
 \(\shift\). Assume that
 \[
-	X = P\diag[\lambda]P^{-1}
+	X = P\diag[\evGOE]P^{-1}
 \]
 Since the identity matrix is commonly diagonizable with every matrix, this
 results in
 \[
-	H = P(\diag[\lambda] + \shift\identity) P^{-1}
+	H = P(\diag[\evGOE] + \shift\identity) P^{-1}
 \]
 in other words, the eigenvalues of \(H\) are
 \[
-	\Lambda_i
-	:= \lambda_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
+	\evH_i
+	:= \evGOE_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
 \]
 The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
 GOE multiplied by a common factor and shifted by an independent shift \(\shift\)
 consisting of the current height \(\rf\) and an additional random component
 \(\epsilon\).
 
-\subsection{\texorpdfstring{\(\Lambda\mid\rf\)}{Λ|Z}}
+\subsection{\texorpdfstring{\(\evH\mid\rf\)}{Λ|Z}}
 \label{subsec: Lambda|rf}
 
-In particular we have for \(\Lambda = (\Lambda_1,\dots,\Lambda_\dimension)\)
+In particular we have for \(\evH = (\evH_1,\dots,\evH_\dims)\)
 \[
-	(\Lambda \mid \rf = z)
+	(\evH \mid \rf = z)
 	\overset{d}= 
-	\lambda \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z),
+	\evGOE \dotPlus (\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z),
 \]
 where \(\dotPlus\) is entry-wise addition.
 More specifically we have
 \begin{equation}\label{eq: expectation f(Lambda) | Z}
-		\E[f(\Lambda)\mid Z=z]
+		\E[f(\evH)\mid Z=z]
 		= \E\left[
-			f\left(\lambda \dotPlus (\epsilon+\tfrac{\sqC'(0)}{\sqC(0)}z)\right)
+			f\left(\evGOE \dotPlus (\epsilon+\tfrac{\sqC'(0)}{\sqC(0)}z)\right)
 		\right].
 \end{equation}
 
-\subsection{\texorpdfstring{\(\rf\mid\Lambda\)}{Z|Λ}}
+\subsection{\texorpdfstring{\(\rf\mid\evH\)}{Z|Λ}}
 
 \begin{theorem}[Conditional Distributions of \(\rf\)]
 	\label{thm: conditional distributions of rf}
@@ -169,19 +183,19 @@ More specifically we have
 			\tfrac{\sqC'(0)}{\sqC''(0)} \shift,
 			\sqC(0) - \tfrac{\sqC'(0)^2}{\sqC''(0)}
 		\right)\\
-		\rf\mid \Lambda
-		&=\rf\mid H = \rf \mid H_1,\dots, H_\dimension
+		\rf\mid \evH
+		&=\rf\mid H = \rf \mid H_1,\dots, H_\dims
 		\nonumber\\
 		&\sim \normal\left(
-		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\Lambda},
-		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}\bar{\evH},
+		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dims)}{\sqC''(0)(1+\tfrac4{\dims})^2}
 	\right)
 	\end{align}
 	where the mean of eigenvalues (or the mean of the diagonal)
 	\[
-		\bar{\Lambda}
-		:=\frac1\dimension\sum_{i=1}^\dimension \Lambda_i
-		=\frac{\trace{H}}\dimension
+		\bar{\evH}
+		:=\frac1\dims\sum_{i=1}^\dims \evH_i
+		=\frac{\trace{H}}\dims
 	\]
 	approximate the shift \(\shift\) and therefore approximates \(\rf\mid \shift\) in
 	the limit.

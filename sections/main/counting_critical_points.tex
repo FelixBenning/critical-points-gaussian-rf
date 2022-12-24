@@ -2,116 +2,81 @@
 
 \begin{definition}[Counting Critical Points]
 	Let \(\rf\) be a random field. We implicitly\footnote{
-		\(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2})\) is a semiring. So by
+		\(\borel(\real^\dims)\times\borel(\real^{1+\dims^2})\) is a semiring. So by
 		Carathéodory's extension theorem there is a unique extension of
-		\(\crit\) to
-		\(\sigma(\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}))=\borel(\real^{\dimension+1+\dimension^2})\).
-		Use this extension to obtain \(\crit(\omega)\in\locFiniteMeasure[\dimension+1+\dimension^2]\).
+		\(\pp\) to
+		\(\sigma(\borel(\real^\dims)\times\borel(\real^{1+\dims^2}))=\borel(\real^{\dims+1+\dims^2})\).
+		Use this extension to obtain \(\pp(\omega)\in\locFiniteMeasure[\dims+1+\dims^2]\).
 	} define the marked point process of critical points as
 	\begin{align*}
-		\crit:
+		\pp:
 		\begin{cases}
-			\borel(\real^\dimension)\times\borel(\real^{1+\dimension^2}) \to \real\\
-			(\Vol, M) \mapsto
+			\borel(\real^\dims)\times\borel(\real^{1+\dims^2}) \to \real\\
+			(\Vol, L) \mapsto
 			\#\left\{t\in\Vol:
 				\nabla\rf(t)=0,
-				(\rf(t), \nabla^2 \rf(t))\in M
+				(\rf(t), \nabla^2 \rf(t))\in L
 			\right\}.
 		\end{cases}
 	\end{align*}
-	This is a marked point process with \((\rf(t), \nabla^2\rf(t))\) as marks.
-	Let the index of \(H\), be the share of negative eigenvalues\footnote{
-		Since the eigenvalues are continuous in the entries of the matrix, the
-		number of negative eigenvalues is a measurable function in \(H\).
-	}
-	\[
-		\negEV(H) := \negEV(\Lambda) := \frac1\dimension \sum_{k=1}^\dimension \ind_{\Lambda_i < 0},
-	\]
-	where \(\Lambda=(\Lambda_1,\dots,\Lambda_\dimension)\) are the eigenvalues of
-	\(H\in\real^{\dimension\times\dimension}\).
-	The point-process of critical points with index \(\alpha\) is therefore
-	\[
-		\crit^\alpha(\Vol, A)
-		:= \crit(\Vol, A\times\negEV^{-1}(\dimension\alpha)).
-	\]
-	In particular for \(\alpha=0\) we have the point process of minimas\footnote{
-		Technically ``no negative eigenvalues'' is only a necessary criterion for a
-		minima. But as eigenvalues will almost surely never be zero, we can
-		ignore this issue. If one wanted to convince themselves that this is
-		no issue, they could use ``\(\le\)'' in the definition of \(\negEV\) to
-		obtain \(\tilde{\negEV}\). For the height distribution of minima one
-		could then use a sandwich argument on
-		\[
-			\Pr(\rf_T\in A, \negEV(H_T) = 0)
-			\ge \Pr(\rf_T\in A, T\text{ is min})
-			\ge \Pr(\rf_T\in A, \tilde{\negEV}(H_T) = 0),
-		\]
-		with notation from Cor.~\ref{cor: mark distribution}.
-		By doing the same steps with \(\tilde{\negEV}\) as with
-		\(\negEV\), one can convince themselves about equality of the first and
-		last term. This then directly translates to the conditionals used in
-		Sec.~\ref{sec: height distribution}.
-	}\(\crit^0\).
+	This is a marked point process with \((\rf(t), \nabla^2\rf(t))\) as marks\footnote{
+		Measurability: First note that	
+		\begin{align*}
+			\locFiniteMeasAlg[\dims+1+\dims^2]
+			&= \sigma(\pi_B : B\in\borel(\real^{\dims+1+\dims^2}))\\
+			&=\sigma(\underbrace{
+				\{\pi_B^{-1}(C) : B\in\borel(\real^{\dims+1+\dims^2}), C\in\borel(\real)\}
+			}_{=:\mathcal{E}}.
+			)
+		\end{align*}
+		Since it is sufficient to prove measurability on the generator
+		\(\mathcal{E}\), we only need that the following sets are measurable:
+		\begin{align*}
+			(\pp)^{-1}(\pi^{-1}_{B}(C))
+			&= (\pi_{B} \circ \pp)^{-1}(C)
+			= (\pp(B))^{-1}(C)\\
+			&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
+				\nabla\rf(t)=0
+			\right\}\\
+			&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
+			\ind\left\{
+				\inf_{t\in \left(\text{id}, \rf, \nabla^2\rf\right)^{-1}(B^\epsilon_k) }
+			|\nabla \rf(t)| = 0
+			\right\},
+		\end{align*}
+		where \((B^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(B\) (countable).
+	}.\fxwarning{Measurability probably not quite right yet}
 \end{definition}
-\begin{proof}[Proof (Measurability)]
-	First note that	
-	\begin{align*}
-		\locFiniteMeasAlg[\dimension+1+\dimension^2]
-		&= \sigma(\pi_B : B\in\borel(\real^{\dimension+1+\dimension^2}))\\
-		&=\sigma(\underbrace{
-			\{\pi_B^{-1}(C) : B\in\borel(\real^{\dimension+1+\dimension^2}), C\in\borel(\real)\}
-		}_{=:\mathcal{E}}
-		)
-	\end{align*}
-	since it is sufficient to prove measurability on the generator
-	\(\mathcal{E}\), we only need that the following sets are measurable
-	\begin{align*}
-		(\crit)^{-1}(\pi^{-1}_{B}(C))
-		&= (\pi_{B} \circ \crit)^{-1}(C)
-		= (\crit(B))^{-1}(C)\\
-		&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
-			\nabla\rf(t)=0
-		\right\}\\
-		&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
-		\ind\left\{
-			\inf_{t\in \left(\text{id}, \rf, \nabla^2\rf\right)^{-1}(B^\epsilon_k) }
-		|\nabla \rf(t)| = 0
-		\right\}
-	\end{align*}
-	\fxwarning{probably not quite right yet}
-	where \((B^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(B\) (countable).
-	We can swap the limit with the series due to monotone convergence.
-\end{proof}
 
 \begin{lemma}[Stationarity]
-	If \(\rf\) is strictly stationary, \(\crit\) is stationary.
+	If \(\rf\) is strictly stationary, \(\pp\) is stationary.
 \end{lemma}
 \begin{proof}
-	Let \(h\in \real^\dimension\) and note that
+	Let \(h\in \real^\dims\) and note that
 	\[
 		\tilde{\rf}(t) := \rf(t+h)
 	\]
 	has the same distribution as \(\rf\) since \(\rf\) is strictly stationary. Define
-	\(\tilde{\crit}\) using \(\tilde{\rf}\) in place of \(\rf\). Then
-	\(\tilde{\crit}\) has the same distribution as \(\crit\).
+	\(\tilde{\pp}\) using \(\tilde{\rf}\) in place of \(\rf\). Then
+	\(\tilde{\pp}\) has the same distribution as \(\pp\).
 	And we have
 	\begin{align*}
-		&\crit(\Vol+h, M)\\
+		&\pp(\Vol+h, L)\\
 		&= \#\left\{t\in\Vol+h:
 			\nabla\rf(t)=0,
-			(\rf(t),\nabla^2\rf(t))\in M
+			(\rf(t),\nabla^2\rf(t))\in L
 		\right\}\\
 		&= \#\left\{t\in\Vol:
 			\nabla\tilde{\rf}(t)=0,
-			(\tilde{\rf}(t),\nabla^2\tilde{\rf}(t))\in M
+			(\tilde{\rf}(t),\nabla^2\tilde{\rf}(t))\in L
 		\right\}\\
-		&= \tilde{\crit}(\Vol, M).
+		&= \tilde{\pp}(\Vol, L).
 	\end{align*}
-	So \(\crit\) is stationary:
+	So \(\pp\) is stationary:
 	\begin{align*}
-		\Pr\left(\crit((\Vol_i+h)\times M_i)\in B_i, i=1,2,\dots\right)
-		&= \Pr\left(\tilde{\crit}(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right)\\
-		&= \Pr\left(\crit(\Vol_i\times M_i)\in B_i, i=1,2,\dots\right).
+		\Pr\left(\pp((\Vol_i+h)\times L_i)\in B_i, i=1,2,\dots\right)
+		&= \Pr\left(\tilde{\pp}(\Vol_i\times L_i)\in B_i, i=1,2,\dots\right)\\
+		&= \Pr\left(\pp(\Vol_i\times L_i)\in B_i, i=1,2,\dots\right).
 		\qedhere
 	\end{align*}
 \end{proof}
@@ -121,21 +86,21 @@
 	\label{thm: kac-rice formula}
 	For a centered Gaussian random field \(\rf\) satisfying our smoothness
 	Assumption~\ref{assmpt: smoothness assumption}, the intensity measure of the
-	critical points \(\crit\) is given by
+	critical points \(\pp\) is given by
 	\begin{align*}
-		&\Lambda(\Vol,M)
-		=\E[\crit(\Vol, M)]\\
+		&\intensityMeas(\Vol,L)
+		=\E[\pp(\Vol, L)]\\
 		&= \int_\Vol \E\left[
 			\left|\det(\nabla^2 \rf(t))\right|
-			\ind_M(\rf(t), \nabla^2\rf(t))
+			\ind_L(\rf(t), \nabla^2\rf(t))
 			\bigm| \nabla\rf(t) = 0 
 		\right] \density_{\nabla\rf(t)}(0)dt
 		\\
 		\overset{\text{stationary}}&=
 		|\Vol|\ \underbrace{\E\left[
 			|\det(\nabla^2 \rf(0))|
-			\ind_M(\rf(0), \nabla^2\rf(0))
-		\right] \density_{\nabla\rf(0)}(0)}_{=:\lambda(M)}
+			\ind_L(\rf(0), \nabla^2\rf(0))
+		\right] \density_{\nabla\rf(0)}(0)}_{=:\markIntMeas(L)}
 	\end{align*}
 	where \(\density_{\nabla\rf(t)}\) is the density of \(\nabla\rf(t)\). The
 	second equality is only true when \(\rf\) is stationary.
@@ -165,11 +130,11 @@
 	covariances. By application
 	of Corollary~\ref{cor: gaussian kac-rice}, we therefore get
 	\begin{align*}
-		\Lambda(\Vol, M) 
-		&= \E[\crit(\Vol, M)]
-		= \E[\level(f, g: \Vol, M)]\\
+		\intensityMeas(\Vol, L) 
+		&= \E[\pp(\Vol, L)]
+		= \E[\level(f, g: \Vol, L)]\\
 		&= \int_\Vol \E\left[
-			|\det \nabla f(t)| \ind_M(\rf(t), \nabla^2\rf(t)) \mid f(t) = 0
+			|\det \nabla f(t)| \ind_L(\rf(t), \nabla^2\rf(t)) \mid f(t) = 0
 		\right] \density_{\nabla\rf(t)}(0)dt.
 	\end{align*}
 	
@@ -188,50 +153,141 @@
 \end{remark}
 
 Due to stationarity, we have completely dropped the dependence of \(\rf\) on
-\(t\) in Theorem~\ref{thm: kac-rice formula} to define \(\lambda\). To reduce
-notational clutter, we will from now on write
+\(t\) in Theorem~\ref{thm: kac-rice formula} to define the intensity measure
+of marks \(\markIntMeas\). To reduce notational clutter, we will from now on write
 \[
-	(\rf,H):= (Z(0), \nabla^2\rf(0))
+	(\rf,\nabla\rf, H):= (Z(0),\nabla\rf(0), \nabla^2\rf(0)),
 \]
+i.e. the intensity measure of marks is
+\begin{equation}\label{eq: intensity meas of marks}
+	\markIntMeas(L) = \E[|\det(H)| \ind_L(\rf,H)] \varphi_{\nabla \rf}(0)
+\end{equation}
 
-\begin{corollary}[Mark Distribution of Critical Points in a Stationary Random Field]
-	\label{cor: mark distribution}
-	Let \(p(z,h)\) be the joint density of \((\rf, H)\) and define
+\subsection{Mark Distribution}
+
+For a random critical point we would like to talk about its mark
+distribution -- think ``height distribution of minimas''. If \(\pp\) is a finite measure (finite set), then picking a random
+critical point uniformly is equivalent to sampling
+\((T,\Mark)=(T,\rf_T,H_T)\sim\pp\).  Where we rescale \(\pp\) to be a
+probability measure. But of course \(\pp\) will generally not be finite over
+\(\Vol\), as its intensity is proportional to the lebesgue measure. So let us
+look at the point process restricted to a compact \(\Vol\) first. Asking for the
+probability of \(\Mark\) in \(L\) then results in
+\[
+	\Pr_\Mark(L)
+	=\frac{\E[\pp(\Vol, L)]}{\E[\pp(\Vol, \real^{1+\dims^2})]}
+	\overset{\text{Thm.~}\ref{thm: kac-rice formula}}=
+	\frac{\bcancel{|\Vol|}\markIntMeas(L)}{\bcancel{|\Vol|}\markIntMeas(\real^{1+\dims^2})}
+	= \frac{\markIntMeas(L)}{\markIntMeas(\real^{1+\dims^2})}
+\]
+As this distribution is independent from \(\Vol\), we simply call
+\(\Pr_\Mark\) the \textbf{distribution of marks} on the unrestricted point
+process of critical points.  If we define the
+\textbf{intensity} as
+\[
+	\intensity
+	:= \markIntMeas(\real^{1+\dims^2})
+	\overset{\eqref{eq: intensity meas of marks}}=
+	\E[|\det(H)|]\varphi_\rf(0),
+\]
+we can write our intensity measure \(\intensityMeas\) as
+\[
+	\intensityMeas(\Vol, L) 
+	\overset{\text{Thm.~}\ref{thm: kac-rice formula}}=
+	|\Vol|\markIntMeas(L)
+	= \intensity |\Vol| \Pr_\Mark(L).
+\]
+In other words, the intensity \(\intensity\) determines how many critical points
+there are in \(\Vol\) on average\footnote{
+	With Campbell's theorem we also have
 	\[
-		\Omega(z,h) := c |det(h)| p(z,h)
+		\E\left[\sum_{[x,m]\in\pp} f(x,m)\right]
+		=\E\left[\int f(x,m) \pp(dx,dm)\right]
+		\overset{\text{Cam.}}= \intensity \int \int f(x,m) \Pr_M(dm) dx.
 	\]
-	with \(c\in\real\) such that \(\int \Omega(z,h)dz dh = 1\).
-	If we take a random critical point \((T,\rf_T,H_T)\sim \crit\),
-	then the distribution over its marks is given by
+}.
+
+\subsubsection{Decomposing Critical Points by Index}
+
+Let the index of \(H\) be the share of negative eigenvalues\footnote{
+	Since the eigenvalues are continuous in the entries of the matrix, the
+	number of negative eigenvalues is a measurable function in \(H\).
+}
+\[
+	\negEV(H) := \negEV(\evH) := \frac1\dims \sum_{k=1}^\dims \ind_{\evH_i < 0},
+\]
+where \(\evH=(\evH_1,\dots,\evH_\dims)\) are the eigenvalues of a symmetric
+matrix \(H\).
+The sets \(\negEV^{-1}(\tfrac{k}\dims)\) for \(k\in\{0,\dots,\dims\}\) are
+disjoint and its union includes all symmetric matrices. And since the hessian of
+a random field is almost surely symmetric, we can further decompose our intensity measure
+of critical points into
+\[
+	\intensityMeas(\Vol, L)
+	= \intensity |\Vol| \Pr_\Mark(L)
+	= \intensity |\Vol| \sum_{k=0}^\dims
+	\underbrace{\Pr(\negEV(H_T) = \tfrac{k}\dims)}_{
+		\text{relative intensity}
+	}\Pr(M\in L\mid \negEV(H_T)=\tfrac{k}\dims),
+\]
+where
+\[
+	\Pr(\negEV(H_T) = \alpha)
+	= \Pr_M(\real\times\negEV^{-1}(\alpha))
+	= \frac{\markIntMeas(\real\times\negEV^{-1}(\alpha))}{\intensity}
+	\overset{\eqref{eq: intensity meas of marks}}=
+	\frac{\E[|\det(H)|\ind_{\negEV(H)=\alpha}]}{\E[|\det(H)|]},
+\]
+and
+\begin{equation}
+	\label{eq: index conditional distribution of marks}
+	\begin{aligned}
+	\Pr(\Mark\in L\mid \negEV(H_T) = \alpha)
+	&= \frac{
+		\Pr_\Mark(L \cap \real\times\negEV^{-1}(\alpha))
+	}{\Pr_\Mark(\real\times\negEV^{-1}(\alpha))}
+	= \frac{
+		\markIntMeas(L \cap \real\times\negEV^{-1}(\alpha))
+	}{\markIntMeas(\real\times\negEV^{-1}(\alpha))}\\
+	\overset{\eqref{eq: intensity meas of marks}}&= \frac{
+		\E[|\det(H)|\ind_{\negEV(H) = \alpha}\ind_{(Z,H)\in L}]
+	}{\E[|\det(H)|\ind_{\negEV(H) = \alpha}]}.
+	\end{aligned}
+\end{equation}
+Similarly we could define the point process of critical points with index
+\(\alpha\) as
+\[
+	\pp^\alpha(\Vol, L)
+	:= \pp(\Vol, L\cap \real\times\negEV^{-1}(\alpha)).
+\]
+Resulting in the decomposition \(\pp = \sum_{k=0}^\dims \pp^{\frac{k}\dims}\).
+
+\subsubsection{Height Distribution of Minimas}
+\label{subsubsec: height distriubtion of minimas}
+
+We are especially interested in minima of course. And \(\pp^0\) is the point
+process of minima\footnote{
+	Technically ``no negative eigenvalues'' is only a necessary criterion for a
+	minima. But as eigenvalues will almost surely never be zero, we can
+	ignore this issue. If one wanted to convince themselves that this is
+	no issue, they could use ``\(\le\)'' in the definition of \(\negEV\) to
+	obtain \(\tilde{\negEV}\). For the height distribution of minima one
+	could then use a sandwich argument on
 	\[
-		\Pr_{\rf_T,H_T}(A) = \int_A \Omega(z,h) dz dh.
+		\Pr(\rf_T\in A, \negEV(H_T) = 0)
+		\ge \Pr(\rf_T\in A, T\text{ is min})
+		\ge \Pr(\rf_T\in A, \tilde{\negEV}(H_T) = 0),
 	\]
-\end{corollary}
-\begin{remark}
-	Notice how this distribution of marks is different from
-	\[
-		\Pr((\rf(t),\nabla^2\rf(t))\in A \mid \nabla\rf(t) = 0)
-		\overset{\text{stationary}}
-		= \Pr((\rf,H)\in A)
-		= \int_A p(z,h)dz dh.
-	\]
-	In particular the density of marks is \(\Omega\) not \(p\), like it is if
-	we simply condition on the fact that \(t\) is a critical point.
-\end{remark}
-\begin{proof}
-	With Lemma~\ref{lem: Campbell}, we have that the distribution of marks is
-	given by
-	\begin{align*}
-		\Pr_{\rf_T,H_T}(L)
-		&= \frac{\lambda(L)}{\lambda(\real)}
-		\overset{\ref{thm: kac-rice formula}}= \frac{
-			\E[|\det(\nabla^2 \rf(0))|
-			\ind_L(\rf(0), \nabla^2\rf(0))
-			]
-		}{
-			\E[|\det(\nabla^2 \rf(0))|]
-		}\\
-		&= \int_L \Omega(z,h) dz dh.
-		\qedhere
-	\end{align*}
-\end{proof}
+	with \((T,\rf_T,H_T)\sim \pp\).
+	By doing the same steps with \(\tilde{\negEV}\) as with
+	\(\negEV\), one can convince themselves about equality of the first and
+	last term. This then directly translates to the conditionals.
+}.
+But much more interesting than the point process of minima is
+their height distribution. So we select \(\alpha=0\) and \(L=A\times
+\real^{\dims\times\dims}\) in \eqref{eq: index conditional distribution of marks}
+to obtain
+\[
+	\Pr(Z_T \in A \mid \underbrace{\negEV(H_T)=0}_{T\text{ is min}})
+	= \frac{\E[|\det(H)|\ind_{\negEV(H)=0}\ind_A(Z)]}{\E[|\det(H)|\ind_{\negEV(H)=0}]}
+\]

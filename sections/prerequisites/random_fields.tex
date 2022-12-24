@@ -1,22 +1,22 @@
 \section{Random Fields}
 
 \begin{definition}[Random Field]
-	A collection of random variables \((\rf(t))_{t\in\real^\dimension}\) is called
-	\textbf{random field} over \(\real^\dimension\). The \textbf{covariance function}
+	A collection of random variables \((\rf(t))_{t\in\real^\dims}\) is called
+	\textbf{random field} over \(\real^\dims\). The \textbf{covariance function}
 	is defined as
 	\begin{equation*}
 		\C(x,y) = \Cov(\rf(x), \rf(y)).
 	\end{equation*}
 	A random field is called \textbf{Gaussian random field}, if all finite
 	dimensional marginals are multivariate Gaussian.
-	A random field is called \textbf{centered}, if for all \(t\in\real^\dimension\)
+	A random field is called \textbf{centered}, if for all \(t\in\real^\dims\)
 	\[
 		\E[\rf(t)] = 0.
 	\]
 	A random field is called \textbf{strictly stationary}, if for all
-	\(h\in\real^\dimension\) we have the following equality in distribution
+	\(h\in\real^\dims\) we have the following equality in distribution
 	\[
-		(\rf(t+h))_{t\in\real^\dimension} \overset{d}= (\rf(t))_{t\in\real^\dimension}.
+		(\rf(t+h))_{t\in\real^\dims} \overset{d}= (\rf(t))_{t\in\real^\dims}.
 	\]
 	In particular this implies	\textbf{(weak) stationarity}, i.e.
 	\begin{equation*}
@@ -87,7 +87,7 @@ property, we can use a trick from
 \textcite[Sec.~1.4.2]{adlerRandomFieldsGeometry2007}. We define the random field
 \[
 	F: \begin{cases}
-		\real^\dimension \times \real^\dimension \times \real \to \real\\
+		\real^\dims \times \real^\dims \times \real \to \real\\
 		(x,v,h)	\mapsto \frac{\rf(x+hv)-\rf(x-hv)}{2h}
 	\end{cases}
 \]
@@ -123,7 +123,7 @@ Theorem~1.4.2]{adlerRandomFieldsGeometry2007}
 		\max_{i,j}|\partial_{ii jj}\C(0)
 		-\partial_{ii jj}\C(h)| \le \frac{K}2 |\ln(|h|)|^{-(1+\alpha)}
 	\]
-	for \(h\in\real^\dimension\) with \(|h|\) small enough.
+	for \(h\in\real^\dims\) with \(|h|\) small enough.
 \end{assumption}
 
 

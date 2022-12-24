@@ -4,14 +4,14 @@ In this section we will reproduce some results of
 \textcite{adlerRandomFieldsGeometry2007} for easier reference but without
 proofs.
 
-Let \(f:\real^\dimension\to\real^\dimension\) and \(g:\real^\dimension\to\real^K\)
-be random fields. Let \(\Vol\subseteq \real^\dimension\) be compact,
-such that \(\partial\Vol\) has finite Hausdorff \(\mathcal{H}_{\dimension-1}\)
+Let \(f:\real^\dims\to\real^\dims\) and \(g:\real^\dims\to\real^K\)
+be random fields. Let \(\Vol\subseteq \real^\dims\) be compact,
+such that \(\partial\Vol\) has finite Hausdorff \(\mathcal{H}_{\dims-1}\)
 measure and \(B\subseteq \real^K\) open, such that \(\partial B\) has Hausdorff
 dimension \(K-1\).
 Feel free to assume \(\Vol\) is a closed cuboid, \(B\) is an open cuboid, since
 these are a generator of the Borel sets, so we only need to define our point
-process \(\crit\) on them.
+process \(\pp\) on them.
 We define the level set count as
 \[
 	\level:= \level(f, g: \Vol, B) := \#\{t\in \Vol : f(t) = u, g(t)\in B\}.
@@ -19,7 +19,7 @@ We define the level set count as
 \begin{theorem}[Kac-Rice Formula ``Metatheorem'' {\cite[Theorem~11.2.1]{adlerRandomFieldsGeometry2007}}]
 	\label{thm: general kac-rice}
 	Let \(f,g,\Vol, B\) be as above. Assume that the following conditions are
-	satisfied for some \(u\in\real^\dimension\):	
+	satisfied for some \(u\in\real^\dims\):	
 	\begin{enumerate}[label={(\alph*)}]
 		\item All components of \(f\), \(\nabla f\), and \(g\) are a.s. continuous
 		and have finite variances (over \(\Vol\)).
@@ -36,8 +36,8 @@ We define the level set count as
 		neighborhood of \(u\), uniformly in \(t\in\Vol\).
 		\item The following moment condition holds:
 		\[
-			\sup_{t\in\Vol}\max_{1\le i,j\le \dimension} \E\left[
-				\left|\frac{\partial f^i(t)}{\partial t_j}\right|^\dimension
+			\sup_{t\in\Vol}\max_{1\le i,j\le \dims} \E\left[
+				\left|\frac{\partial f^i(t)}{\partial t_j}\right|^\dims
 			\right] < \infty,
 		\]
 		where \(f^i\) is the \(i\)-th component of \(f\).
@@ -50,7 +50,7 @@ We define the level set count as
 		usual Euclidean norm of each of the components of \(f\), \(\nabla f\), and
 		\(g\) satisfy
 		\[
-			\Pr(\omega(\eta) > \epsilon) = o(\eta^\dimension) \quad\text{as }\eta\downarrow 0
+			\Pr(\omega(\eta) > \epsilon) = o(\eta^\dims) \quad\text{as }\eta\downarrow 0
 		\]
 		for any \(\epsilon>0\).
 	\end{enumerate}
@@ -73,13 +73,13 @@ We define the level set count as
 \begin{corollary}[Gaussian Rice Formula {\cite[Corollary~11.2.2]{adlerRandomFieldsGeometry2007}}]
 	\label{cor: gaussian kac-rice}
 	Let \(f\) and \(g\) be centered Gaussian random fields over a \(\Vol\subseteq
-	\real^\dimension\) which satisfies the conditions of Theorem~\ref{thm: general
+	\real^\dims\) which satisfies the conditions of Theorem~\ref{thm: general
 	kac-rice} (e.g. a closed cuboid). Assume that for each \(t\in\Vol\) the joint
 	distributions of \((f(t), \nabla f(t), g(t))\)
 	are nondegenerate, and there exists \(K>0\), \(\alpha>0\) such that
 	for \(|s-t|\) small enough
 	\begin{align*}
-		\max_{i,j\le\dimension}|\C_{\partial_j f^i}(t,t) + \C_{\partial_j f^i}(s,s) - 2\C_{\partial_j f^i}(s,t)|
+		\max_{i,j\le\dims}|\C_{\partial_j f^i}(t,t) + \C_{\partial_j f^i}(s,s) - 2\C_{\partial_j f^i}(s,t)|
 		&\le K | \ln(|t-s|)|^{-(1+\alpha)}\\
 		\max_{i\le K}	|\C_{g^i}(t,t) + \C_{g^i}(s,s) - 2\C_{g^i}(s,t)|
 		&\le K | \ln(|t-s|)|^{-(1+\alpha)}

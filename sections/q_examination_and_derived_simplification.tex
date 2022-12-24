@@ -3,7 +3,7 @@
 
 In the density of the matrix $H$ together with the field $\rf$ we saw the constant
 \begin{align*}
-    Q := \left(1+\frac2\dimension\right)
+    Q := \left(1+\frac2\dims\right)
     \frac{\sqC(0)}{\sqC''(0)} - \frac{\sqC'(0)^2}{\sqC''(0)^2}
 \end{align*}
 
@@ -15,16 +15,16 @@ since we know that $\sqC(0) > 0$ and $\sqC''(0) > 0$. We also know that $\sqC'(0
 
 \subsection{A simplification}
 
-The only dependency structures (aside from symmetry) in our Hessian matrix $H$ arise on the diagonal. For simplicity we will call the diagonal entries $H_1, \ldots, H_\dimension$. We would like to analyse the covariance matrix of the centered joint vector $(H_1, \ldots, H_\dimension, \rf)$. The variances and dependencies are given by 
+The only dependency structures (aside from symmetry) in our Hessian matrix $H$ arise on the diagonal. For simplicity we will call the diagonal entries $H_1, \ldots, H_\dims$. We would like to analyse the covariance matrix of the centered joint vector $(H_1, \ldots, H_\dims, \rf)$. The variances and dependencies are given by 
 \begin{eqnarray*}
-    &\E[H_i^2] = 3\frac{\sqC''(0)}{\dimension}, \qquad &\E[\rf] = \dimension \sqC(0), \\
-    &\E[H_i H_j] = \frac{\sqC''(0)}{\dimension} (i \neq j), &\qquad \E[H_i \rf] = \sqC'(0).
+    &\E[H_i^2] = 3\frac{\sqC''(0)}{\dims}, \qquad &\E[\rf] = \dims \sqC(0), \\
+    &\E[H_i H_j] = \frac{\sqC''(0)}{\dims} (i \neq j), &\qquad \E[H_i \rf] = \sqC'(0).
 \end{eqnarray*}
 
-For such a distribution to exist it must have symmetric positive semi-definite covariance matrix. Let us first take the simpler approach and choose i.i.d. $X_1, \ldots, X_\dimension$ with $X_i \sim \nn\left(0,2\frac{\sqC''(0)}{\dimension}\right)$. Then choose $Y$ independent of all $X_i$ with $Y \sim \nn\left(0,\frac{\sqC''(0)}{\dimension}\right)$, but with $\E[Y \rf] = \sqC'(0)$. Then $(H_1, \ldots, H_\dimension,\rf) \eqd (X_1 + Y, \ldots, X_\dimension + Y,\rf)$ and we only need to check that the covariance matrix of $Y$ and $\rf$ is positive semi-definite. We write
+For such a distribution to exist it must have symmetric positive semi-definite covariance matrix. Let us first take the simpler approach and choose i.i.d. $X_1, \ldots, X_\dims$ with $X_i \sim \nn\left(0,2\frac{\sqC''(0)}{\dims}\right)$. Then choose $Y$ independent of all $X_i$ with $Y \sim \nn\left(0,\frac{\sqC''(0)}{\dims}\right)$, but with $\E[Y \rf] = \sqC'(0)$. Then $(H_1, \ldots, H_\dims,\rf) \eqd (X_1 + Y, \ldots, X_\dims + Y,\rf)$ and we only need to check that the covariance matrix of $Y$ and $\rf$ is positive semi-definite. We write
 \begin{align*}
     \begin{pmatrix}
-        \frac{\sqC''(0)}{\dimension} & \sqC'(0) \\
+        \frac{\sqC''(0)}{\dims} & \sqC'(0) \\
         \sqC'(0) & N \sqC(0)
     \end{pmatrix}.
 \end{align*}
@@ -34,38 +34,38 @@ To check positive semi-definiteness it suffices to check that all leading princi
     \sqC''(0) \sqC(0) - (\sqC'(0))^2 \geq 0.
 \end{align*}
 
-Thus, if this condition is satisfied it is possible to write the vector $(X_1 + Y, \ldots, X_\dimension + Y,\rf)$ with the same dependency structure as the diagonal of $H$ with $\rf$.
+Thus, if this condition is satisfied it is possible to write the vector $(X_1 + Y, \ldots, X_\dims + Y,\rf)$ with the same dependency structure as the diagonal of $H$ with $\rf$.
 
-However, we have not proven the necessity of this condition. We only necessarily require $(H_1, \ldots, H_\dimension,\rf)$ to exist for any $\dimension$. We will show that this suffices.
+However, we have not proven the necessity of this condition. We only necessarily require $(H_1, \ldots, H_\dims,\rf)$ to exist for any $\dims$. We will show that this suffices.
 
 \subsection{Analysis of the Covariance Matrix}
 
-Let us take a look at the covariance matrix of $(H_1, H_2, \rf)$ for $\dimension \geq 2$. We obtain
+Let us take a look at the covariance matrix of $(H_1, H_2, \rf)$ for $\dims \geq 2$. We obtain
 \begin{align*}
     \begin{pmatrix*}
-        3 \frac{\sqC''(0)}{\dimension} & \frac{\sqC''(0)}{\dimension}   & \sqC'(0) \\
-        \frac{\sqC''(0)}{\dimension}& 3 \frac{\sqC''(0)}{\dimension}    & \sqC'(0) \\
+        3 \frac{\sqC''(0)}{\dims} & \frac{\sqC''(0)}{\dims}   & \sqC'(0) \\
+        \frac{\sqC''(0)}{\dims}& 3 \frac{\sqC''(0)}{\dims}    & \sqC'(0) \\
         \sqC'(0) & \sqC'(0) & N \sqC(0).
     \end{pmatrix*}
 \end{align*}
 
-We immediately recognise that all leading principal minor determinants except for the full determinant are strictly positive. (Its eigenvalues are $5\frac{\sqC''(0)}{\dimension}$ and $2\frac{\sqC''(0)}{\dimension}$.) The full determinant is given by 
+We immediately recognise that all leading principal minor determinants except for the full determinant are strictly positive. (Its eigenvalues are $5\frac{\sqC''(0)}{\dims}$ and $2\frac{\sqC''(0)}{\dims}$.) The full determinant is given by 
 \begin{align*}
-    4 \frac{\sqC''(0)}{\dimension} \left(2\sqC''(0)\sqC(0) - (\sqC'(0))^2\right)
+    4 \frac{\sqC''(0)}{\dims} \left(2\sqC''(0)\sqC(0) - (\sqC'(0))^2\right)
 \end{align*}
 and we see that it is greater or equal to zero precisely when $2\sqC''(0)\sqC(0) - (\sqC'(0))^2 \geq 0$. This condition is strictly weaker that $\sqC''(0)\sqC(0) - (\sqC'(0))^2 \geq 0$.
 
 Repeating the same procedure with three elements of the diagonal of $H$ results in the condition $\frac{5}{3} \sqC''(0)\sqC(0) - (\sqC'(0))^2 \geq 0$, which is strictly stronger than the one above, but still strictly weaker than the desired one.
 
-Instead of trying to calculate the $\dimension$-th determinant we will now choose a particular vector $v$ and derive a necessary condition from $v (\operatorname{Cov}) v^T \geq 0$. The full covariance matrix $\operatorname{Cov}$ is the same as the one in the Appendix, i.e.
+Instead of trying to calculate the $\dims$-th determinant we will now choose a particular vector $v$ and derive a necessary condition from $v (\operatorname{Cov}) v^T \geq 0$. The full covariance matrix $\operatorname{Cov}$ is the same as the one in the Appendix, i.e.
 \begin{align*}
     \operatorname{Cov} := 
     \begin{pmatrix}
-		3\frac{\sqC''(0)}\dimension &  \cdots & \frac{\sqC''(0)}\dimension
+		3\frac{\sqC''(0)}\dims &  \cdots & \frac{\sqC''(0)}\dims
 		& \sqC'(0) \\
 		\vdots & \ddots &\vdots & \vdots \\
-		\frac{\sqC''(0)}\dimension & \cdots &  3 \frac{\sqC''(0)}\dimension & \sqC'(0)\\
-		\sqC'(0)	& \cdots & \sqC'(0) & \dimension \sqC(0)
+		\frac{\sqC''(0)}\dims & \cdots &  3 \frac{\sqC''(0)}\dims & \sqC'(0)\\
+		\sqC'(0)	& \cdots & \sqC'(0) & \dims \sqC(0)
 	\end{pmatrix}.
 \end{align*}
 
@@ -74,10 +74,10 @@ Choose $v := (\sqC(0), \ldots, \sqC(0), \sqC'(0))$. Then $v (\operatorname{Cov})
     \frac{(N+2)N}{N^2} \sqC''(0)\sqC(0) - (\sqC'(0))^2 \geq 0.
 \end{align*}
 
-Thus, for the vector $(H_1, \ldots, H_\dimension, \rf)$ to exist for all $N$ the condition 
+Thus, for the vector $(H_1, \ldots, H_\dims, \rf)$ to exist for all $N$ the condition 
 $$\sqC''(0)\sqC(0) - (\sqC'(0))^2 \geq 0$$
 must already necessarily be satisfied.
 
-On the one hand this lets us infer that $Q > 0$ for any fixed $\dimension$ and on the other hand we obtain that the aforementioned substitution $(H_1, \ldots, H_\dimension,\rf) \eqd (X_1 + Y, \ldots, X_\dimension + Y,\rf)$ with $(X_i)$ i.i.d. and independent of $\rf$ exists.
+On the one hand this lets us infer that $Q > 0$ for any fixed $\dims$ and on the other hand we obtain that the aforementioned substitution $(H_1, \ldots, H_\dims,\rf) \eqd (X_1 + Y, \ldots, X_\dims + Y,\rf)$ with $(X_i)$ i.i.d. and independent of $\rf$ exists.
 
-This implies that $(H,\rf)$ is actually equal in distribution to the sum of a scaled Gaussian Orthogonal Ensemble $\frac{\sqC''(0)}{\dimension} GOE_\dimension$ and an independent matrix $\identity \cdot Y$, where $Y$ is a one-dimensional Gaussian that has a dependent joint density with $\rf$.
+This implies that $(H,\rf)$ is actually equal in distribution to the sum of a scaled Gaussian Orthogonal Ensemble $\frac{\sqC''(0)}{\dims} GOE_\dims$ and an independent matrix $\identity \cdot Y$, where $Y$ is a one-dimensional Gaussian that has a dependent joint density with $\rf$.

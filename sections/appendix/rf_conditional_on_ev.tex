@@ -2,12 +2,12 @@
 \label{sec: proof of conditionals}
 
 In this section we want to determine the distribution of \(\rf\mid
-\Lambda\). As a warmup we will first consider
-\(\E[Z\mid \shift]\). \(\shift\) is the shift we can obtain from \(\Lambda_i\) by
+\evH\). As a warmup we will first consider
+\(\E[Z\mid \shift]\). \(\shift\) is the shift we can obtain from \(\evH_i\) by
 averaging if we have sufficiently many. But we can not really separate
-\(\epsilon\) from \(\rf\) using only \(\Lambda\), so \(\rf\mid \shift\) will be
-close to \(\rf\mid\Lambda\) for large
-\(\dimension\).
+\(\epsilon\) from \(\rf\) using only \(\evH\), so \(\rf\mid \shift\) will be
+close to \(\rf\mid\evH\) for large
+\(\dims\).
 
 \subsection{\texorpdfstring{\(\rf\mid \shift\)}{Z|H0}}
 
@@ -64,51 +64,51 @@ In summary we have:
 	\right)
 \]
 
-\subsection{\texorpdfstring{\(\rf\mid H_1,\dots,H_\dimension\)}{Z|H1,...,HN}}
+\subsection{\texorpdfstring{\(\rf\mid H_1,\dots,H_\dims\)}{Z|H1,...,HN}}
 
 As another intermediate step, we are going to calculate the distribution of
-\(\rf\mid H_1,\dots,H_\dimension\) using the diagonal elements
-\(H_1,\dots,H_\dimension\) of \(H\). We will later find out that it is identical
+\(\rf\mid H_1,\dots,H_\dims\) using the diagonal elements
+\(H_1,\dots,H_\dims\) of \(H\). We will later find out that it is identical
 to the one we want anyway.
 
 Using the same approach via the BLUE, we want to minimize
 \[
 	\begin{aligned}
-	&\|\rf - \sum_{i=1}^\dimension\alpha_i H_i \|^2\\
-	&= \left(1- \frac{\sqC'(0)}{\sqC(0)}\sum_{i=1}^\dimension \alpha_i\right)^2
+	&\|\rf - \sum_{i=1}^\dims\alpha_i H_i \|^2\\
+	&= \left(1- \frac{\sqC'(0)}{\sqC(0)}\sum_{i=1}^\dims \alpha_i\right)^2
 	\underbrace{\|\rf\|^2}_{\sqC(0)}
-	+  \left(\sum_{i=1}^\dimension \alpha_i\right)^2 \underbrace{\|\epsilon\|^2}_{
+	+  \left(\sum_{i=1}^\dims \alpha_i\right)^2 \underbrace{\|\epsilon\|^2}_{
 		=\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}
 	}
-	+ \sum_{i=1}^\dimension \alpha_i^2 \underbrace{\|\tilde{H}_i\|^2}_{2\sqC''(0)}.
+	+ \sum_{i=1}^\dims \alpha_i^2 \underbrace{\|\tilde{H}_i\|^2}_{2\sqC''(0)}.
 	\end{aligned}
 \]
 We are going to minimize this term in two steps.
 \begin{enumerate}
-	\item Fix \(\sum_{i=1}^\dimension \alpha_i = s\) and minimize over
+	\item Fix \(\sum_{i=1}^\dims \alpha_i = s\) and minimize over
 	\(\alpha_i\) with this constraint,
 	\item minimize the result over \(s\).
 \end{enumerate}
 In the first part, everything is constant except for the last part. So
 we need to find the \(\alpha_i\) which minimize
 \[
-	\sum_{i=1}^\dimension \alpha_i^2
+	\sum_{i=1}^\dims \alpha_i^2
 \]
-under the given constraint \(\sum_{i=1}^\dimension \alpha_i = s\). As it turns
+under the given constraint \(\sum_{i=1}^\dims \alpha_i = s\). As it turns
 out
 \[
-	1 = \left(\sum_{i=1}^\dimension \frac{\alpha_i}s\right)^2
-	= \left(\frac1\dimension\sum_{i=1}^\dimension \frac\dimension{s}\alpha_i\right)^2
-	\overset{(\cdot)^2 \text{ convex.}}\le \frac1\dimension \sum_{i=1}^\dimension 
-	\left(\frac\dimension{s}\alpha_i\right)^2
-	= \frac\dimension{s^2} \sum_{i=1}^\dimension \alpha_i,
+	1 = \left(\sum_{i=1}^\dims \frac{\alpha_i}s\right)^2
+	= \left(\frac1\dims\sum_{i=1}^\dims \frac\dims{s}\alpha_i\right)^2
+	\overset{(\cdot)^2 \text{ convex.}}\le \frac1\dims \sum_{i=1}^\dims 
+	\left(\frac\dims{s}\alpha_i\right)^2
+	= \frac\dims{s^2} \sum_{i=1}^\dims \alpha_i,
 \]
 implies
 \[
-	\sum_{i=1}^\dimension \left(\frac{s}\dimension\right)^2 = \frac{s^2}\dimension
-	\le \sum_{i=1}^\dimension \alpha_i.
+	\sum_{i=1}^\dims \left(\frac{s}\dims\right)^2 = \frac{s^2}\dims
+	\le \sum_{i=1}^\dims \alpha_i.
 \]
-So \(\alpha_i=\frac{s}\dimension\) minimizes our constraint optimization problem.
+So \(\alpha_i=\frac{s}\dims\) minimizes our constraint optimization problem.
 Inserting this solution into our problem results in
 \[
 	\left(1- \tfrac{\sqC'(0)}{\sqC(0)}s\right)^2
@@ -116,73 +116,73 @@ Inserting this solution into our problem results in
 	+  s^2 \left(
 		\sqC''(0)-\tfrac{\sqC'(0)^2}{\sqC(0)}
 	\right)
-	+ 2\frac{s^2}\dimension \sqC''(0).
+	+ 2\frac{s^2}\dims \sqC''(0).
 \]
 Except for the last summand this is the same optimization problem as before.
 The first order condition results in
 \[
-	s = \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
+	s = \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}
 \]
 So we finally get
 \begin{align*}
-	\E[\rf\mid H_1,\dots,H_\dimension]
-	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
-	\frac1\dimension\underbrace{\sum_{i=1}^\dimension H_i}_{
-		=\trace(H) \mathrlap{=\sum_{i=1}^\dimension\Lambda_i}
+	\E[\rf\mid H_1,\dots,H_\dims]
+	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}
+	\frac1\dims\underbrace{\sum_{i=1}^\dims H_i}_{
+		=\trace(H) \mathrlap{=\sum_{i=1}^\dims\evH_i}
 	}\\
-	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
-	\bar{\Lambda}
+	&= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}
+	\bar{\evH}
 \end{align*}
-where \(\bar{\Lambda}\) is the mean eigenvalue. Lastly we want to determine
+where \(\bar{\evH}\) is the mean eigenvalue. Lastly we want to determine
 the explained variance
 \begin{align*}
-	\Var(\E[\rf\mid H_1,\dots,H_\dimension])
-	&= \left(\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\right)^2
+	\Var(\E[\rf\mid H_1,\dots,H_\dims])
+	&= \left(\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}\right)^2
 	\Var\left(
-		\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}\rf + \frac{1}{\dimension}\sum_{i=1}^\dimension \tilde{H_i}
+		\epsilon + \tfrac{\sqC'(0)}{\sqC(0)}\rf + \frac{1}{\dims}\sum_{i=1}^\dims \tilde{H_i}
 	\right)\\
-	&= \frac{\sqC'(0)^2}{\sqC''(0)^2(1+\tfrac4{\dimension})^2}
+	&= \frac{\sqC'(0)^2}{\sqC''(0)^2(1+\tfrac4{\dims})^2}
 	\left(
-		\Var(\epsilon) + \tfrac{\sqC'(0)^2}{\sqC(0)} + \tfrac1\dimension\Var(\tilde{H}_1)
+		\Var(\epsilon) + \tfrac{\sqC'(0)^2}{\sqC(0)} + \tfrac1\dims\Var(\tilde{H}_1)
 	\right)\\
-	&= \frac{\sqC'(0)^2}{\sqC''(0)^2(1+\tfrac4{\dimension})^2}
-	(\sqC''(0) + \tfrac2\dimension\sqC''(0))\\
-	&= \frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}.
+	&= \frac{\sqC'(0)^2}{\sqC''(0)^2(1+\tfrac4{\dims})^2}
+	(\sqC''(0) + \tfrac2\dims\sqC''(0))\\
+	&= \frac{\sqC'(0)^2(1+\tfrac2\dims)}{\sqC''(0)(1+\tfrac4{\dims})^2}.
 \end{align*}
 Since the off-diagonal elements are independent from \(\rf\), we get with
 Lemma~\ref{lem: conditional variance in the gaussian case}
 \[
-	\rf\mid H = \rf \mid H_1,\dots, H_\dimension \sim \normal\left(
-		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}\bar{\Lambda},
-		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dimension)}{\sqC''(0)(1+\tfrac4{\dimension})^2}
+	\rf\mid H = \rf \mid H_1,\dots, H_\dims \sim \normal\left(
+		\frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}\bar{\evH},
+		\sqC(0)-\frac{\sqC'(0)^2(1+\tfrac2\dims)}{\sqC''(0)(1+\tfrac4{\dims})^2}
 	\right).
 \]
 
-\subsection{\texorpdfstring{\(\rf\mid \Lambda\)}{Z|Λ}}
+\subsection{\texorpdfstring{\(\rf\mid \evH\)}{Z|Λ}}
 
-So we know that \(\E[f(\rf)\mid H]\) is \(\Lambda\)
-measurable. And since \(\Lambda\) are as eigenvalues
-of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\Lambda)\)
+So we know that \(\E[f(\rf)\mid H]\) is \(\evH\)
+measurable. And since \(\evH\) are as eigenvalues
+of \(H\) \(\sigma(H)\)-measurable, we have \(\sigma(H)\supseteq \sigma(\evH)\)
 and therefore get
 \[
-	\E[f(Z)\mid \Lambda]
-	= \E[\E[f(Z)\mid H] \mid \Lambda]
+	\E[f(Z)\mid \evH]
+	= \E[\E[f(Z)\mid H] \mid \evH]
 	= \E[f(Z)\mid H].
 \]
-Which finally implies \(\rf\mid H = \rf\mid \Lambda\).
+Which finally implies \(\rf\mid H = \rf\mid \evH\).
 
 \subsection{\texorpdfstring{\(\rf\mid\negEV(H)\)}{Z|I(H)}}
 
 Let the index be defined as
 \[
-	\negEV(H)=\frac1{\dimension}\sum_{i=1}^\dimension \ind_{\Lambda_i \le 0}.
+	\negEV(H)=\frac1{\dims}\sum_{i=1}^\dims \ind_{\evH_i \le 0}.
 \]
-Then the index is \(\Lambda\) measurable. Therefore we have
+Then the index is \(\evH\) measurable. Therefore we have
 \[
 	\E[Z\mid \negEV(H)]
-	= \E[\E[Z\mid \Lambda]\mid \negEV(H)]
-	= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dimension})}
-	\E[\bar{\Lambda}\mid \negEV(H)].
+	= \E[\E[Z\mid \evH]\mid \negEV(H)]
+	= \frac{\sqC'(0)}{\sqC''(0)(1+\tfrac4{\dims})}
+	\E[\bar{\evH}\mid \negEV(H)].
 \]
 \fxwarning*{Is this going anywhere?}
 

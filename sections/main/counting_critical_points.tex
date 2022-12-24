@@ -19,38 +19,34 @@
 			\right\}.
 		\end{cases}
 	\end{align*}
-	This is a marked point process with \((\rf(t), \nabla^2\rf(t))\) as marks.
-	
+	This is a marked point process with \((\rf(t), \nabla^2\rf(t))\) as marks\footnote{
+		Measurability: First note that	
+		\begin{align*}
+			\locFiniteMeasAlg[\dims+1+\dims^2]
+			&= \sigma(\pi_B : B\in\borel(\real^{\dims+1+\dims^2}))\\
+			&=\sigma(\underbrace{
+				\{\pi_B^{-1}(C) : B\in\borel(\real^{\dims+1+\dims^2}), C\in\borel(\real)\}
+			}_{=:\mathcal{E}}.
+			)
+		\end{align*}
+		Since it is sufficient to prove measurability on the generator
+		\(\mathcal{E}\), we only need that the following sets are measurable:
+		\begin{align*}
+			(\pp)^{-1}(\pi^{-1}_{B}(C))
+			&= (\pi_{B} \circ \pp)^{-1}(C)
+			= (\pp(B))^{-1}(C)\\
+			&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
+				\nabla\rf(t)=0
+			\right\}\\
+			&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
+			\ind\left\{
+				\inf_{t\in \left(\text{id}, \rf, \nabla^2\rf\right)^{-1}(B^\epsilon_k) }
+			|\nabla \rf(t)| = 0
+			\right\},
+		\end{align*}
+		where \((B^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(B\) (countable).
+	}.\fxwarning{Measurability probably not quite right yet}
 \end{definition}
-\begin{proof}[Proof (Measurability)]
-	First note that	
-	\begin{align*}
-		\locFiniteMeasAlg[\dims+1+\dims^2]
-		&= \sigma(\pi_B : B\in\borel(\real^{\dims+1+\dims^2}))\\
-		&=\sigma(\underbrace{
-			\{\pi_B^{-1}(C) : B\in\borel(\real^{\dims+1+\dims^2}), C\in\borel(\real)\}
-		}_{=:\mathcal{E}}
-		)
-	\end{align*}
-	since it is sufficient to prove measurability on the generator
-	\(\mathcal{E}\), we only need that the following sets are measurable
-	\begin{align*}
-		(\pp)^{-1}(\pi^{-1}_{B}(C))
-		&= (\pi_{B} \circ \pp)^{-1}(C)
-		= (\pp(B))^{-1}(C)\\
-		&= \#\left\{\left(t,\rf(t),\nabla^2\rf(t)\right) \in B:
-			\nabla\rf(t)=0
-		\right\}\\
-		&= \lim_{\epsilon\to 0} \sum_{k\in I^\epsilon}
-		\ind\left\{
-			\inf_{t\in \left(\text{id}, \rf, \nabla^2\rf\right)^{-1}(B^\epsilon_k) }
-		|\nabla \rf(t)| = 0
-		\right\}
-	\end{align*}
-	\fxwarning{probably not quite right yet}
-	where \((B^\epsilon_k)_{k\in\nat}\) is an \(\epsilon\) tiling of \(B\) (countable).
-	We can swap the limit with the series due to monotone convergence.
-\end{proof}
 
 \begin{lemma}[Stationarity]
 	If \(\rf\) is strictly stationary, \(\pp\) is stationary.

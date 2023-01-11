@@ -253,7 +253,7 @@ variables, we get
 	\ind_{x_m\in A} \ind_{x_{(k)}=x_m} dx_1\dots dx_m\\
 	&= \int_A \underbrace{m\left(\int \density^\evGOE_{m,a}(x_1,\dots,x_m)
 	\ind_{x_{(k)}=x_m} dx_1\dots dx_{m-1}\right)}_{
-		= \density_{\evGOE_{(k)}}(x_m)
+		= \density^{\evGOE_{(k)}}_{m,a}(x_m)
 	} dx_m.
 \end{aligned}\]
 If we take \(m=\dims+1\), \(k=\dims\alpha+1\) and re-substitute
@@ -261,9 +261,9 @@ If we take \(m=\dims+1\), \(k=\dims\alpha+1\) and re-substitute
 get
 \[
 	f_\dims(x)
-	=\tilde{c}_\dims 
+	=\frac{\tilde{c}_\dims}{\dims+1}
 	\exp\bigl(\tfrac{x^2}{2a}\bigr)
-	\frac1{\dims+1}\density_{\evGOE_{(\dims\alpha+1)}}(x).
+	\density^{\evGOE_{(\dims\alpha+1)}}_{\dims+1,a}(x).
 \]
 
 

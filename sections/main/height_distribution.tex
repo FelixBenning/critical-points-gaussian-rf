@@ -204,6 +204,19 @@ We define
 \]
 \fxwarning{positive?}
 
+Further we have \(\nabla\rf\sim\normal(0, -\sqC'(0)\identity)\) so
+\[
+	\density_{\nabla\rf}(0) = (-2\pi\sqC'(0))^{-\dims/2}
+\]
+The intensity of critical points is therefore given by
+\[\begin{aligned}
+	\intensity &= \E[|\det(H)|]\density_{\nabla\rf}(0)\\
+	&= \frac{\Gamma(1+\frac{\dims+1}2)}{\Gamma(\frac32)}
+	\left(\frac{a}{-2\pi\sqC'(0)}\right)^{\dims/2}
+	\frac{\sqrt{a}}{\sigma_X}
+	\int \exp\left(-\frac{x^2}{2}\Bigl(\frac1{\sigma_X^2}-\frac1a\Bigr)\right)
+	\density^{\evGOE_1}_{\dims+1,a}(x)dx
+\end{aligned}\]
 
 \subsubsection{Distribution}
 
@@ -265,5 +278,16 @@ get
 	\exp\bigl(\tfrac{x^2}{2a}\bigr)
 	\density^{\evGOE_{(\dims\alpha+1)}}_{\dims+1,a}(x).
 \]
-
+Putting things back together this means
+\[\begin{aligned}
+	\density_{\markIntMeas^\alpha}(z)
+	&= \density_\rf(z)
+	\int f_\dims\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
+	\density_\epsilon(t)dt\\
+	&= \frac{\tilde{c}_\dims}{\dims+1}\density_\rf(z)
+	\left(\Bigl[
+		x\mapsto e^{\frac{x^2}{2a}}\density^{\evGOE_{(\dims\alpha+1)}}_{\dims+1,a}(x)
+	\Bigr]
+	* \density_\epsilon\right)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
+\end{aligned}\]
 

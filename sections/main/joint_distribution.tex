@@ -91,8 +91,8 @@ Sample independently
 	a)\) and independently
 	\(\tilde{H}_{ji}:=\tilde{H}_{ij}\sim\normal(0,\frac{a}{2})\) for
 	\(i<j\le\dims\). And we choose \(a=2\sqC''(0)\).
-	In other words: \(\tilde{H} = (X_{ij})\) is a (scaled) Gaussian Orthogonal
-	Ensemble (GOE)\footnote{
+	In other words: \(\tilde{H} = (\tilde{H}_{ij})\) is a (scaled) Gaussian
+	Orthogonal Ensemble (GOE)\footnote{
 		Oftentimes the definition of the GOE demands \(a=2\). To make notation
 		easier, we follow \textcite{fyodorovHighDimensionalRandomFields2013} in
 		this this more general definition.
@@ -116,11 +116,12 @@ Sample independently
 		\end{equation}
 		where \(\Delta_\dims\) is the so-called Vandermonde Determinant and
 		the scaling constant is given by
-		\[
+		\begin{equation}
+			\label{eq: GOE ev density constant}
 			(c^\evGOE_{\dims,a})^{-1}
 			= (2\pi)^{\frac{\dims}2}a^{\frac{\dims(\dims+1)}4}
 			\prod_{j=1}^\dims \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
-		\]
+		\end{equation}
 	}.
 \end{enumerate}
 We now define
@@ -135,7 +136,7 @@ As \(\tilde{H}\) is independent of \(\shift\), its eigenvalues
 \(\evGOE=(\evGOE_1,\dots,\evGOE_\dims)\) are independent of
 \(\shift\). Assume that
 \[
-	X = P\diag[\evGOE]P^{-1}
+	\tilde{H} = P\diag[\evGOE]P^{-1}
 \]
 Since the identity matrix is commonly diagonizable with every matrix, this
 results in
@@ -148,11 +149,10 @@ in other words, the eigenvalues of \(H\) are
 	:= \evGOE_i + \underbrace{\shift}_{=\epsilon \mathrlap{+ \tfrac{\sqC'(0)}{\sqC(0)}\rf}}.
 \]
 The eigenvalues of \(H\) are therefore distributed like the eigenvalues of the
-GOE multiplied by a common factor and shifted by an independent shift \(\shift\)
-consisting of the current height \(\rf\) and an additional random component
-\(\epsilon\).
+GOE shifted by an independent shift \(\shift\) consisting of the current height
+\(\rf\) and an additional random component \(\epsilon\).
 
-\subsection{\texorpdfstring{\(\evH\mid\rf\)}{Λ|Z}}
+\subsection{\texorpdfstring{\(\evH\mid\rf\)}{η|Z}}
 \label{subsec: Lambda|rf}
 
 In particular we have for \(\evH = (\evH_1,\dots,\evH_\dims)\)
@@ -170,7 +170,7 @@ More specifically we have
 		\right].
 \end{equation}
 
-\subsection{\texorpdfstring{\(\rf\mid\evH\)}{Z|Λ}}
+\subsection{\texorpdfstring{\(\rf\mid\evH\)}{Z|η}}
 
 \begin{theorem}[Conditional Distributions of \(\rf\)]
 	\label{thm: conditional distributions of rf}

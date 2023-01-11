@@ -17,10 +17,15 @@ conditional mark distribution and we have
 		\E[|\det(H)|\ind_{\negEV(H)=\alpha}\ind_A(Z)]
 	}{
 		\E[|\det(H)|\ind_{\negEV(H)=\alpha}]
-	}.
+	}=:\frac{\markIntMeas^\alpha(A)}{\markIntMeas^\alpha(\real)}.
 \]
-As the denominator is just the normalization constant and a special case
-of the enumerator anyway, we only need to consider the enumerator.
+\begin{theorem}[Distribution and Intensity of Critical Points]
+	\label{thm: distribution and intensity of critical points}
+	
+\end{theorem}
+
+\subsection{Proof of Theorem~\ref{thm: distribution and intensity of critical points}}
+
 Both determinant and index \(\negEV\) become more simple when we
 switch to the eigenvalues \(\evH_1,\dots,\evH_\dims\) of the random matrix
 \(H\). Because we have
@@ -29,34 +34,34 @@ with some abuse of notation
 	\det(H) = \prod_{i=1}^\dims \evH_i
 	\quad\text{and}\quad
 	\negEV(H) = \negEV(\evH)
-	= \frac1\dims \sum_{i=1}^\dims \ind_{\evH_i < 0}.
+	= \frac1\dims \sum_{i=1}^\dims \ind_{\evH_i < 0},
 \]
-This implies
+we get an explicit representation of the density of \(\markIntMeas^\alpha\)
 \[\begin{aligned}
-	\E[\ind_{A}(Z)\ind_{\negEV(H) = \alpha}|\det(H)|]
-	&= \E[\ind_{A}(Z)
+	\markIntMeas^\alpha(A)
+	&= \E[\ind_{A}(Z)\ind_{\negEV(H) = \alpha}|\det(H)|]
+	= \E[\ind_{A}(Z)
 	\ind_{\negEV(\evH)=\alpha}\prod_{i=1}^\dims |\evH_i|]\\
 	&= \int_A \underbrace{
 		\E\Big[
 			\ind_{\negEV(\evH) = \alpha}\prod_{i=1}^\dims |\evH_i|
 			\Bigm| Z=z
 		\Big]
-		\varphi_Z(z)
-	}_{=:c\Psi_\alpha(z)}
+		\density_Z(z)
+	}_{=:\density_{\markIntMeas^\alpha}(z)}
 	dz,
 \end{aligned}\]
-where \(\varphi_Z(z)\) is the marginal density of \(Z=Z(0)\) and \(c\) is the
-normalization constant in the denominator we discarded earlier.
-The conditional distribution \(Z_T \mid \negEV(H_T) = \alpha\) is therefore
-absolutely continuous with density \(\Psi_\alpha\).
+where \(\density_Z(z)\) is the marginal density of \(Z=Z(0)\). Dividing
+\(\density_{\markIntMeas^\alpha}\) by the normalization constant
+\(\markIntMeas^\alpha(\real)\) results in the density of the conditional
+distribution \(Z_T \mid \negEV(H_T) = \alpha\).
 
 Recall that we derived the conditional distribution of the eigenvalues \(\evH\)
 in Subsection~\ref{subsec: Lambda|rf}. And it were simply GOE eigenvalues with
-an independent shift. So the conditional height distribution is up to
-a constant
+an independent shift. So the density of \(\markIntMeas^\alpha\) is
 \[\begin{aligned}
-	\Psi_\alpha(z)
-	\overset{\eqref{eq: expectation f(Lambda) | Z}}&\sim
+	\density_{\markIntMeas^\alpha}(z)
+	\overset{\eqref{eq: expectation f(Lambda) | Z}}&=
 	\E\Bigg[
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotPlus \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
@@ -65,7 +70,7 @@ a constant
 			\evGOE_i  + \epsilon + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right|
 	\Bigg]
-	\varphi_\rf(z)\\
+	\density_\rf(z)\\
 	&= \int \E\Bigg[
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotPlus t + \tfrac{\sqC'(0)}{\sqC(0)}z\right) = \alpha
@@ -74,10 +79,10 @@ a constant
 			\evGOE_i  + t + \tfrac{\sqC'(0)}{\sqC(0)}z
 		\right|
 	\Bigg]
-	\varphi_\epsilon(t)dt
-	\varphi_\rf(z),
+	\density_\epsilon(t)dt
+	\density_\rf(z),
 \end{aligned}\]
-where \(\varphi_\epsilon\) is the density of \(\normal\bigl(0,
+where \(\density_\epsilon\) is the density of \(\normal\bigl(0,
 \sqC''(0)-\frac{\sqC'(0)^2}{\sqC(0)}\bigr)\).
 
 The interesting bit is
@@ -93,17 +98,130 @@ The interesting bit is
 \]
 using this abstraction we simply have
 \[\begin{aligned}
-	\Psi(z)
-	&\sim \varphi_\rf(z)
+	\density_{\markIntMeas^\alpha}(z)
+	&= \density_\rf(z)
 	\int f_\dims\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
-	\varphi_\epsilon(t)dt\\
-	&= \varphi_\rf(z)
-	(f_\dims * \varphi_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
+	\density_\epsilon(t)dt\\
+	&= \density_\rf(z)
+	(f_\dims * \density_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
 \end{aligned}\]
 where \(f*g\) denotes the convolution of \(f\) and \(g\).
 
-Let us now take a closer look at \(f_\dims\). 
-By definition we have
+\subsubsection{Intensity}
+
+Before we have a closer look at \(f_\dims\), consider the modifications needed
+to the steps above to calculate \(\E[|\det(H)|]\), which is the main component
+of the intensity \(\intensity\). We essentially only need to remove indicators.
+So using
+\[
+	\tilde{f}_\dims(x):=\E\Bigg[
+		\prod_{i=1}^\dims \left|
+			\evGOE_i - x
+		\right|
+	\Bigg],
+\]
+we end up with
+\[\begin{aligned}
+	\E[|\det(H)|]
+	&= \int \density_\rf(z)
+	(\tilde{f}_\dims * \density_\epsilon)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr)
+	dz\\
+	&= \int \underbrace{
+		\tfrac{\sqC(0)}{-\sqC'(0)} \density_\rf\bigl(\tfrac{\sqC(0)}{-\sqC'(0)}x\bigr)
+	}_{=\density_{\normal(0,-\sqC'(0))}(x)}
+	(\density_\epsilon * \tilde{f}_\dims)(x)
+	dx\\
+	\overset{\text{symm.}}&=
+	(\density_{\normal(0,-\sqC'(0))} * \density_\epsilon * \tilde{f}_\dims )(0)\\
+	&= \density_X * \tilde{f}_\dims (0),
+\end{aligned}\]
+for \(X\sim\normal(0, \sigma_X^2)\) with \(\sigma_X^2 = \sqC''(0) -
+\frac{\sqC'(0)^2}{\sqC(0)} - \sqC'(0)\).
+
+Using the eigenvalue density of the GOE \eqref{eq: GOE ev density} and
+\(a:=2\sqC''(0)\), we get 
+\[
+	\tilde{f}_\dims(x)
+	= c^\evGOE_{\dims,a}\int
+	\underbrace{
+	\prod_{i=1}^\dims \left|
+		x_i - x
+	\right|
+	}_{(*)}
+	e^{-\tfrac1{2a}\sum_{k=1}^\dims x_k^2}
+	\underbrace{\prod_{i<j}|x_i-x_j|}_{=\Delta_N} dx_1\dots dx_\dims.
+\]
+\textcite{fyodorovComplexityRandomEnergy2004} made the brilliant observation,
+that we can combine \((*)\) with with the Vandermonde determinant \(\Delta_N\),
+if we view \(x_{\dims+1}\) as \(x\). The result is the Vandermonde \(\Delta_{N+1}\).
+We only need to correct the exponential and constant to get
+\[
+	\tilde{f}_\dims(x)
+	= \tfrac{c^\evGOE_{\dims, a}}{c^\evGOE_{\dims+1,a}}
+	e^{\tfrac{x^2}{2a}}
+	\underbrace{\int 
+	\density^\evGOE_{\dims+1,a}(x_1,\dots,x_\dims, x)
+	dx_1\dots d_{x_\dims}}_{=\density^{\evGOE_1}_{\dims+1,a}(x)},
+\]
+where \(\density^{\evGOE_1}_{\dims+1,a}\) is the marginal density of a single
+eigenvalue of the GOE\((\dims+1,a)\).
+
+We can further simplify the constant
+\[\begin{aligned}
+	\tilde{c}_\dims
+	&:= \frac{c^\evGOE_{\dims, a}}{c^\evGOE_{\dims+1,a}}
+	\overset{\eqref{eq: GOE ev density constant}}=
+	\frac{
+		(2\pi)^{\frac{\dims+1}2}a^{\frac{(\dims+1)(\dims+2)}4}
+		\prod_{j=1}^{\dims+1} \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
+	}{
+		(2\pi)^{\frac{\dims}2}a^{\frac{\dims(\dims+1)}4}
+		\prod_{j=1}^\dims \frac{\Gamma(1+\frac{j}2)}{\Gamma(\frac32)}.
+	}\\
+	&= \sqrt{2\pi}\frac{\Gamma(1+\frac{\dims+1}2)}{\Gamma(\frac32)}a^{\frac{\dims+1}2}
+\end{aligned}\]
+
+So we have
+\[\begin{aligned}
+	\E[|\det(H)|] 
+	&= \density_X * \tilde{f}_\dims(0)
+	= \int \density_X(x)\tilde{f}_\dims(x)dx\\
+	&= \frac{\tilde{c}_\dims}{\sqrt{2\pi\sigma_X^2}}
+	\int \exp\left(-\frac{x^2}{2\sigma_X^2}\right)
+	\exp\left( \frac{x^2}{2a} \right)\density^{\evGOE_1}_{\dims+1,a}(x)dx\\
+	&= \frac{\tilde{c}_\dims}{\sqrt{2\pi\sigma_X^2}}
+	\int \exp\left(-\frac{x^2}{2}\Bigl(\frac1{\sigma_X^2}-\frac1a\Bigr)\right)
+	\density^{\evGOE_1}_{\dims+1,a}(x)dx
+\end{aligned}\]
+We define
+\[
+	\frac1{\tilde{\sigma}^2}
+	:= \frac1{\sigma_X^2}-\frac1a
+	= \frac{a - \sigma_X^2}{a\sigma_X^2}
+	= \frac{\sqC''(0)+\frac{\sqC'(0)^2}{\sqC(0)}+ \sqC'(0)}{
+		2\sqC''(0)\left(\sqC''(0) - \frac{\sqC'(0)^2}{\sqC(0)} - \sqC'(0)\right)
+	}
+\]
+\fxwarning{positive?}
+
+Further we have \(\nabla\rf\sim\normal(0, -\sqC'(0)\identity)\) so
+\[
+	\density_{\nabla\rf}(0) = (-2\pi\sqC'(0))^{-\dims/2}
+\]
+The intensity of critical points is therefore given by
+\[\begin{aligned}
+	\intensity &= \E[|\det(H)|]\density_{\nabla\rf}(0)\\
+	&= \frac{\Gamma(1+\frac{\dims+1}2)}{\Gamma(\frac32)}
+	\left(\frac{a}{-2\pi\sqC'(0)}\right)^{\dims/2}
+	\frac{\sqrt{a}}{\sigma_X}
+	\int \exp\left(-\frac{x^2}{2}\Bigl(\frac1{\sigma_X^2}-\frac1a\Bigr)\right)
+	\density^{\evGOE_1}_{\dims+1,a}(x)dx
+\end{aligned}\]
+
+\subsubsection{Distribution}
+
+Now we want to modify \Citeauthor*{fyodorovComplexityRandomEnergy2004}'s trick
+for \(f_\dims\). There we have an additional indicator
 \[
 		\ind\Bigl\{
 			\negEV\left(\evGOE \dotMinus x\right) = \alpha
@@ -112,49 +230,20 @@ By definition we have
 			\frac1\dims\sum_{i=1}^\dims \ind_{\evGOE_i < x} = \alpha
 		\Bigr\}
 \]
-So using the density of the
-eigenvalues of the GOE \eqref{eq: GOE ev density} and \(a:=2\sqC''(0)\),
-we can expand \(f_\dims\) to
+The indicator prevents us to view the integral as the marginal density of the
+\(\dims+1\) eigenvalue. But up until then, we can apply the same steps to get
 \[
 	f_\dims(x)
-	= c^\evGOE_{\dims,a}\int
-	\ind\Bigl\{
+	=\tilde{c}_\dims\ 
+	e^{\tfrac{x^2}{2a}}
+	\int \ind\Bigl\{
 			\frac1\dims\sum_{i=1}^\dims \ind_{x_i < x} = \alpha
 	\Bigr\}
-	\underbrace{
-	\prod_{i=1}^\dims \left|
-		x_i - x
-	\right|
-	}_{=:(*)}
-	e^{-\tfrac1{2a}\sum_{k=1}^\dims x_k^2} \Delta_N dx_1\dots dx_\dims
+	\density^\evGOE_{\dims+1,a}(x_1,\dots,x_\dims, x)
+	dx_1\dots d_{x_\dims}.
 \]
-where \(\Delta_\dims = \prod_{i<j}|x_i-x_j|\) is the Vandermonde
-Determinant. Using the observation
-\[
-	\Delta_{\dims+1} = 
-	\Delta_\dims\prod_{i=1}^\dims \left|
-		x_i - x_{\dims+1}
-	\right|,
-\]
-\textcite{fyodorovComplexityRandomEnergy2004} defined \(x_{\dims+1}:=x\) to
-incorporate the determinant \((*)\) into the density of the GOE of dimension
-\(\dims+1\). With a correction of the exponential and constant this
-clever trick results in
-\[\begin{aligned}
-	&f_\dims(x_{\dims+1})\\
-	&= \tfrac{c^\evGOE_{\dims, a}}{c^\evGOE_{\dims+1,a}}
-	e^{\tfrac{x_{\dims+1}^2}{2a}}
-	\int \ind\Bigl\{
-			\frac1\dims\sum_{i=1}^\dims \ind_{x_i < x_{\dims+1}} = \alpha
-	\Bigr\}
-	\varphi^\evGOE_{\dims+1,a}(x_1,\dots,x_{\dims+1})
-	dx_1\dots d_{x_\dims},
-\end{aligned}\]
-where \(\varphi^\evGOE_{\dims+1,a}\) is the eigenvalue density of the GOE
-in \(\dims+1\) dimensions. At this point
-\textcite{fyodorovComplexityRandomEnergy2004} was done, but we still have an
-indicator left over. For this indicator to be one, exactly \(\dims\alpha\)
-of the \(x_i\) need to be smaller \(x_{\dims+1}\). For the ordering
+Now for this indicator to be one, exactly \(\dims\alpha\) of the \(x_i\) need to
+be smaller \(x_{\dims+1}\). For the ordering
 \(x_{(1)}\le\dots\le x_{(\dims+1)}\), we therefore have
 \[
 	\ind\Bigl\{
@@ -168,16 +257,16 @@ dimensions. Since \(\evGOE_1,\dots,\evGOE_m\) are exchangeable random
 variables, we get
 \[\begin{aligned}
 	\Pr(\evGOE_{(k)}\in A)
-	&= \int \varphi^\evGOE_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}dx_1\dots dx_m\\
-	&= \int \varphi^\evGOE_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}
+	&= \int \density^\evGOE_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}dx_1\dots dx_m\\
+	&= \int \density^\evGOE_{m,a}(x_1,\dots,x_m) \ind_{x_{(k)}\in A}
 	\sum_{i=1}^m \ind_{x_{(k)}=x_i} dx_1\dots dx_m\\
-	&= \sum_{i=1}^m \int \varphi^\evGOE_{m,a}(x_1,\dots,x_m) \ind_{x_i\in A}
+	&= \sum_{i=1}^m \int \density^\evGOE_{m,a}(x_1,\dots,x_m) \ind_{x_i\in A}
 	\ind_{x_{(k)}=x_i} dx_1\dots dx_m\\
-	\overset{\text{exchangeable}}&= m \int \varphi^\evGOE_{m,a}(x_1,\dots,x_m)
+	\overset{\text{exchangeable}}&= m \int \density^\evGOE_{m,a}(x_1,\dots,x_m)
 	\ind_{x_m\in A} \ind_{x_{(k)}=x_m} dx_1\dots dx_m\\
-	&= \int_A \underbrace{m\left(\int \varphi^\evGOE_{m,a}(x_1,\dots,x_m)
+	&= \int_A \underbrace{m\left(\int \density^\evGOE_{m,a}(x_1,\dots,x_m)
 	\ind_{x_{(k)}=x_m} dx_1\dots dx_{m-1}\right)}_{
-		= \varphi_{\evGOE_{(k)}}(x_m)
+		= \density^{\evGOE_{(k)}}_{m,a}(x_m)
 	} dx_m.
 \end{aligned}\]
 If we take \(m=\dims+1\), \(k=\dims\alpha+1\) and re-substitute
@@ -185,11 +274,20 @@ If we take \(m=\dims+1\), \(k=\dims\alpha+1\) and re-substitute
 get
 \[
 	f_\dims(x)
-	= \tfrac{c^\evGOE_{\dims, a}}{c^\evGOE_{\dims+1,a}}
+	=\frac{\tilde{c}_\dims}{\dims+1}
 	\exp\bigl(\tfrac{x^2}{2a}\bigr)
-	\frac1{\dims+1}\varphi_{\evGOE_{(\dims\alpha+1)}}(x).
+	\density^{\evGOE_{(\dims\alpha+1)}}_{\dims+1,a}(x).
 \]
-
-
-
+Putting things back together this means
+\[\begin{aligned}
+	\density_{\markIntMeas^\alpha}(z)
+	&= \density_\rf(z)
+	\int f_\dims\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z - t\bigr)
+	\density_\epsilon(t)dt\\
+	&= \frac{\tilde{c}_\dims}{\dims+1}\density_\rf(z)
+	\left(\Bigl[
+		x\mapsto e^{\frac{x^2}{2a}}\density^{\evGOE_{(\dims\alpha+1)}}_{\dims+1,a}(x)
+	\Bigr]
+	* \density_\epsilon\right)\bigl(\tfrac{-\sqC'(0)}{\sqC(0)}z\bigr),
+\end{aligned}\]
 
